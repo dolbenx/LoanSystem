@@ -1,13 +1,13 @@
-defmodule MfUssdWeb.SessionController do
-    use MfUssdWeb, :controller
+defmodule LoanSystemWeb.SessionController do
+    use LoanSystemWeb, :controller
 
-    alias MfUssdWeb.UserController
-    alias MfUssd.Logs
-    alias MfUssd.Auth
+    alias LoanSystemWeb.UserController
+    alias LoanSystem.Logs
+    alias LoanSystem.Auth
     # alias MfzUssd.{Auth, Logs}
 
     plug(
-      MfUssdWeb.Plugs.RequireAuth
+      LoanSystemWeb.Plugs.RequireAuth
       when action in [:signout]
   )
 

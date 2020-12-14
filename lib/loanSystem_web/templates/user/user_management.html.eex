@@ -1,0 +1,450 @@
+<main id="js-page-content" role="main" class="page-content">
+    <!-- ####################################################### FLASH ################## -->
+    <div class="row">
+        <div class="col-md-12 col-lg-offset-2">
+            <div class="form-group">
+                <%= if get_flash(@conn, :info) do %>
+                    <div class="alert alert-info alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    <%= get_flash(@conn, :info) %>
+                    </div>
+                <% end %>
+                <%= if get_flash(@conn, :error) do %>
+                    <div class="alert alert-danger alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    Opps! <%= get_flash(@conn, :error) %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <!-- ################################################################################ -->
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-user-circle'></i> Active  Users
+            <br>       
+            <a href="javascript:void(0);" class="btn btn-light hover-effect" data-toggle="modal" data-target="#addUser">
+                Add user
+            </a>
+        </h1>
+
+        <div class="subheader-block" id="loggedIn-user">
+            <i class='subheader-icon fal fa-user'></i> <%= "#{String.capitalize(@conn.assigns.user.first_name)}"%> <%= "#{String.capitalize(@conn.assigns.user.last_name)}"%>  | <%= "#{String.capitalize(@conn.assigns.user.user_role)}"%>
+        </div>    
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        System users <i class='subheader-icon fal fa-user-circle'></i>
+                    </h2>
+                </div>
+
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        
+                        <!-- datatable start -->
+                        <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                            <thead class="p-3 bg-info-300 rounded overflow-hidden position-relative text-white mb-g">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>User role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%= for system_user <- @system_users do %>
+                                 <%= if system_user.status === 1 do %> 
+                                <tr>
+                                    <td><%= system_user.first_name %> <%= system_user.last_name %></td>
+                                    <td><%= system_user.email %></td>
+                                    <td><%= system_user.user_role %></td>
+                                    <%= if system_user.status == 1 do %>
+                                        <td>Active</td>
+                                        <% else %>
+                                        <td>Deactivated</td>
+                                    <% end %>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class='subheader-icon fal fa-chevron-down'></i>
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                     <a class="dropdown-item" href="<%= Routes.user_path(@conn, :view_mgt_user, id: system_user.id)%>" >View</a>
+                                                    <a class="dropdown-item" 
+                                                    data-id="<%=  system_user.id %>" 
+                                                    data-first_name="<%=  system_user.first_name %>" 
+                                                    data-last_name="<%=  system_user.last_name %>" 
+                                                    data-sex="<%=  system_user.sex %>" 
+                                                    data-age="<%=  system_user.age %>" 
+                                                    data-phone="<%=  system_user.phone %>" 
+                                                    data-email="<%=  system_user.email %>" 
+                                                    data-home_add="<%=  system_user.home_add %>" 
+                                                    data-id_type="<%=  system_user.id_type %>" 
+                                                    data-id_no="<%=  system_user.id_no %>" 
+                                                    data-user_type="<%=  system_user.user_type %>" 
+                                                    data-user_role="<%=  system_user.user_role %>" 
+                                                    data-password="<%=  system_user.password %>" 
+                                                    data-toggle="modal" data-target="#edit_modal" >Edit</a> 
+
+                                                    <a class="dropdown-item" data-id="<%= system_user.id %>" data-status="<%= system_user.status %>" data-toggle="modal" data-target="#deactivate_user">Deactive</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <% end %> 
+                                <% end %>                         
+                        </table>
+                        <!-- datatable end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ############################################ ADD USER MODAL ######################################### -->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ADD SYSTEM USER <i class='subheader-icon fal fa-user-circle'></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="<%= Routes.user_path(@conn, :create_user)%>" method="post">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <div class="form-group">
+                        <label class="form-label">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-user"></i></span>
+                            </div>
+                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required="required">
+                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Personal Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-user"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="sex" required="required">
+                                <option selected="">Select Gender</option>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                            <input type="text" name="age" placeholder="Enter age" class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Contact Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-phone"></i></span>
+                            </div>
+                            <input type="text" name="phone" placeholder="Phone Number" value="+260" class="form-control" required="required">
+                            <input type="text" name="email" placeholder="Email" data-inputmask="'alias': 'email'" class="form-control">
+                            <input type="text" name="home_add" placeholder="Physical Address" class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Identity Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-window"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="id_type" required="required">
+                                <option selected="">Select ID Type</option>
+                                <option value="nrc">NRC</option>
+                                <option value="passport">Passport</option>
+                                <option value="drivers license">Drivers License</option>
+                            </select>
+                            <input type="text" name="id_no" placeholder="Enter ID Number" class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">User Type</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-window-alt"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="user_type" required="required">
+                                <option selected="">Select User Type</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Litigation</option>
+                                <option value="3">Client</option>
+                                <option value="4">Security</option>
+                            </select>
+                            
+                            <select class="custom-select form-control" name="user_role" required="required">
+                                <option selected="">Select User Role</option>
+                                <option value="admin">Adminstrator</option>
+                                <option value="litigation">Lawyer</option>
+                                <option value="client">Client</option>
+                                <option value="security">Security</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="text" name="password" class="form-control" placeholder="Password" required="required">
+                        <input type="hidden" name="auto_password" value="user">
+                        <input type="hidden" name="status" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Add user</button>
+                    </div>
+                </form>
+            </div>   
+        </div>
+    </div>
+</div>  
+
+<!-- ############################################ EDIT MODAL ######################################### -->
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">EDIT SYSTEM USER <i class='subheader-icon fal fa-user-circle'></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="<%= Routes.user_path(@conn, :create_user)%>" method="post">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="form-group">
+                        <label class="form-label">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-user"></i></span>
+                            </div>
+                            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" required="required">
+                            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Personal Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-user"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="sex" id="sex" required="required">
+                                <option selected="">Select Gender</option>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                            <input type="text" name="age" id="age" placeholder="Enter age"  class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Contact Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-phone"></i></span>
+                            </div>
+                            <input type="text" name="phone" id="phone" placeholder="Phone Number"  value="+260" class="form-control" required="required">
+                            <input type="text" name="email" id="email" placeholder="Email" data-inputmask="'alias': 'email'" class="form-control">
+                            <input type="text" name="home_add" id="home_add" placeholder="Physical Address" class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Identity Details</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-window"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="id_type" id="id_type" required="required">
+                                <option selected="">Select ID Type</option>
+                                <option value="nrc">NRC</option>
+                                <option value="passport">Passport</option>
+                                <option value="drivers license">Drivers License</option>
+                            </select>
+                            <input type="text" name="id_no" id="id_no" placeholder="Enter ID Number" class="form-control" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">User Type</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fal fa-window-alt"></i></span>
+                            </div>
+                            <select class="custom-select form-control" name="user_type" id="user_type" required="required">
+                                <option selected="">Select User Type</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Litigation</option>
+                                <option value="3">Client</option>
+                                <option value="4">Security</option>
+                            </select>
+                            
+                            <select class="custom-select form-control" name="user_role" id="user_role" required="required">
+                                <option selected="">Select User Role</option>
+                                <option value="admin">Adminstrator</option>
+                                <option value="litigation">Lawyer</option>
+                                <option value="client">Client</option>
+                                <option value="security">Security</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="text" name="password" id="password" class="form-control" placeholder="Password" required="required">
+                        <input type="hidden" name="auto_password" value="user">
+                        <input type="hidden" name="status" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Add user</button>
+                    </div>
+                </form>
+            </div>   
+        </div>
+    </div>
+</div>  
+
+<!-- ############################## DEACTIVATE-ACCOUNT ########################################## -->
+<div class="modal fade" id="deactivate_user"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-black">
+                    Deactivate Account
+                </h4>
+                <button type="button" class="close text-black" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel-content">
+                <form action="<%= Routes.user_path(@conn, :deactivate_account)%>" method="POST">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label class="form-label">Deactivate Account</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fal fa-user-circle width-1 text-align-center"></i></span>
+                                    </div>
+                                    <select class="custom-select form-control" name="status" required="required">
+                                        <option>Select Reason of Deactivation</option>
+                                        <option value="2">On Leave</option>
+                                        <option value="3">Suspend</option>
+                                        <option value="4">Dismissed</option>
+                                        <option value="5">Retired</option>
+                                    </select>
+                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    <input type="hidden" name="id" id="id">
+                                </div>
+                            </div>
+      
+                            <div class="form-group">
+                                <label class="form-label">Reason For Deactivation</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fal fa-edit"></i></span>
+                                    </div>
+                                    <input type="text" name="acc_inactive_reason" placeholder="Explain why account is being deactivated" class="form-control" required="required">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Deactivate Account</button>
+                    </div>   
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+$('#edit_modal').on('show.bs.modal', function (event){
+
+    var button = $(event.relatedTarget)
+    var id = button.data('id')
+    var first_name = button.data('first_name')
+    var last_name = button.data('last_name')
+    var sex = button.data('sex')
+    var age = button.data('age')
+    var phone = button.data('phone')
+    var email = button.data('email')
+    var home_add = button.data('home_add')
+    var id_type = button.data('id_type')
+    var id_no = button.data('id_no')
+    var user_type = button.data('user_type')
+    var user_role = button.data('user_role')
+    var password = button.data('password')
+    
+
+    var modal = $(this)
+    
+    modal.find('.modal-body #id').val(id);
+    modal.find('.modal-body #first_name').val(first_name);
+    modal.find('.modal-body #last_name').val(last_name);
+    modal.find('.modal-body #sex').val(sex);
+    modal.find('.modal-body #age').val(age);
+    modal.find('.modal-body #phone').val(phone);
+    modal.find('.modal-body #email').val(email);
+    modal.find('.modal-body #home_add').val(home_add);
+    modal.find('.modal-body #id_type').val(id_type);
+    modal.find('.modal-body #id_no').val(id_no);
+    modal.find('.modal-body #user_type').val(user_type);
+    modal.find('.modal-body #user_role').val(user_role);
+    modal.find('.modal-body #password').val(password);
+
+});
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+//Deactivate msg Account
+$('#deactivate_user').on('show.bs.modal', function (event){
+
+    var button = $(event.relatedTarget)
+    var id = button.data('id')
+    var status = button.data('status')
+    
+    var modal = $(this)
+    modal.find('.modal-body #id').val(id);
+    modal.find('.modal-body #status').val(status);
+});
+});
+</script>

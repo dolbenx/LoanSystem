@@ -1,14 +1,14 @@
-defmodule MfUssdWeb.UserController do
-  use MfUssdWeb, :controller
+defmodule LoanSystemWeb.UserController do
+  use LoanSystemWeb, :controller
   import Ecto.Query, warn: false
-  alias MfUssd.{Logs, Repo, Logs.UserLogs, Auth}
-  alias MfUssd.Accounts
-  alias MfUssd.Accounts.User
-  alias MfUssd.Emails.Email
-  alias MfUssdWeb.Plugs.EnforcePasswordPolicy
+  alias LoanSystem.{Logs, Repo, Logs.UserLogs, Auth}
+  alias LoanSystem.Accounts
+  alias LoanSystem.Accounts.User
+  alias LoanSystem.Emails.Email
+  alias LoanSystemWeb.Plugs.EnforcePasswordPolicy
 
   plug(
-    MfUssdWeb.Plugs.RequireAuth
+    LoanSystemWeb.Plugs.RequireAuth
     when action in [
            :new,
            :dashboard,
