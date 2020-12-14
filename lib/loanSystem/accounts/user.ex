@@ -122,4 +122,4 @@ defmodule LoanSystem.Accounts.User do
   def encrypt_password(password), do: Base.encode16(:crypto.hash(:sha512, password))
 end
 
-# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "nrc", id_no: "365924/10/1", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})

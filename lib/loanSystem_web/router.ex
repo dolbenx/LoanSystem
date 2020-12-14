@@ -62,8 +62,10 @@ defmodule LoanSystemWeb.Router do
   end
 
   scope "/", LoanSystemWeb do
-    pipe_through :browser
+    pipe_through([:browser, :api])
 
+
+    get("/dashboard", UserController, :dashboard)
     get "/", PageController, :index
   end
 

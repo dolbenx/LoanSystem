@@ -22,7 +22,7 @@
 
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-chart-area'></i> ProLegals <span class='fw-300'>Dashboard</span>
+            <i class='subheader-icon fal fa-chart-area'></i> Lamix <span class='fw-300'>Dashboard</span>
             <small>
             </small>
         </h1>
@@ -32,7 +32,7 @@
     </div>
 
     <!-------------------------------------------------------------------------------------------------Administrator -->
-    <%= if @user.user_role == "admin" do %>
+    <%= if @user.user_role == "ADMIN" do %>
         <div class="col-xl-12">  
 
                 <div class="row">
@@ -40,10 +40,9 @@
                         <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                <%= @total_users %>
                                 <small class="m-0 l-h-n"> Users</small>
                                     
-                                    <small class="m-0 l-h-n text-right"><a class="btn btn-primary btn-xs" href="<%= Routes.user_path(@conn, :user_management)%>">View Users</a></small>
+                                    <small class="m-0 l-h-n text-right"><a class="btn btn-primary btn-xs" href="">View Users</a></small>
                                 </h3>
                             </div>
                             <i class="fal fa-users position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
@@ -54,10 +53,9 @@
                         <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                <%= @user_logs_activity%>
                                 <small class="m-0 l-h-n"> User Logs</small>
                                     
-                                    <small class="m-0 l-h-n text-right"><a class="btn btn-warning btn-xs" href="<%= Routes.user_path(@conn, :user_logs)%>">View Logs</a></small>
+                                    <small class="m-0 l-h-n text-right"><a class="btn btn-warning btn-xs" href="">View Logs</a></small>
                                 </h3>
                             </div>
                             <i class="fal fa-table position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
@@ -68,10 +66,8 @@
                         <div class="p-3 bg-secondary  rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-
-                                    <%= @total_inventory%>
                                 <small class="m-0 l-h-n"> Categories</small>
-                                    <small class="m-0 l-h-n text-right"><a class="btn btn-success btn-xs" href="<%= Routes.admin_path(@conn, :inventory)%>">View Categories</a></small>
+                                    <small class="m-0 l-h-n text-right"><a class="btn btn-success btn-xs" href="">View Categories</a></small>
                                 </h3>
                             </div>
                             <i class="fal fa-database position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
@@ -82,10 +78,8 @@
                         <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-
-                                     <%= @total_assets%>
                                 <small class="m-0 l-h-n"> Assets</small>
-                                    <small class="m-0 l-h-n text-right"><a class="btn btn-success btn-xs" href="<%= Routes.admin_path(@conn, :inventory)%>">View Categories</a></small>
+                                    <small class="m-0 l-h-n text-right"><a class="btn btn-success btn-xs" href="">View Categories</a></small>
                                 </h3>
                             </div>
                             <i class="fal fa-th position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
@@ -99,7 +93,6 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    <%= @total_location%> 
                                   <small class="m-0 l-h-n"> location</small>       
                                 </h3>
                             </div>
@@ -111,7 +104,6 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    <%= @assigned_assest %>
                                     <small class="m-0 l-h-n"> Assigned</small>                       
                                 </h3>
                             </div>
@@ -123,7 +115,6 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    <%= @unassigned_assest %>
                                 <small class="m-0 l-h-n"> Unassigned</small>       
                                 </h3>
 
@@ -136,7 +127,6 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                      <%= @total_vendors %>
                                     <small class="m-0 l-h-n"> Vendors</small>
                                 </h3>
                             </div>
@@ -148,533 +138,6 @@
         </div>
     <% end %>
     <!----------------------------------------------------------------------------------------------------------------->
-
-
-    <!----------------------------------------------------------------------------------------------------Litigation -->
-    <%= if @user.user_role == "litigation" do %>
-        <div class="row">
-            <div class="col-sm-6 col-xl-3">
-                <a href="<%= Routes.legal_path(@conn, :contacts)%>" title="Contact Management" data-filter-tags="ui components">    
-                    <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
-                        <div class="">
-                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                Contacts
-                                <small class="m-0 l-h-n">Manage contacts</small>
-                            </h3>
-                        </div>
-                        <i class="fal fa-book position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
-                    </div>
-                </a>    
-            </div>
-            
-            <div class="col-sm-6 col-xl-3">
-                <a href="<%= Routes.legal_path(@conn, :tasks)%>" title="Tasks" data-filter-tags="ui components">
-                    <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
-                        <div class="">
-                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                Tasks
-                                <small class="m-0 l-h-n">To do list</small>
-                            </h3>
-                        </div>
-                        <i class="fal fa-edit position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="col-sm-6 col-xl-3">
-                <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
-                    <div class="">
-                        <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                            - 103.72
-                            <small class="m-0 l-h-n">Offset Balance Ratio</small>
-                        </h3>
-                    </div>
-                    <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-xl-3">
-                <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
-                    <div class="">
-                        <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                            +40%
-                            <small class="m-0 l-h-n">Product level increase</small>
-                        </h3>
-                    </div>
-                    <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-3" class="panel">
-            <div class="panel-hdr">
-                <h2 class="js-get-date"></h2>
-            </div>
-            <div class="panel-container show">
-                <div class="panel-content">
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </div> 
-    <% end %>
-    <!----------------------------------------------------------------------------------------------------------------->
-
-
-    <!------------------------------------------------------------------------------------------------------Security -->
-    <%= if @user.user_role == "security" do %>
-        <div class="container-fluid" style="margin-top: 2em;"> 
-            
-            <!-- Search -->
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="border-faded bg-faded p-3 mb-g d-flex">
-                        <form action="<%= Routes.security_path(@conn, :history_log_book_users)%>" class="pull-right" method="GET">
-                            <input type="text" id="js-filter-contacts" name="query" class="form-control shadow-inset-2 form-control-lg" placeholder="Search user by NRC" required="required">
-                            <button type="submit" class="btn btn-primary form-control shadow-inset-2 form-control-lg ">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Statistics -->
-            <div class="row">
-                <div class="col-sm-6 col-xl-4">
-                    <div class="p-3 bg-primary rounded overflow-hidden position-relative text-white mb-g  ">
-                        <div class="">
-                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    <%= @total_visitors %>
-                                <small class="m-0 l-h-n">Total Visits</small>
-                            </h3>
-                        </div>
-                        <i class="fal fa-users position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
-                    </div>
-                </div>
-                
-                 <div class="col-sm-6 col-xl-4">
-                    <div class="p-3 bg-info-600 rounded overflow-hidden position-relative text-white mb-g">
-                        <div class="">
-                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                <%= @frequent_visitors%>
-                                <small class="m-0 l-h-n">Frequent Visitors</small>
-                            </h3>
-                        </div>
-                        <i class="fal fa-users position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-4">
-                    <div class="p-3 bg-success-600 rounded overflow-hidden position-relative text-white mb-g">
-                        <div class="">
-                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                <%= @visitors_not_checked_out %>
-                                <small class="m-0 l-h-n">Visitors Not Checked Out</small>
-                            </h3>
-                        </div>
-                        <i class="fal fa-users position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
-                    </div>
-                </div>
-
-               
-            </div>      
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="#"  data-toggle="modal" data-target="#log-book">
-                        <div id="cp-2" class="card border ">
-                            <div class="card-header bg-info-600">
-                             Check In
-                            </div>
-                            <div class="card-body p-0 bg-info-300" style="height: 160px">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h1 class="opacity-15" id="driver-cards">CHECK IN</h1>  
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <i class="fal fa-book position-absolute pos-middle pos-middle opacity-15 mb-n1 mr-n1" style="font-size:12rem;"></i>
-                                        </div>
-                                    </div> 
-                                </div>
-                            <div class="card-footer bg-info-800 py-2">
-                                <br>
-                            </div>
-                        </div> 
-                    </a>                                     
-                </div>
-                <!-- <div class="col-md-4">
-                    <a href="#" data-id="<%= @user.id%>" data-first_name="<%= @user.first_name %>" data-last_name="<%= @user.last_name%>" data-email="<%= @user.email%>" data-user_role="<%= @user.user_role%>" data-sex="<%= @user.sex%>" data-age="<%= @user.age %>" data-id_type="<%= @user.id_type %>" data-id_no="<%= @user.id_no %>" data-phone="<%= @user.phone %>" data-home_add="<%= @user.home_add %>" data-toggle="modal" data-target="#profile-modal">
-                        <div id="cp-2" class="card border">
-                            <div class="card-header bg-primary-600">
-                                Personal Profile
-                            </div>
-                            <div class="card-body p-0 bg-primary-300" style="height: 160px">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <h1 class="opacity-15" id="driver-cards">PROFILE</h1>  
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <i class="fal fa-user position-absolute pos-middle pos-middle opacity-15 mb-n1 mr-n1" style="font-size:12rem;"></i>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                <div class="card-footer bg-primary-800 py-2">
-                                <br>
-                            </div>
-                        </div> 
-                    </a>
-                </div> -->
-                <div class="col-md-6">
-                    <a href="<%= Routes.security_path(@conn, :list_log_book_users)%>">
-                        <div id="cp-2" class="card border">
-                            <div class="card-header bg-success-600">
-                                Visitors  Logs
-                            </div>
-                            <div class="card-body p-0 bg-success-300" style="height: 160px">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h1 class="opacity-15" id="driver-cards">TABLE</h1>  
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <i class="fal fa-table position-absolute pos-middle pos-middle opacity-15 mb-n1 mr-n1" style="font-size:11rem;"></i>
-                                        </div>
-                                    </div> 
-                                </div>
-                            <div class="card-footer bg-success-800 py-2">
-                                <br>
-                            </div>
-                        </div> 
-                    </a>                                     
-                </div>         
-            </div>
-            
-        </div>
-
-        <!-- ################################ LOG BOOK MODAL ##################################### -->
-        <div class="modal fade" id="log-book" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">CHECK IN <i class='subheader-icon fal fa-book'></i></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form class="form-horizontal" action="<%= Routes.security_path(@conn, :create_log_book_user)%>" enctype="multipart/form-data"  method="post">
-                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-
-                            <div  class="container">
-                                <div id="camBox" style="width:100%; height:85%; ">
-                                    <!--POPUP DIALOG BOX TO SHOW LIVE WEBCAM.-->
-                                    <div id="camera"  style="height:auto;text-align:center;margin:0 auto;  "></div>
-                                        <div id="capture" >
-                                            <label for="btAddPicture" >
-                                                <img src="https://img.icons8.com/color/48/000000/camera.png"/>
-                                            </label>
-                                            <input id="btAddPicture" onclick="addCamPicture()"  />
-                                            <input type="hidden" id="rowid" /><input type="hidden"  />
-                                            <input type="hidden" id="image_input" name="image" value=""/>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-
-                                 <div style="width:300px;">
-                                    <table id="myTable">
-                                        <tbody>
-                                            <tr><th>Image</th></tr>
-                                            <tr>
-                                                <td>
-                                                    <div id="div_alpha">
-                                                    
-                                                    </div>
-                                                    <div id="capt">
-                                                        <label for="alpha" >
-                                                            <img src="https://img.icons8.com/color/48/000000/camera.png"/>
-                                                        </label>
-                                                            <input type="button"  id="alpha" onclick="takeSnapshot(this)" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                 </div>
-
-                                <!-- <div class="form-group">
-                                    <label class="form-label"> Facial Image</label> 
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-user"></i></span> 
-                                        </div>
-                                        <input type="file" name="image" placeholder="Facial image of the person" class="form-control" required="required">
-                                        
-                                    </div>
-                                </div> -->
-                              
-
-                                <div class="form-group">
-                                    <label class="form-label">Personal Details</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-user"></i></span>
-                                        </div>
-                                    
-                                        <input type="text" name="name" class="form-control" placeholder="Full Names" required="required">
-
-                                        <select class="custom-select form-control" name="sex" required="required">
-                                            <option selected="">Select Gender</option>
-                                            <option value="M">Male</option>
-                                            <option value="F">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Contact Details</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-phone"></i></span>
-                                        </div>
-                                        <input type="text" name="mobile_no" placeholder="Phone Number" value="+260" class="form-control" required="required">
-                                        <input type="text" name="address" placeholder="Physical Address" class="form-control" required="required">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Identity Details</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-id-card"></i></span>
-                                        </div>
-                                        <select class="custom-select form-control" name="id_type" required="required">
-                                            <option selected="">Select ID Type</option>
-                                            <option value="NRC">NRC</option>
-                                            <option value="PASSPORT">Passport</option>
-                                            <option value="DRIVERS LICENSE">Drivers License</option>
-                                        </select>
-                                        <input type="text" name="id_no" placeholder="Enter ID Number" class="form-control" required="required">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Company Details</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-home"></i></span>
-                                        </div>
-                                        <input type="text" name="company" placeholder="Company Name" class="form-control" required="required">
-                                    
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Details for visit</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fal fa-home"></i></span>
-                                        </div>
-                                        <input type="text" name="person_to_see" placeholder="Person To See"  class="form-control" required="required">
-                                        <input type="text" name="purpose" placeholder="Purpose for Visit" class="form-control" required="required">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <!-- <label class="form-label"> Date of visit</label> -->
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <!-- <span class="input-group-text"><i class="fal fa-clock"></i></span> -->
-                                        </div>
-                                        <%# <input type="hidden" name="date" placeholder="Date of Visit" class="form-control" required="required"> %>
-                                        <%# <input type="hidden" name="time_in" placeholder="Time In" class="form-control" required="required">  %>
-                                        
-                                    </div>
-                                </div>
-                            
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add Visitor</button>
-                                </div>
-                           </div>  
-                        </form>
-                    </div>   
-                </div>
-            </div>
-        </div>  
-        <!-- ##################################################################################### --> 
-
-        <script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
-        <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.js "></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-        <script>
-            $(document).ready(function(){
-            //JS FOR VIEWING USER PROFILE
-            $('#profile-modal').on('show.bs.modal', function (event){
-
-                console.log("Profile")
-
-                var button = $(event.relatedTarget)
-                var id = button.data('id')
-                var first_name = button.data('first_name')
-                var last_name = button.data('last_name')
-                var email = button.data('email')
-                var user_role = button.data('user_role')
-                var sex = button.data('sex')
-                var age = button.data('age')
-                var id_type = button.data('id_type')
-                var id_no = button.data('id_no')
-                var phone = button.data('phone')
-                var home_add = button.data('home_add')
-                
-                
-                var modal = $(this)
-                modal.find('.modal-body #id').val(id);
-                modal.find('.modal-body #first_name').val(first_name);
-                modal.find('.modal-body #last_name').val(last_name);
-                modal.find('.modal-body #email').val(email);
-                modal.find('.modal-body #user_role').val(user_role);
-                modal.find('.modal-body #sex').val(sex);
-                modal.find('.modal-body #age').val(age);
-                modal.find('.modal-body #id_type').val(id_type);
-                modal.find('.modal-body #id_no').val(id_no);
-                modal.find('.modal-body #phone').val(phone);
-                modal.find('.modal-body #home_add').val(home_add);
-                
-            });
-            });
-        </script>
-
-
-        <script>
-
-        $(document).ready(function(){
-                // CAMERA SETTINGS.
-                Webcam.set({
-                    width: 800,
-                    height: 400,
-                    image_format: 'jpeg',
-                    jpeg_quality: 100
-                });
-                Webcam.attach('#camera');
-
-                takeSnapshot = function (oButton) {
-                    document.getElementById('camBox').style.display = 'block';
-                    document.getElementById('rowid').value = oButton.id
-                    
-                }
-
-                addCamPicture = function () {
-                    var rowid = document.getElementById('rowid').value;
-
-                    Webcam.snap(function (data_uri) {
-                        
-                        document.getElementById('div_' + rowid).innerHTML =
-                        
-                            '<input type="image" src= "' + data_uri + '"  id="" width="70px" height="50px"/>';
-                        
-                    
-                    document.getElementById('image_input').value = data_uri;
-                            
-                    });
-
-                    document.getElementById('rowid').value = '';
-                    document.getElementById('camBox').style.display = 'none';       // HIDE THE POPUP DIALOG BOX.
-                }
-            });
-        </script>
-
-<style>
-    	table, input {
-            width: auto;
-            font: 15px Calibri;
-             width:60%;
-            height:60%;
-        }
-        table, th, td, th {
-            border: solid 1px #DDD;
-            border-collapse: collapse;
-            padding: 2px 3px;
-            text-align: center;
-            font-weight: normal;
-        }
-        #camBox{
-            display:none;
-            position:fixed;
-            border:0;
-            top:0;
-            right:0;
-            left:0;
-            overflow-x:auto;
-            overflow-y:hidden;
-            z-index:9999;
-            background-color:rgba(239,239,239,.9);
-            width:100%;
-            height:100%;
-            padding-top:10px;
-            text-align:center;
-            cursor:pointer;
-            -webkit-box-align:center;-webkit-box-orient:vertical;
-            -webkit-box-pack:center;-webkit-transition:.2s opacity;
-            -webkit-perspective:1000
-        }
-        
-
-        .revdivshowimg{
-            width:300px;
-            top:0;
-            padding:0;
-            position:relative;
-            margin:0 auto;
-            display:block;
-            background-color:#fff;
-            webkit-box-shadow:6px 0 10px rgba(0,0,0,.2),-6px 0 10px rgba(0,0,0,.2);
-            -moz-box-shadow:6px 0 10px rgba(0,0,0,.2),-6px 0 10px rgba(0,0,0,.2);
-            box-shadow:6px 0 10px rgba(0,0,0,.2),-6px 0 10px rgba(0,0,0,.2);
-            overflow:hidden;
-            border-radius:3px;
-            color:#17293c
-        }
-        #capture input
-        {
-            display: none;
-        }
-
-        #capture img
-        {
-            width: 40px;
-            cursor: pointer;
-        }
-        #capt input
-        {
-            display: none;
-        }
-
-        #capt img
-        {
-            width: 40px;
-            cursor: pointer;
-        }
-    </style>
-  <!-- ##################################################################################### --> 
-    <%end%>
-     <!---------------------------------------------------------------------------------------------------------------->
-
-    <!------------------------------------------------------------------------------------------------------- Client -->
-    <%= if @user.user_role == "client" do %>
-        <div id="panel-3" class="panel">
-            <div class="panel-hdr">
-                <h2 class="js-get-date"></h2>
-            </div>
-            <div class="panel-container show">
-                <div class="panel-content">
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </div> 
-    <% end %>
-    <!----------------------------------------------------------------------------------------------------------------->
-
 </main> 
 
 

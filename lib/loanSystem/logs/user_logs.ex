@@ -4,8 +4,9 @@ defmodule LoanSystem.Logs.UserLogs do
 
   schema "tbl_user_logs" do
     field :activity, :string
-    field :user_id, :string
+   # field :user_id, :string
 
+    belongs_to :user, LoanSystem.Accounts.User, foreign_key: :user_id, type: :id
     timestamps()
   end
 
