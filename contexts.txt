@@ -2,5 +2,5 @@ mix phx.gen.context Companies Company tbl_companies email phone company_name tpi
 
 mix phx.gen.context Companies Stuff tbl_stuff first_name last_name other_name email phone company_name tpin_no city country company_id address id_no id_type
 
-mix phx.gen.context Products product tbl_products name code details currency currency_decimals annual_interest fixed_period_days year_length_days min_balance_required withdrawal_fee_amount withdrawal_fee_transfer_to_mobile deposit_fee_amount days_to_inactive days_to_dormancy
+mix phx.gen.context Products Product tbl_products name code details currency currency_decimals annual_interest fixed_period_days year_length_days min_balance_required withdrawal_fee_amount withdrawal_fee_transfer_to_mobile deposit_fee_amount days_to_inactive days_to_dormancy
 
