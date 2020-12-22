@@ -1,7 +1,12 @@
-defmodule LoanSystemWeb.CompanyController do
+defmodule LoanSystemWeb.ReportsController do
   use LoanSystemWeb, :controller
 
-  def companies(conn, _params) do
-    render(conn, "companies.html")
+  def reports(conn, _params) do
+    render(conn, "reports.html")
   end
+
+  def logs(conn, _params) do
+    render(conn, "logs.html")
+  end
+
 end

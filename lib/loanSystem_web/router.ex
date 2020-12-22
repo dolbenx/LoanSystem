@@ -66,7 +66,11 @@ defmodule LoanSystemWeb.Router do
 
 
     get("/dashboard", UserController, :dashboard)
-    get "/", PageController, :index
+
+    ########### REPORT ROUTES #############
+    get "/Reports", ReportsController, :reports
+    get "/Logs", ReportsController, :logs
+    ########### END REPORT ROUTES #############
     get("/Companies", CompanyController, :companies)
   end
 

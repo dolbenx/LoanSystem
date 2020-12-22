@@ -181,33 +181,43 @@
             <li class="sub-header">
               <span>Maintenance</span>
             </li>
-            <li class="selected has-sub-menu" href="<%= Routes.user_path(@conn, :dashboard)%>">
-              <a href="#">
+            <li class="">
+              <a href="">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-settings"></div>
+                  <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>
-                <span>Maintenance</span></a>
-                <div class="sub-menu-w">
-                <div class="sub-menu-header">
-                  Maintenance Menu
+                <span>Company</span></a>
+            </li>
+            <li class="">
+              <a href="">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>
-                <div class="sub-menu-icon">
-                  <i class="os-icon os-icon-layers"></i>
+                <span>Stuff</span></a>
+            </li>
+             <li class="">
+              <a href="">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>
-                <div class="sub-menu-i">
-                  <ul class="sub-menu">
-                    <li>
-                      <a href="">Companies</a>
-                    </li>
-                    <li>
-                      <a href="">Stuff</a>
-                    </li>
-                    <li>
-                      <a href="">Products </a>
-                    </li>
-                    </ul>
+                <span>Product Setup</span></a>
+            </li>
+            <li class="sub-header">
+              <span>Reports</span>
+            </li>
+            <li class="">
+              <a href="<%= Routes.reports_path(@conn, :logs)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wifi"></div>
                 </div>
-              </div>
+                <span>Logs</span></a>
+            </li>
+            <li class="">
+              <a href="<%= Routes.reports_path(@conn, :reports)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-ui-46"></div>
+                </div>
+                <span>Reports</span></a>
             </li>
             <li class="sub-header">
               <span>Settings</span>
@@ -215,47 +225,16 @@
             <li class="">
               <a href="">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
-                </div>
-                <span>Bank</span></a>
-            </li>
-            <li class="">
-              <a href="">
-                <div class="icon-w">
                   <div class="os-icon os-icon-wifi"></div>
                 </div>
-                <span>Telco</span></a>
+                <span>MNO</span></a>
             </li>
             <li class="">
               <a href="">
                 <div class="icon-w">
                   <div class="os-icon os-icon-ui-46"></div>
                 </div>
-                <span>System Parameters</span></a>
-            </li>
-            <li class="">
-              <a href="">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-coins-4"></div>
-                </div>
-                <span>Jobs</span></a>
-            </li>
-            <li class="sub-header">
-              <span>Accounting</span>
-            </li>
-            <li class="">
-              <a href="">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-tasks-checked"></div>
-                </div>
-                <span>GL Accounts</span></a>
-            </li>
-            <li class="">
-              <a href="">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-tasks-checked"></div>
-                </div>
-                <span>Journal Entries</span></a>
+                <span>API</span></a>
             </li>
           </ul>
           <div class="side-menu-magic">
