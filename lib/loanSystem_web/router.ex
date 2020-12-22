@@ -67,6 +67,7 @@ defmodule LoanSystemWeb.Router do
 
     get("/dashboard", UserController, :dashboard)
     get "/", PageController, :index
+    get("/Companies", CompanyController, :companies)
   end
 
   # Other scopes may use custom stacks.
