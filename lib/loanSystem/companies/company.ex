@@ -20,6 +20,6 @@ defmodule LoanSystem.Companies.Company do
   def changeset(company, attrs) do
     company
     |> cast(attrs, [:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address])
-    |> validate_required([:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id])
+    |> validate_required([:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address])
   end
 end

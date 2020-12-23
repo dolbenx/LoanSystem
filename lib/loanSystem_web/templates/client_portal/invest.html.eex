@@ -1,0 +1,320 @@
+<style>
+.carousel .carousel-item {
+  height: 364px;
+}
+.carousel-item img{
+    height: 364px;
+}
+
+#mid {
+    background:#001748;
+    height: 50px;
+    color: white;
+    padding-top:10px;
+    padding-left:10px;
+    }
+.dp{
+  height: 1em;
+
+  background-color: #990000;
+  background-image: -moz-linear-gradient(top, #990000, #990000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#990000), to(#990000));
+  background-image: -webkit-linear-gradient(top, #990000, #990000);
+  background-image: -o-linear-gradient(top, #990000, #990000);
+  background-image: linear-gradient(to bottom, #990000, #990000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#990000', endColorstr='#990000', GradientType=0);
+}
+.dp:after {
+  height: 1em;
+  width: 30%;
+  display: block;
+  content: "";
+  float: right;
+
+  background-color: #708090;
+  background-image: -moz-linear-gradient(top, #708090, #708090);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#708090), to(#708090));
+  background-image: -webkit-linear-gradient(top, #708090, #708090);
+  background-image: -o-linear-gradient(top, #708090, #708090);
+  background-image: linear-gradient(to bottom, #708090, #708090);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#708090', endColorstr='#708090', GradientType=0);
+}
+
+#mid2 {
+    background:#001748;
+    height: 40px;
+    color: white;
+    padding-top:5px;
+    padding-left:10px;
+    }
+.dp2{
+  height: 0.5em;
+
+  background-color: #990000;
+  background-image: -moz-linear-gradient(top, #990000, #990000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#990000), to(#990000));
+  background-image: -webkit-linear-gradient(top, #990000, #990000);
+  background-image: -o-linear-gradient(top, #990000, #990000);
+  background-image: linear-gradient(to bottom, #990000, #990000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#990000', endColorstr='#990000', GradientType=0);
+}
+.dp2:after {
+  height: 0.5em;
+  width: 30%;
+  display: block;
+  content: "";
+  float: right;
+
+  background-color: #708090;
+  background-image: -moz-linear-gradient(top, #708090, #708090);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#708090), to(#708090));
+  background-image: -webkit-linear-gradient(top, #708090, #708090);
+  background-image: -o-linear-gradient(top, #708090, #708090);
+  background-image: linear-gradient(to bottom, #708090, #708090);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#708090', endColorstr='#708090', GradientType=0);
+}
+</style>
+<main id="js-page-content" role="main" class="page-content">
+<ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Fund Management</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+        <li class="breadcrumb-item">Investments</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
+    </ol>
+    <div class="row">
+        <div class="col-lg-12 col-xl-9 order-lg-3 order-xl-2">
+            <div id="panel-5" class="panel">
+                <div class="">
+                    <div class="dp"></div>
+                    <div id="mid"><h2>UNIT TRUST APPLICATION FORM</h2></div>
+                </div>
+                <div class="container-fluid">
+                   <h4> I hereby request the company to repurchase from me the units specified below in accordance with the trust deed and current terms and conditions of the fund.
+                    I renounce all my rights, title and interest in and to to such units, and warrant that where this request is signed in a representative capacity. i have the
+                    necessary authority to do so and that the transaction is within my powers.</h4>
+                </div>
+                <div class="">
+                    <div class="dp2"></div>
+                    <div id="mid2"><h2>CLIENT DETAILS</h2></div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                         <div class="form-group">
+                            <label class="form-label" for="dollar-1">First & Last Name</label>
+                            <div class="input-group input-group-multi-transition">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fal fa-user"></i></span>
+                                </div>
+                                <select class="custom-select" id="usertype" aria-label="usertype">
+                                    <option selected="">Title</option>
+                                    <option value="1">Mr.</option>
+                                    <option value="2">Mrs.</option>
+                                    <option value="3">Dr.</option>
+                                </select>
+                                <input type="text" class="form-control" aria-label="Person name" placeholder="First Name">
+                                <input type="text" class="form-control" aria-label="Person name" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="dollar-1">Three input fields (animated)</label>
+                            <div class="input-group input-group-multi-transition">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">@</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="dollar-1" placeholder="Recipient">
+                                <input type="text" class="form-control" aria-label="Person name" placeholder="Email">
+                                <input type="text" class="form-control" aria-label="Person name" placeholder="Amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Between two inputs</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <div class="input-group-append input-group-prepend">
+                                    <span class="input-group-text"><i class="fal fa-exchange fs-xl"></i></span>
+                                </div>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="panel-tag">
+                            —no need for repeating the form control size classes on each element. You can add <code>.input-group-multi-transition</code> to <code>.input-group</code> to animate focused inputs
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="dp2"></div>
+                    <div id="mid2"><h2>WITHDRAW DETAILS</h2></div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="form-group">
+                        <h5 class="frame-heading">Select Mode of payment:</h5>
+                            <div class="frame-wrap">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input type="checkbox" class="custom-control-input" id="defaultInline1">
+                                    <label class="custom-control-label" for="defaultInline1">Local Transfer</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input type="checkbox" class="custom-control-input" id="defaultInline2" checked="">
+                                    <label class="custom-control-label" for="defaultInline2">International Transfer</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input type="text" class="custom-control-input">
+                                    <label class="custom-control-label" for="defaultInlined">Units to the value of:ZMK/USD</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="dollar-1">Three input fields (animated)</label>
+                            <div class="input-group input-group-multi-transition">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">0.00</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Person name" placeholder="Amount">
+                                <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="dollar-1" placeholder="06/10/2020" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i  class="fal fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Special Instructions/Transfer details, ie. (Bank, Branch, A/C Number and Names of Beneficiary)</label>
+                            <div class="input-group">
+                                <textarea class="form-control" id="example-textarea" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+            <!-- add : -->
+            <div class="card mb-2">
+                <div class="card-body">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#beneficary" class="d-flex flex-row align-items-center">
+                        <div class='icon-stack display-3 flex-shrink-0'>
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                            <i class="fal fa-user-plus icon-stack-1x opacity-100 color-primary-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <strong>
+                                Add Beneficiaries
+                            </strong>
+                            <br>
+                            Adding Beneficiaries will help easily share funds
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card mb-g">
+                <div class="card-body">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#help" class="d-flex flex-row align-items-center">
+                        <div class='icon-stack display-3 flex-shrink-0'>
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                            <i class="fal fa-info icon-stack-1x opacity-100 color-warning-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <strong>
+                                Get Help!
+                            </strong>
+                            <br>
+                            Send a compliment or Complaint
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- rating -->
+            <div class="card mb-g">
+                <div class="row row-grid no-gutters">
+                    <div class="col-12" style="background-color: #00204E; color:white;">
+                        <div class="p-3">
+                            <h2 class="mb-0 fs-xl">
+                                Investments
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3">
+                            <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#tax-free-plan">Buy a TAX FREE PLAN</a>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      <i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3">
+                            <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#FLEXIBLE-plan">Buy a FLEXIBLE PLAN</a>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3">
+                            <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#switch-funds">Switch Funds</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3">
+                            <div class="fw-500 fs-xs"></div>
+                            <div class="progress progress-xs mt-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" style="background-color: #00204E; color:white;">
+                        <div class="p-3">
+                            <div class="fw-500 fs-xs">
+                            <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
+                            View Instructions Subbmited &nbsp;<i style="color:white;" class="fal fa-arrow-alt-circle-right fs-xl"></i>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+                                           
+    <div class="alert alert-primary alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+                <i class="fal fa-times"></i>
+            </span>
+        </button>
+        <div class="d-flex flex-start w-100">
+            <div class="mr-2 hidden-sm-down">
+                <span class="icon-stack icon-stack-lg">
+                    <i class="base-14 icon-stack-3x color-primary-400"></i>
+                    <i class="base-14 icon-stack-2x color-primary-600 opacity-70"></i>
+                    <i class="fal fa-cog icon-stack-1x text-white opacity-90"></i>
+                </span>
+            </div>
+            <div class="d-flex flex-fill">
+                <div class="flex-fill">
+                    <span class="h5">MyPortfolio Disclaimer:</span>
+                    <p>
+                       Mutual Funds/Unit Trusts are generally considered medium to long term investments. The value of participatory interests may go down as well as up and past performance is not necessarily a guide to future performance. Additionally, fluctuations or movements in exchange rates may cause the value of underlying international investments in a fund to move up or down. Income from the fund is reflected daily through increased unit prices. Unit prices are calculated on a net asset value (NAV) basis which is the total value of all assets in a fund including any income accrual and less permissible deductions from the fund. Unit prices are available daily and can be obtained by sending an email via investmentszm@bancabc.com.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%= render "tax_free_plan_modal.html", assigns %>
+<%= render "help_modal.html", assigns %>
+<%= render "beneficary_modal.html", assigns %>
+<%= render "flexible_plan_modal.html", assigns %>
+<%= render "switch_funds_modal.html", assigns %>

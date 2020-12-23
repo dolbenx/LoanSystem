@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MFUSSD</title>
+    <title>LAXIM</title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="template language" name="keywords">
@@ -43,7 +43,7 @@
         -------------------->
         <div class="menu-mobile menu-activated-on-click color-scheme-dark">
           <div class="mm-logo-buttons-w">
-            <a class="mm-logo" href="index.html"><img src="images/logos/LAXMI.png"><span>LAXIMs</span></a>
+            <a class="mm-logo" href="index.html"><img src="images/logos/chikwama.jpg"><span>LAXIM</span></a>
             <div class="mm-buttons">
               <div class="content-panel-open">
                 <div class="os-icon os-icon-grid-circles"></div>
@@ -92,7 +92,22 @@
                     <a href="">Stuff</a>
                   </li>
                   <li>
-                    <a href="">Products</a>
+                    <a href="">Products Setup</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-layers"></div>
+                  </div>
+                  <span>Reports</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="<%= Routes.reports_path(@conn, :logs)%>">logs</a>
+                  </li>
+                  <li>
+                    <a href="<%= Routes.reports_path(@conn, :reports)%>">Reports</a>
                   </li>
                 </ul>
               </li>
@@ -104,31 +119,13 @@
                   <span>System Settings</span></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="">Bank</a>
+                    <a href="<%= Routes.system_settings_path(@conn, :bank)%>">Bank</a>
                   </li>
                   <li>
-                    <a href="">Telco</a>
+                    <a href="<%= Routes.system_settings_path(@conn, :mno)%>">MNO</a>
                   </li>
                   <li>
-                    <a href="">System Parameters</a>
-                  </li>
-                  <li>
-                    <a href="">Jobs</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="has-sub-menu">
-                <a href="#">
-                  <div class="icon-w">
-                    <div class="os-icon os-icon-package"></div>
-                  </div>
-                  <span>Accounting</span></a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="">GL Accounts</a>
-                  </li>
-                  <li>
-                    <a href="">Journal Entries</a>
+                    <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">System Parameters</a>
                   </li>
                 </ul>
               </li>
@@ -184,14 +181,14 @@
             <li class="">
               <a href="<%= Routes.company_path(@conn, :companies)%>">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
+                  <div class="os-icon os-icon-cv-2"></div>
                 </div>
                 <span>Company</span></a>
             </li>
             <li class="">
            <a href="<%= Routes.company_path(@conn, :staff)%>">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
+                  <div class="os-icon os-icon-users"></div>
                 </div>
                 <span>Staff</span></a>
             </li>
@@ -208,14 +205,14 @@
             <li class="">
               <a href="<%= Routes.reports_path(@conn, :logs)%>">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-wifi"></div>
+                  <div class="os-icon os-icon-tasks-checked"></div>
                 </div>
                 <span>Logs</span></a>
             </li>
             <li class="">
               <a href="<%= Routes.reports_path(@conn, :reports)%>">
                 <div class="icon-w">
-                  <div class="os-icon os-icon-ui-46"></div>
+                  <div class="os-icon os-icon-documents-03"></div>
                 </div>
                 <span>Reports</span></a>
             </li>
@@ -223,18 +220,25 @@
               <span>Settings</span>
             </li>
             <li class="">
-              <a href="">
+              <a href="<%= Routes.system_settings_path(@conn, :mno)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-wifi"></div>
                 </div>
                 <span>MNO</span></a>
             </li>
             <li class="">
-              <a href="">
+              <a href="<%= Routes.system_settings_path(@conn, :bank)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-coins-4"></div>
+                </div>
+                <span>BANK</span></a>
+            </li>
+             <li class="">
+              <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-ui-46"></div>
                 </div>
-                <span>API</span></a>
+                <span>System Params</span></a>
             </li>
           </ul>
           <div class="side-menu-magic">
@@ -266,12 +270,12 @@
               <div class="logged-user-w">
                 <div class="logged-user-i">
                   <div class="avatar-w">
-                    <img alt="" src="<%= Routes.static_path(@conn, "/images/1.png") %>">
+                    <img alt="" src="<%= Routes.static_path(@conn, "/images/logos/LAXMI.png") %>">
                   </div>
                   <div class="logged-user-menu color-style-bright">
                     <div class="logged-user-avatar-info">
                       <div class="avatar-w">
-                        <img alt="" src="<%= Routes.static_path(@conn, "/images/1.png") %>">
+                        <img alt="" src="<%= Routes.static_path(@conn, "/images/logos/LAXMI.png") %>">
                       </div>
                       <div class="logged-user-info-w">
                         <div class="logged-user-name">

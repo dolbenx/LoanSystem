@@ -10,12 +10,9 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Returns the list of tbl_companies.
-
   ## Examples
-
       iex> list_tbl_companies()
       [%Company{}, ...]
-
   """
   def list_tbl_companies do
     Repo.all(Company)
@@ -23,31 +20,22 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Gets a single company.
-
   Raises `Ecto.NoResultsError` if the Company does not exist.
-
   ## Examples
-
       iex> get_company!(123)
       %Company{}
-
       iex> get_company!(456)
       ** (Ecto.NoResultsError)
-
   """
   def get_company!(id), do: Repo.get!(Company, id)
 
   @doc """
   Creates a company.
-
   ## Examples
-
       iex> create_company(%{field: value})
       {:ok, %Company{}}
-
       iex> create_company(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_company(attrs \\ %{}) do
     %Company{}
@@ -57,15 +45,11 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Updates a company.
-
   ## Examples
-
       iex> update_company(company, %{field: new_value})
       {:ok, %Company{}}
-
       iex> update_company(company, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_company(%Company{} = company, attrs) do
     company
@@ -75,15 +59,11 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Deletes a company.
-
   ## Examples
-
       iex> delete_company(company)
       {:ok, %Company{}}
-
       iex> delete_company(company)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_company(%Company{} = company) do
     Repo.delete(company)
@@ -91,12 +71,9 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking company changes.
-
   ## Examples
-
       iex> change_company(company)
       %Ecto.Changeset{source: %Company{}}
-
   """
   def change_company(%Company{} = company) do
     Company.changeset(company, %{})
@@ -106,12 +83,9 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Returns the list of tbl_staff.
-
   ## Examples
-
       iex> list_tbl_staff()
       [%Staff{}, ...]
-
   """
   def list_tbl_staff do
     Repo.all(Staff)
@@ -119,31 +93,22 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Gets a single staff.
-
   Raises `Ecto.NoResultsError` if the Staff does not exist.
-
   ## Examples
-
       iex> get_staff!(123)
       %Staff{}
-
       iex> get_staff!(456)
       ** (Ecto.NoResultsError)
-
   """
   def get_staff!(id), do: Repo.get!(Staff, id)
 
   @doc """
   Creates a staff.
-
   ## Examples
-
       iex> create_staff(%{field: value})
       {:ok, %Staff{}}
-
       iex> create_staff(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_staff(attrs \\ %{}) do
     %Staff{}
@@ -153,15 +118,11 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Updates a staff.
-
   ## Examples
-
       iex> update_staff(staff, %{field: new_value})
       {:ok, %Staff{}}
-
       iex> update_staff(staff, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_staff(%Staff{} = staff, attrs) do
     staff
@@ -171,15 +132,11 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Deletes a staff.
-
   ## Examples
-
       iex> delete_staff(staff)
       {:ok, %Staff{}}
-
       iex> delete_staff(staff)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_staff(%Staff{} = staff) do
     Repo.delete(staff)
@@ -187,12 +144,9 @@ defmodule LoanSystem.Companies do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking staff changes.
-
   ## Examples
-
       iex> change_staff(staff)
       %Ecto.Changeset{source: %Staff{}}
-
   """
   def change_staff(%Staff{} = staff) do
     Staff.changeset(staff, %{})

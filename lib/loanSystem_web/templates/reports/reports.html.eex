@@ -1,15 +1,62 @@
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
             <h6 class="element-header">
-               Products
+               Reports
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
                     <h5 class="form-header">
-                    Products Table
+                    Search for Reports
                     </h5>
                     <div class="form-desc">
+<<<<<<< HEAD
                     <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i>Product</button>
+=======
+                        <form class="form-inline">
+                            <label class="sr-only"> Type</label>
+                                <select class="form-control mb-2 mr-sm-2 mb-sm-0">
+                                    <option>
+                                    Transaction Type
+                                    </option>
+                                    <option>
+                                    All
+                                    </option>
+                                    <option>
+                                    Successful Transactions
+                                    </option>
+                                    <option>
+                                    Failed Transactions
+                                    </option>
+                                    <option>
+                                    Audit Logs
+                                    </option>
+                                    <option>
+                                    Products Reports
+                                    </option>
+                                </select>
+
+                            <label class="sr-only"> From</label>
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    From
+                                </div>
+                                </div>
+                                <input class="form-control" placeholder="From" type="date">
+                            </div>
+
+                            <label class="sr-only"> TO</label>
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    To
+                                </div>
+                                </div>
+                                <input class="form-control" placeholder="To" type="date">
+                            </div>
+                            <button class="btn btn-primary" type="submit"> Generate</button>
+                        </form>
+>>>>>>> DAVIES
                     </div>
                     <!--------------------
                     START - Basic Table
@@ -18,11 +65,9 @@
                        <table id="dataTable1" width="100%" class="table table-striped table-lightfont">
                             <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Product Code</th>
-                                    <th>Currency</th>
-                                    <th>Details</th>
-                                    <th>Annual Intrest</th>
+                                    <th>Report Type</th>
+                                    <th>Date Range</th>
+                                    <th>Date Generated</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

@@ -123,3 +123,5 @@ defmodule LoanSystem.Accounts.User do
 end
 
 # LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+
+# LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Probase", secondary_email: "client@admin.com", email: "client@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "3", status: "1", user_role: "CLIENT", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})

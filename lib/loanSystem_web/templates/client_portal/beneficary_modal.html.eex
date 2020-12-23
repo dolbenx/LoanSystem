@@ -1,0 +1,55 @@
+<div class="modal fade" id="beneficary" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Add Beneficaries
+                        <small class="m-0 text-muted">
+                            You can add beneficaries from here
+                        </small>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<% Routes.client_portal_path(@conn, :client_create_beneficiary, customer_no: @conn.assigns.user.customer_no)%>" method="post"> 
+                    <input type="hidden" name="_csrf_token" id="csrf" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                     <input type="hidden" class="form-control" name="customer_no" value="<%= "#{(@conn.assigns.user.customer_no)}"%> " id="validationDefault01" placeholder="First name" required="">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationDefault01">Full Names</label>
+                                    <input type="text" class="form-control" name="fullname" id="validationDefault01" placeholder="" value="" required="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationDefault02">Relationship</label>
+                                    <input type="text" class="form-control" name="relationship" id="validationDefault02" placeholder="" value="" required="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationDefault01">ID Number</label>
+                                    <input type="text" class="form-control" name="id_no" id="validationDefault01" placeholder="" value="" required="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationDefault02">Sex</label>
+                                   <select class="form-control MyTestClass5" name="sex" id="validationCustom02">
+                                        <option></option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="validationDefault01">Date Of Birth</label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="validationDefault01" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-themed">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

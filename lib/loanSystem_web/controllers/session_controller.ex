@@ -34,12 +34,19 @@ defmodule LoanSystemWeb.SessionController do
               cond do
                 user.status == 1 ->
                   {:ok, _} = Logs.create_user_logs(%{user_id: user.id, activity: "logged in"})
+                    cond do
+                      user.user_type == 3 ->
+                        conn
+                        |> put_session(:current_user, user.id)
+                        |> put_session(:session_timeout_at, session_timeout_at())
+                        |> redirect(to: Routes.client_portal_path(conn, :index))
 
-                  conn
-                  |> put_session(:current_user, user.id)
-                  |> put_session(:session_timeout_at, session_timeout_at())
-                  |> redirect(to: Routes.user_path(conn, :dashboard))
-
+                      user.user_type == 1 || 2 ->
+                        conn
+                        |> put_session(:current_user, user.id)
+                        |> put_session(:session_timeout_at, session_timeout_at())
+                        |> redirect(to: Routes.user_path(conn, :dashboard))
+                    end
                 true ->
                   conn
                   # |> put_status(405)

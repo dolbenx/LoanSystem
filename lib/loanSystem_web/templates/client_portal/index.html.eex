@@ -1,0 +1,204 @@
+<link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/mymain.css") %>">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Loan Management System</a></li>
+        <li class="breadcrumb-item">Home <i class="fal fa-home"></i></li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
+    </ol>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-3 order-lg-1 order-xl-1">
+                                    <div class="card mb-g rounded-top">
+                                        <div class="row no-gutters row-grid">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                                        <img src="<%= Routes.static_path(@conn, "/images/loan/tic.png") %>" class="rounded-circle shadow-2" alt="" width="200px" height="200px">
+                                                    <h5 class="mb-0 fw-700 text-center mt-3">
+                                                        <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
+                                                        <small class="text-muted mb-0">Lusaka, Zambia</small>
+                                                    </h5>
+                                                    <div class="mt-4 text-center demo">
+                                                        <h3 style="color: #00204E;"><strong>Total Clients - 105</strong></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                    <small class="text-muted mb-0"> 50 </small>
+                                                        <small class="text-muted mb-0"> Pending Loans</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                        <small class="text-muted mb-0">ZMK 5,920.78</small>
+                                                        <small class="text-muted mb-0">Value</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                    <small class="text-muted mb-0"> 15 </small>
+                                                        <small class="text-muted mb-0">Pending Approval</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                        <small class="text-muted mb-0">ZMK 1,200.50</small>
+                                                        <small class="text-muted mb-0">Value</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
+                                <div class="card mb-g border shadow-0">
+                                    <div class="card-body">
+                                        <h5 class="frame-heading">
+                                            Client List <button type="button" style="float: right;" class="btn btn-xs btn-outline-info waves-effect waves-themed">View Clients</button>
+                                        </h5>
+                                        <div class="frame-wrap p-0 border-0 m-0">
+                                            <table class="table m-0 table-bordered" id="table-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Comapny Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Inga</td>
+                                                        <td>metus.Aliquam@ametlorem.ca</td>
+                                                        <td>+260975675643</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Price</td>
+                                                        <td>nec.enim.Nunc@facilisis.net</td>
+                                                        <td>+260978242442</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jeanette</td>
+                                                        <td>non@afeugiattellus.co.uk</td>
+                                                        <td>+260976654323</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- post comment -->
+                                <div class="card mb-g">
+                                    <div class="row no-gutters">
+                                        <div class="col-6 col-sm-5" style="background-image:url('img/demo/profile/article-healthyfood.png'); background-size: cover;">
+                                            <div id="container">
+                                                <div class="slider_container">
+                                                <ul>
+                                                    <li class="current_slide"><img src="<%= Routes.static_path(@conn, "/images/loan/apply.jpg") %>" alt="slide image" width="200" height="400"></li>
+                                                    <li><img src="<%= Routes.static_path(@conn, "/images/loan/approved.jpg") %>" alt="slide image" width="200" height="400"></li>
+                                                    <li><img src="<%= Routes.static_path(@conn, "/images/loan/homeloani.webp") %>" alt="slide image" width="200" height="400"></li>
+                                                    <li><img src="<%= Routes.static_path(@conn, "/images/loan/download.jfif") %>" alt="slide image" width="200" height="400"></li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="bg-faded flex-1 p-4 h-100">
+                                                <h6 class="text-dark fw-500">
+                                                    Your Loans:
+                                                </h6>
+                                                <p class="m-0" style="text-align: justify;">
+                                                We offer credit that makes life easy when there’s an emergency, rather than add to the stress. Our products are easy to get and to understand.
+                                                We are transparent and credible. Our clients, partners and stakeholders can trust that we’ll do the right thing and that we’ll do things right.
+                                                We see the humans behind the numbers and treat our clients, colleagues and stakeholders with respect and dignity.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- post comment - end -->
+                            </div>
+                            <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+                                <!-- add : -->
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#beneficary" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                                <i class="fal fa-user-plus icon-stack-1x opacity-100 color-primary-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                    Add Beneficiaries
+                                                </strong>
+                                                <br>
+                                                Adding Beneficiaries will help easily share funds
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card mb-g">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#help" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                                <i class="fal fa-info icon-stack-1x opacity-100 color-warning-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                    Get Help!
+                                                </strong>
+                                                <br>
+                                                Send a compliment or Complaint
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- rating -->
+                                <div class="card mb-g">
+                                    <div class="row row-grid no-gutters">
+                                        <div class="col-12" style="background-color: #00204E; color:white;">
+                                            <div class="p-3">
+                                                <h2 class="mb-0 fs-xl">
+                                                    About Loans
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#tax-free-plan"> All loans need to be payed back within a period of 30 days</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#FLEXIBLE-plan">No staff is allowed to get a loan after the 15th if ever month</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#switch-funds">Late repayments of loans will attract a particuler amount if intrest.</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="background-color: #00204E; color:white;">
+                                            <div class="p-3">
+                                               <div class="fw-500 fs-xs">
+                                                   <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
+                                                   </a>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>

@@ -1,14 +1,15 @@
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
             <h6 class="element-header">
-               Logs
+               MNO
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
                     <h5 class="form-header">
-                    Logs Table
+                    MNO Table
                     </h5>
                     <div class="form-desc">
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add MNO</button>
                     </div>
                     <!--------------------
                     START - Basic Table
@@ -48,10 +49,10 @@
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
                     <h5 class="form-header">
-                        Add Product
+                        Add MNO Settings
                     </h5>
                     <div class="form-desc">
-                       Please Add your Products
+                       Please Add your MNO Settings
                     </div>
                         <div class="row">
                             <div class="col-sm-6">
