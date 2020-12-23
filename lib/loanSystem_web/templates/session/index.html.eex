@@ -40,14 +40,13 @@
 
                                     <h2 class="fs-xxl fw-500 mt-4 text-white">
                                         <small id="login-content">
-                                            ProLegals is a case management system which integrates and handles all information related to legal cases and matter management. The system is tailored to also provide solutions to litigation, reporting and document managing.
+                                            Loan Mangement system is an online loan system management system, Easy to use and secure. Manage borrowers, loans, repayments, and reports.
                                         </small>
                                     </h2>
 
-                                    <a href="http://zrl.com.zm/" target="_blank" class="fs-lg fw-500 text-white opacity-70">Learn more about ZRL&gt;&gt;</a>
                                     <div id="login-content" class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
                                         <div class="px-0 py-1 mt-5 text-white fs-nano opacity-50">
-                                            Find Probase on social media
+                                            Find Laxim on social media
                                         </div>
 
                                         <div class="d-flex flex-row opacity-70">
@@ -125,7 +124,7 @@
                             </div>
 
                             <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
-                                  <%= Timex.today.year %> © ProLegals by&nbsp;<a href='http://www.probasegroup.com/' class='text-white opacity-40 fw-500' title='gotbootstrap.com' target='_blank'>Probase</a>
+                                  <%= Timex.today.year %> © LoanSystem by&nbsp;<a href='http://www.probasegroup.com/' class='text-white opacity-40 fw-500' title='gotbootstrap.com' target='_blank'>Probase</a>
                             </div>
                         </div> 
                     </div>

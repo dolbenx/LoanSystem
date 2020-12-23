@@ -1,0 +1,234 @@
+<link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/mymain.css") %>">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Loan Management System</a></li>
+        <li class="breadcrumb-item">Home <i class="fal fa-home"></i></li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
+    </ol>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-3 order-lg-1 order-xl-1">
+                                    <div class="card mb-g rounded-top">
+                                        <div class="row no-gutters row-grid">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                                        <img src="<%= Routes.static_path(@conn, "/images/logos/chikwama.jpg") %>" class="rounded-circle shadow-2" alt="" width="175px" hieght="175px">
+                                                    <h5 class="mb-0 fw-700 text-center mt-3">
+                                                        <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
+                                                        <small class="text-muted mb-0">Lusaka, Zambia</small>
+                                                    </h5>
+                                                    <div class="mt-4 text-center demo">
+                                                        <h3 style="color: #00204E;"><strong>Total Clients - 105</strong></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                    <small class="text-muted mb-0"> 50 </small>
+                                                        <small class="text-muted mb-0">Total Pending Loans</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                        <small class="text-muted mb-0">ZMK 5,920.78</small>
+                                                        <small class="text-muted mb-0">Total Value</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                    <small class="text-muted mb-0"> USD </small>
+                                                        <small class="text-muted mb-0">Total Market Value</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-center py-3">
+                                                    <h5 class="mb-0 fw-700">
+                                                        <small class="text-muted mb-0"></small>
+                                                        <small class="text-muted mb-0">Total Units</small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
+                                <div class="card mb-g border shadow-0">
+                                    <div class="card-header">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <span class="h6 font-weight-bold text-uppercase">UNIT TRUST ACCOUNTS</span>
+                                            </div>
+                                            <div class="col d-flex">
+                                                <a href="" class="btn btn-outline-info btn-sm ml-auto mr-2 flex-shrink-0 waves-effect waves-themed">View Accounts</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header p-0">
+                                        <div class="row no-gutters row-grid align-items-stretch">
+                                            <div class="col-12 col-md">
+                                                <div class="text-uppercase text-muted py-2 px-3">Account Name</div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 hidden-md-down">
+                                                <div class="text-uppercase text-muted py-2 px-3">Units</div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 hidden-md-down">
+                                                <div class="text-uppercase text-muted py-2 px-3">Market Value</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0">
+                                            <div class="row no-gutters row-grid">
+                                                <!-- thread -->
+                                                <div class="col-12">
+                                                    <div class="row no-gutters row-grid align-items-stretch">
+                                                        <div class="col-md">
+                                                            <div class="p-3">
+                                                                <div class="d-flex">
+                                                                    <div class="d-inline-flex flex-column">
+                                                                        <a href="" class="fs-lg fw-500 d-block">
+                                                                            <p style="font-size: 0.7125rem;">- </p>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 col-md-3 hidden-md-down">
+                                                            <div class="p-3 p-md-3">
+                                                                <span class="d-block text-muted"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-8 col-md-3 hidden-md-down">
+                                                            <div class="p-3 p-md-3">
+                                                                <span class="d-block text-muted"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- thread -end -->
+                                            </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- post comment -->
+                                <div class="card mb-g">
+                                    <div class="row no-gutters">
+                                        <div class="col-6 col-sm-5" style="background-image:url('img/demo/profile/article-healthyfood.png'); background-size: cover;">
+                                            <div id="container">
+                                                <div class="slider_container">
+                                                <ul>
+                                                    <li class="current_slide"><img src="<%= Routes.static_path(@conn, "/images/loan/apply.jpg") %>" alt="slide image" width="200" height="400"></li>
+                                                    <li><img src="<%= Routes.static_path(@conn, "/images/loan/approved.jpg") %>" alt="slide image" width="200" height="400"></li>
+                                                    <li><img src="<%= Routes.static_path(@conn, "/images/loan/homeloani.webp") %>" alt="slide image" width="200" height="400"></li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="bg-faded flex-1 p-4 h-100">
+                                                <h6 class="text-dark fw-500">
+                                                    Your Investments (Taxation):
+                                                </h6>
+                                                <p class="m-0" style="text-align: justify;">
+                                                The Fund is exempt from Income Tax under the Second Schedule of the Income Tax Act. It is entitled to Withholding Tax Exemption upon application to ZRA, the Withholding Tax Certificate exempts the Fund from taxes on revenue earned from Dividend Income and Interest earned on savings and deposit accounts. However, the Fund is not exempted from interest earned on Corporate Bonds, Government Bonds and Treasury Bills.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- post comment - end -->
+                            </div>
+                            <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+                                <!-- add : -->
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#beneficary" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                                <i class="fal fa-user-plus icon-stack-1x opacity-100 color-primary-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                    About Loans
+                                                </strong>
+                                                <br>
+                                                All loans need to be payed back within a period of 30 days
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card mb-g">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#help" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                                <i class="fal fa-info icon-stack-1x opacity-100 color-warning-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                   About Loans
+                                                </strong>
+                                                <br>
+                                                No staff is allowed to get a loan after the 15th if ever month
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- rating -->
+                                <div class="card mb-g">
+                                    <div class="row row-grid no-gutters">
+                                        <div class="col-12" style="background-color: #00204E; color:white;">
+                                            <div class="p-3">
+                                                <h2 class="mb-0 fs-xl">
+                                                    Investments
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#tax-free-plan">Buy a TAX FREE PLAN</a>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      <i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#FLEXIBLE-plan">Buy a FLEXIBLE PLAN</a>
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#switch-funds">Switch Funds</a>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fal fa-arrow-alt-circle-right text-info fs-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3">
+                                                <div class="fw-500 fs-xs"></div>
+                                                <div class="progress progress-xs mt-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="background-color: #00204E; color:white;">
+                                            <div class="p-3">
+                                               <div class="fw-500 fs-xs">
+                                                   <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
+                                                   View Instructions Subbmited &nbsp;<i style="color:white;" class="fal fa-arrow-alt-circle-right fs-xl"></i>
+                                                   </a>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>

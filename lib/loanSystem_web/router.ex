@@ -34,6 +34,10 @@ defmodule LoanSystemWeb.Router do
     plug :put_layout, false
   end
 
+  pipeline :app_client do
+    plug(:put_layout, {LoanSystemWeb.LayoutView, :app_client})
+  end
+
   scope "/", LoanSystemWeb do
     pipe_through([:browser, :no_layout])
 
@@ -71,7 +75,39 @@ defmodule LoanSystemWeb.Router do
     get "/Reports", ReportsController, :reports
     get "/Logs", ReportsController, :logs
     ########### END REPORT ROUTES #############
+
+    ########### System Setting ROUTES #############
+    get "/Bank/Settings", SystemSettingsController, :bank
+    get "/MNO/Settings", SystemSettingsController, :mno
+    get "/System/Parameters", SystemSettingsController, :systemparams
+    ########### END System Setting ROUTES #############
+
     get("/Companies", CompanyController, :companies)
+  end
+
+  scope "/", LoanSystemWeb do
+    pipe_through([:browser, :app_client])
+      # ---------------------------------------------Client Portal profile
+      get "/Client/Portal", ClientPortalController, :index
+      post"/Client/Portal", ClientPortalController, :client_create_beneficiary
+      get "/Client/Accounts", ClientPortalController, :account
+      get "/Client/Reports", ClientPortalController, :report
+      get "/Client/Settings", ClientPortalController, :setting
+      get "/Client/Investments/BalancedFund", ClientPortalController, :balanced_fund
+      get "/Client/Investments/MoneyMarket", ClientPortalController, :money_market_fund
+      get "/Client/Investments/MyStar", ClientPortalController, :my_star_fund
+      get "/Client/Investments/ZMWHighYield", ClientPortalController, :zmw_high_yield_fund
+      get "/Client/Investments/Equity", ClientPortalController, :equity_fund
+      get "/Client/Investments/USDFund", ClientPortalController, :usd_fund
+      get "/Client/Investments/USDHighYield", ClientPortalController, :usd_high_yield_fund
+      get "/Client/Error", ClientPortalController, :error
+      get "/Client/Requests", ClientPortalController, :request
+      get "/Client/Withdraw", ClientPortalController, :withdraw
+      get "/Client/Investment", ClientPortalController, :invest
+      get "/Client/Beneficiaries", ClientPortalController, :beneficiary
+      post"/Client/Beneficiaries", ClientPortalController, :client_create_beneficiary
+      get "/View/Ben", ClientPortalController, :view_beneficiary
+
   end
 
   # Other scopes may use custom stacks.

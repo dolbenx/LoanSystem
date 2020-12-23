@@ -1,112 +1,175 @@
 <main id="js-page-content" role="main" class="page-content">
-    <div class="content-box">
-        <div class="row pt-4">
-            <div class="col-sm-12">
-            <!--START - Grid of tablo statistics-->
-                <div class="element-wrapper">
-                    <div class="element-actions">
-                    <form class="form-inline justify-content-sm-end">
-                        <select class="form-control form-control-sm rounded">
-                        <option value="Pending">
-                            Today
-                        </option>
-                        <option value="Active">
-                            Last Week 
-                        </option>
-                        <option value="Cancelled">
-                            Last 30 Days
-                        </option>
-                        </select>
-                    </form>
+    <div class="col-sm-12">
+        <div class="element-wrapper">
+        <div class="element-actions d-none d-sm-block">
+            <a class="btn btn-primary btn-sm" href="#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-success btn-sm" href="#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a>
+        </div>
+        <h6 class="element-header">
+            Laxim Dashboard
+        </h6>
+        <div class="element-box">
+            <div class="element-info">
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                <div class="element-info-with-icon">
+                    <div class="element-info-icon">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
                     </div>
-                    <h6 class="element-header">
-                    MfUssd Dashboard
+                    <div class="element-info-text">
+                    <h5 class="element-inner-header">
+                        Loan Statistics
+                    </h5>
+                    <div class="element-inner-desc">
+                        Discharge best employed your phase each the of shine. Be met even.
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-4">
+                <div class="element-search">
+                    <input placeholder="Type to search for products..." type="text">
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4 col-xl-3">
+                <div class="row">
+                <div class="col-sm-6 b-r b-b">
+                    <div class="el-tablo centered padded">
+                    <div class="">
+                        3814
+                    </div>
+                    <div class="label">
+                        Users
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 b-b">
+                    <div class="el-tablo centered padded">
+                    <div class="">
+                        4
+                    </div>
+                    <div class="label">
+                        Active Loans
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="el-tablo centered padded">
+                    <div class="">
+                        95
+                    </div>
+                    <div class="label">
+                        Companies
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="el-tablo centered padded">
+                    <div class="">
+                        129
+                    </div>
+                    <div class="label">
+                        Pending Loans
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="padded b-l b-r-xl">
+                <div class="element-info-with-icon smaller">
+                    <div class="element-info-icon">
+                    <div class="os-icon os-icon-bar-chart-stats-up"></div>
+                    </div>
+                    <div class="element-info-text">
+                    <h5 class="element-inner-header">
+                        Monthly Revenue
+                    </h5>
+                    <div class="element-inner-desc">
+                        Calculated every month
+                    </div>
+                    </div>
+                </div>
+                <div class="os-progress-bar primary">
+                    <div class="bar-labels">
+                    <div class="bar-label-left">
+                        <span>Repayments</span><span class="positive">+10</span>
+                    </div>
+                    <div class="bar-label-right">
+                        <span class="info">72/100</span>
+                    </div>
+                    </div>
+                    <div class="bar-level-1" style="width: 100%">
+                    <div class="bar-level-2" style="width: 60%">
+                        <div class="bar-level-3" style="width: 20%"></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="os-progress-bar primary">
+                    <div class="bar-labels">
+                    <div class="bar-label-left">
+                        <span>Profit</span><span class="positive">155</span>
+                    </div>
+                    <div class="bar-label-right">
+                        <span class="info">62/100</span>
+                    </div>
+                    </div>
+                    <div class="bar-level-1" style="width: 100%">
+                    <div class="bar-level-2" style="width: 40%">
+                        <div class="bar-level-3" style="width: 10%"></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="os-progress-bar primary">
+                    <div class="bar-labels">
+                    <div class="bar-label-left">
+                        <span>New Customers</span><span class="positive">+12</span>
+                    </div>
+                    <div class="bar-label-right">
+                        <span class="info">78/100</span>
+                    </div>
+                    </div>
+                    <div class="bar-level-1" style="width: 100%">
+                    <div class="bar-level-2" style="width: 80%">
+                        <div class="bar-level-3" style="width: 50%"></div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+                <div class=" col-xl-5">
+                    <div class="element-actions d-none d-sm-block">
+                        <form class="form-inline justify-content-sm-end">
+                        <label class="smaller" for="">Show Period:</label><select class="form-control form-control-sm form-control-faded">
+                            <option selected="true">
+                            Last 30 days
+                            </option>
+                            <option>
+                            This Week
+                            </option>
+                            <option>
+                            This Month
+                            </option>
+                            <option>
+                            Today
+                            </option>
+                        </select>
+                        </form>
+                    </div>
+                    <h6 class="element-box-header">
+                        Balance History
                     </h6>
-                    <div class="element-content">
-                    <div class="tablo-with-chart">
-                        <div class="row">
-                        <div class="col-sm-5 col-xxl-4">
-                            <div class="tablos">
-                            <div class="row mb-xl-2 mb-xxl-3">
-                                <div class="col-sm-6">
-                                <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
-                                    <div class="value">
-                                    24
-                                    </div>
-                                    <div class="label">
-                                    New Tickets
-                                    </div>
-                                    <div class="trending trending-up-basic">
-                                    <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-                                    </div>
-                                </a>
-                                </div>
-                                <div class="col-sm-6">
-                                <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
-                                    <div class="value">
-                                    12
-                                    </div>
-                                    <div class="label">
-                                    Closed Today
-                                    </div>
-                                    <div class="trending trending-down-basic">
-                                    <span>12%</span><i class="os-icon os-icon-arrow-down"></i>
-                                    </div>
-                                </a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
-                                    <div class="value">
-                                    52
-                                    </div>
-                                    <div class="label">
-                                    Agent Replies
-                                    </div>
-                                    <div class="trending trending-up-basic">
-                                    <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-                                    </div>
-                                </a>
-                                </div>
-                                <div class="col-sm-6">
-                                <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
-                                    <div class="value">
-                                    7
-                                    </div>
-                                    <div class="label">
-                                    New Replies
-                                    </div>
-                                    <div class="trending trending-down-basic">
-                                    <span>12%</span><i class="os-icon os-icon-arrow-down"></i>
-                                    </div>
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-7 col-xxl-8">
-                            <!--START - Chart Box-->
-                            <div class="element-box pl-xxl-5 pr-xxl-5">
-                            <div class="el-tablo bigger highlight bold-label">
-                                <div class="value">
-                                12,537
-                                </div>
-                                <div class="label">
-                                Unique Visitors
-                                </div>
-                            </div>
-                            <div class="el-chart-w">
-                                <canvas height="170px" id="lineChart" width="600px"></canvas>
-                            </div>
-                            </div>
-                            <!--END - Chart Box-->
-                        </div>
-                        </div>
+                    <br><br>
+                    <div class="el-chart-w"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas data-chart-data="13,28,19,24,43,49,40,35,42,46,38,32,45" height="198" id="liteLineChartV3" width="1196" style="display: block; height: 99px; width: 598px;" class="chartjs-render-monitor"></canvas>
                     </div>
                 </div>
             </div>
-            <!--END - Grid of tablo statistics-->
+        </div>
         </div>
     </div>
 </main> 

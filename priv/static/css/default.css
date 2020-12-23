@@ -1,0 +1,26 @@
+#app-name{
+	color: rgb(255,255,255);
+	font-size: 40px;
+	font-weight: bold;
+}
+#login-content{
+	color: rgb(255,255,255);
+	font-size: 18px;
+	/* font-weight: bold; */
+}
+#loggedIn-user{
+	font-size: 18px;
+	color: #006699;
+}
+#login_background{
+	background: url(../../images/login-backgrounds/login.jpg) no-repeat center bottom fixed; background-size: cover;
+	/* background: url(../../images/login-backgrounds/svg/pattern-1.svg) no-repeat center bottom fixed; background-size: cover; */
+}
+#card-title{
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+}
+#empTblHead{
+	font-weight: bold;
+}
