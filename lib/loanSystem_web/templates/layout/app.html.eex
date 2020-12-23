@@ -240,6 +240,13 @@
                 </div>
                 <span>System Params</span></a>
             </li>
+            <li class="">
+              <a href="<%= Routes.system_settings_path(@conn, :mno)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wifi"></div>
+                </div>
+                <span>User Management</span></a>
+            </li>
           </ul>
           <div class="side-menu-magic">
             <p>

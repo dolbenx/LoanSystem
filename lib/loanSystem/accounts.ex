@@ -101,4 +101,100 @@ defmodule LoanSystem.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  alias LoanSystem.Accounts.Old_password
+
+  @doc """
+  Returns the list of tbl_old_password.
+
+  ## Examples
+
+      iex> list_tbl_old_password()
+      [%Old_password{}, ...]
+
+  """
+  def list_tbl_old_password do
+    Repo.all(Old_password)
+  end
+
+  @doc """
+  Gets a single old_password.
+
+  Raises `Ecto.NoResultsError` if the Old password does not exist.
+
+  ## Examples
+
+      iex> get_old_password!(123)
+      %Old_password{}
+
+      iex> get_old_password!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_old_password!(id), do: Repo.get!(Old_password, id)
+
+  @doc """
+  Creates a old_password.
+
+  ## Examples
+
+      iex> create_old_password(%{field: value})
+      {:ok, %Old_password{}}
+
+      iex> create_old_password(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_old_password(attrs \\ %{}) do
+    %Old_password{}
+    |> Old_password.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a old_password.
+
+  ## Examples
+
+      iex> update_old_password(old_password, %{field: new_value})
+      {:ok, %Old_password{}}
+
+      iex> update_old_password(old_password, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_old_password(%Old_password{} = old_password, attrs) do
+    old_password
+    |> Old_password.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a old_password.
+
+  ## Examples
+
+      iex> delete_old_password(old_password)
+      {:ok, %Old_password{}}
+
+      iex> delete_old_password(old_password)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_old_password(%Old_password{} = old_password) do
+    Repo.delete(old_password)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking old_password changes.
+
+  ## Examples
+
+      iex> change_old_password(old_password)
+      %Ecto.Changeset{source: %Old_password{}}
+
+  """
+  def change_old_password(%Old_password{} = old_password) do
+    Old_password.changeset(old_password, %{})
+  end
 end

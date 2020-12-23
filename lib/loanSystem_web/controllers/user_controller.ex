@@ -1,11 +1,15 @@
 defmodule LoanSystemWeb.UserController do
   use LoanSystemWeb, :controller
+  use Ecto.Schema
   import Ecto.Query, warn: false
   alias LoanSystem.{Logs, Repo, Logs.UserLogs, Auth}
   alias LoanSystem.Accounts
   alias LoanSystem.Accounts.User
+  alias LoanSystem.Accounts.Old_password
+
+  # alias LoanSystem.Accounts.UserRoles
   alias LoanSystem.Emails.Email
-  alias LoanSystemWeb.Plugs.EnforcePasswordPolicy
+  # alias LoanSystemWeb.Plugs.EnforcePasswordPolicy
 
   plug(
     LoanSystemWeb.Plugs.RequireAuth
@@ -21,28 +25,21 @@ defmodule LoanSystemWeb.UserController do
            :create,
            :update_status,
            :user_actitvity,
-           :user_management,
-           :view_mgt_user,
-           :deactivate_account,
-           :users_on_leave,
-           :activate_user_on_leave,
-           :dismissed_users,
-           :activate_dismissed_user,
-           :suspended_users,
-           :activate_suspended_user,
-           :retired_users,
-           :activate_retired_user
-
+           :user_roles,
+           :user_mgt,
+           :user_logs,
+           :user_permission,
+           :create_roles
          ]
   )
 
-  # plug(
-  #   ProlegalsWeb.Plugs.EnforcePasswordPolicy
-  #   when action not in [:new_password, :change_password]
-  # )
+  plug(
+    LoanSystemWeb.Plugs.EnforcePasswordPolicy
+    when action not in [:new_password, :change_password]
+  )
 
   # plug(
-  #   ProlegalsWeb.Plugs.RequireAdminAccess
+  #   FundsMgtWeb.Plugs.RequireAdminAccess
   #   when action not in [
   #     :new_password,
   #     :change_password,
@@ -51,41 +48,164 @@ defmodule LoanSystemWeb.UserController do
   #   ]
   # )
 
-
   def list_users(conn, _params) do
+    pwd = random_string()
     users =
-      Accounts.get_user()
+      Accounts.get_user!(User)
       |> Enum.map(&%{&1 | id: sign_user_id(conn, &1.id)})
 
     page = %{first: "Users", last: "System users"}
-    render(conn, "list_users.html", users: users, page: page)
+    render(conn, "list_users.html", users: users, page: page, pwd: pwd )
+  end
+
+  def create_user(conn, params) do
+    case Accounts.create_user(params) do
+      {:ok, _} ->
+        Email.send_email(params["email"], params["password"])
+        conn
+        |> put_flash(:info, "User added.")
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
+
+        conn
+
+      {:error, _} ->
+
+        conn
+        |> put_flash(:error, "Failed to add user to system.")
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
+    end
+  end
+  def view_user(conn, %{"id" => id}) do
+    system_user  = Accounts.get_user!(id)
+    system_users  = Accounts.get_user!(id)
+    render(conn, "view_user.html", system_user: system_user, system_users: system_users)
+  end
+
+  def user_roles(conn, _params) do
+    roles = Accounts.list_tbl_user_role()
+    render(conn, "user_roles.html", roles: roles)
+  end
+
+  def create_roles(conn, params) do
+    case Accounts.create_user_roles(params) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "User Role Added.")
+        |> redirect(to: Routes.user_path(conn, :user_roles))
+
+        conn
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Failed to add user role.")
+        |> redirect(to: Routes.user_path(conn, :user_roles))
+    end
+  end
+
+  #   def update_role(conn, %{"id" => id} = params) do
+  #   user_role = Accounts.get_user_roles!(id)
+
+  #     Ecto.Multi.new()
+  #     |> Ecto.Multi.update(:user_role, User_roles.changeset(user_role, params))
+  #     |> Ecto.Multi.run(:user_logs, fn (_,%{user_role: user_role}) ->
+  #       activity = "Updated User role with ID \"#{user_role.id}\""
+
+  #       user_logs = %{
+  #         user_id: conn.assigns.user.id,
+  #         activity: activity
+  #       }
+
+  #       UserLogs.changeset(%UserLogs{}, user_logs)
+  #       |> Repo.insert()
+  #     end)
+  #     |> Repo.transaction()
+  #     |> case do
+  #       {:ok, %{user_role: _user_role, user_logs: _user_logs}} ->
+  #         conn
+  #         |> put_flash(:info, "User role updated successfully.")
+  #         |> redirect(to: Routes.user_path(conn, :user_roles))
+
+  #       {:error, _failed_operation, failed_value, _changes_so_far} ->
+  #         reason = traverse_errors(failed_value.errors) |> List.first()
+
+  #         conn
+  #         |> put_flash(:error, reason)
+  #         |> redirect(to: Routes.user_path(conn, :user_roles))
+  #     end
+  # end
+  def update(conn, %{"id" => id} = params) do
+    user = Accounts.get_user!(id)
+
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:user, User.changeset(user, params))
+      |> Ecto.Multi.run(:user_logs, fn (_,%{user: user}) ->
+        activity = "Updated User with ID \"#{user.id}\""
+
+        user_logs = %{
+          user_id: conn.assigns.user.id,
+          activity: activity
+        }
+
+        UserLogs.changeset(%UserLogs{}, user_logs)
+        |> Repo.insert()
+      end)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{user: _user, user_logs: _user_logs}} ->
+          conn
+          |> put_flash(:info, "User updated successfully.")
+          |> redirect(to: Routes.user_path(conn, :user_mgt))
+
+        {:error, _failed_operation, failed_value, _changes_so_far} ->
+          reason = traverse_errors(failed_value.errors) |> List.first()
+
+          conn
+          |> put_flash(:error, reason)
+          |> redirect(to: Routes.user_path(conn, :user_mgt))
+      end
+  end
+  def delete(conn, %{"id" => id} = params) do
+    user = Accounts.get_user!(id)
+      Ecto.Multi.new()
+        |> Ecto.Multi.delete(:user , User.changeset(user, params))
+        |> Ecto.Multi.run(:user_log, fn (_,%{user: _user }) ->
+        activity = "User Deleted successfully "
+
+      user_log = %{
+      user_id: conn.assigns.user.id,
+      activity: activity
+      }
+
+      UserLogs.changeset(%UserLogs{}, user_log)
+      |> Repo.insert()
+      end)
+        |> Repo.transaction()
+        |> case do
+        {:ok, %{user: _user, user_log: _user_log}} ->
+        conn
+        |> put_flash(:info, "User Deleted successfully.")
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
+
+      {:error, _failed_operation, failed_value, _changes_so_far} ->
+      reason = traverse_errors(failed_value.errors) |> List.first()
+
+      conn
+        |> put_flash(:error, reason)
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
+      end
+    rescue
+    _ ->
+    conn
+    |> put_flash(:error, "An error occurred, reason unknown. try again")
+    |> redirect(to: Routes.user_path(conn, :user_mgt))
   end
 
   def dashboard(conn, _params) do
-    # conn.assigns.user
-    # IO.inspect "----------------------------------------------------"
-    # IO.inspect conn
-
-    render(conn, "dashboard.html"
-          )
+    #users = Accounts.list_tbl_user_role()
+    # user = Accounts.get_user!(conn.assigns.user.id).id
+    # last_logged_in = Logs.last_logged_in(user)
+    render(conn, "dashboard.html")
   end
-
-  defp prepare_dash_result(results) do
-    Enum.reduce(default_dashboard(), results, fn item, acc ->
-      filtered = Enum.filter(acc, &(&1.day == item.day && &1.status == "assigned"))
-      if item not in acc && Enum.empty?(filtered), do: [item | acc], else: acc
-    end)
-    |> Enum.sort_by(& &1.day)
-  end
-
-  defp default_dashboard do
-    today = Date.utc_today()
-    days = Date.days_in_month(today)
-
-    Date.range(%{today | day: 1}, %{today | day: days})
-    |> Enum.map(&%{count: 0, day: Timex.format!(&1, "%b #{String.pad_leading(to_string(&1.day), 2, "0")}, %Y", :strftime), status: "assigned"})
-  end
-
 
   def user_actitvity(conn, %{"id" => user_id}) do
     with :error <- confirm_token(conn, user_id) do
@@ -94,14 +214,14 @@ defmodule LoanSystemWeb.UserController do
       |> redirect(to: Routes.user_path(conn, :list_users))
     else
       {:ok, user} ->
-        user_logs = Logs.get_user_logs_by(user.id)
+        user_logs = Logs.get_user_logs!(user.id)
         page = %{first: "Users", last: "Activity logs"}
         render(conn, "activity_logs.html", user_logs: user_logs, page: page)
     end
   end
 
   def activity_logs(conn, _params) do
-    results = Logs.get_all_activity_logs()
+    results = Logs.list_tbl_user_logs()
     page = %{first: "Users", last: "Activity logs"}
     render(conn, "activity_logs.html", user_logs: results, page: page)
   end
@@ -137,7 +257,7 @@ defmodule LoanSystemWeb.UserController do
     |> Ecto.Multi.update(:user, changeset)
     |> Ecto.Multi.insert(
       :user_log,
-      User_log.changeset(
+      UserLogs.changeset(
         %UserLogs{},
         %{
           user_id: conn.assigns.user.id,
@@ -167,127 +287,6 @@ defmodule LoanSystemWeb.UserController do
         user = %{user | id: sign_user_id(conn, user.id)}
         page = %{first: "Users", last: "Edit user"}
         render(conn, "edit.html", result: user, page: page)
-    end
-  end
-
-  def update(conn, %{"user" => user_params}) do
-    with :error <- confirm_token(conn, user_params["id"]) do
-      conn
-      |> put_flash(:error, "invalid token received")
-      |> redirect(to: Routes.user_path(conn, :list_users))
-    else
-      {:ok, user} ->
-        Ecto.Multi.new()
-        |> Ecto.Multi.update(:update, User.changeset(user, Map.delete(user_params, "id")))
-        |> Ecto.Multi.run(:log, fn %{update: _update} ->
-          activity =
-            "Modified user details with Email \"#{user.email}\" and First Name \"#{
-              user.first_name
-            }\""
-
-          user_log = %{
-            user_id: conn.assigns.user.id,
-            activity: activity
-          }
-
-          User_log.changeset(%UserLogs{}, user_log)
-          |> Repo.insert()
-        end)
-        |> Repo.transaction()
-        |> case do
-          {:ok, %{update: _update, log: _log}} ->
-            conn
-            |> put_flash(:info, "Changes applied successfully!")
-            |> redirect(to: Routes.user_path(conn, :edit, id: user_params["id"]))
-
-          {:error, _failed_operation, failed_value, _changes_so_far} ->
-            reason = traverse_errors(failed_value.errors) |> List.first()
-
-            conn
-            |> put_flash(:error, reason)
-            |> redirect(to: Routes.user_path(conn, :edit, id: user_params["id"]))
-        end
-    end
-  rescue
-    _ ->
-      conn
-      |> put_flash(:error, "An error occurred, reason unknown")
-      |> redirect(to: Routes.user_path(conn, :list_users))
-  end
-
-  def create(conn, %{"user" => user_params}) do
-    pwd = random_string(6)
-    user_params = Map.put(user_params, "password", pwd)
-
-    Ecto.Multi.new()
-    |> Ecto.Multi.insert(:user, User.changeset(%User{user_id: conn.assigns.user.id}, user_params))
-    |> Ecto.Multi.run(:user_log, fn %{user: user} ->
-      activity =
-        "Created new user with Email \"#{user.email}\" and First Name #{user.first_name}\""
-
-      user_log = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      User_log.changeset(%UserLogs{}, user_log)
-      |> Repo.insert()
-    end)
-    |> Repo.transaction()
-    |> case do
-      {:ok, %{user: user, user_log: _user_log}} ->
-        Email.password(pwd, user.email)
-
-        conn
-        |> put_flash(
-          :info,
-          "#{String.capitalize(user.first_name)} created successfully and password is: #{pwd}"
-        )
-        |> redirect(to: Routes.user_path(conn, :list_users))
-
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-
-        conn
-        |> put_flash(:error, reason)
-        |> redirect(to: Routes.user_path(conn, :list_users))
-    end
-  rescue
-    _ ->
-      conn
-      |> put_flash(:error, "An error occurred, reason unknown. try again")
-      |> redirect(to: Routes.user_path(conn, :list_users))
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-
-    Ecto.Multi.new()
-    |> Ecto.Multi.delete(:user, user)
-    |> Ecto.Multi.run(:user_log, fn %{user: user} ->
-      activity = "Deleted user with Email \"#{user.email}\" and First Name \"#{user.first_name}\""
-
-      user_log = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      User_log.changeset(%UserLogs{}, user_log)
-      |> Repo.insert()
-    end)
-    |> Repo.transaction()
-    |> case do
-      {:ok, %{user: user, user_log: _user_log}} ->
-        conn
-        |> put_flash(:info, "#{String.capitalize(user.first_name)} deleted successfully.")
-        |> redirect(to: Routes.user_path(conn, :list_users))
-
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-
-        conn
-        |> put_flash(:error, reason)
-        |> redirect(to: Routes.user_path(conn, :list_users))
     end
   end
 
@@ -356,7 +355,7 @@ defmodule LoanSystemWeb.UserController do
       |> redirect(to: Routes.user_path(conn, :forgot_password))
     else
       {:ok, user} ->
-        pwd = random_string(6)
+        pwd = random_string()
 
         case Accounts.update_user(user, %{password: pwd, auto_password: "Y"}) do
           {:ok, _user} ->
@@ -381,14 +380,14 @@ defmodule LoanSystemWeb.UserController do
       |> redirect(to: Routes.user_path(conn, :list_users))
     else
       {:ok, user} ->
-        pwd = random_string(6)
+        pwd = random_string()
         changeset = User.changeset(user, %{password: pwd, auto_password: "Y"})
 
         Ecto.Multi.new()
         |> Ecto.Multi.update(:user, changeset)
         |> Ecto.Multi.insert(
           :user_log,
-          User_log.changeset(
+          UserLogs.changeset(
             %UserLogs{},
             %{
               user_id: conn.assigns.user.id,
@@ -421,45 +420,68 @@ defmodule LoanSystemWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :new_password))
 
       result ->
-        with {:error, reason} <- result do
+        case result do
+          {:error, reason} ->
+            conn
+            |> put_flash(:error, reason)
+            |> redirect(to: Routes.user_path(conn, :new_password))
+
+          {:ok, _} -> james_password_authentication(conn, user_params)
+        end
+      end
+    end
+
+    defp proceed_to_change_password(conn, user, encode_new_pass, user_params) do
+      change_pwd(user, user_params)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{update: _update, insert: _insert}} ->
+          keep_old_password = %{
+            user_id: user.id,
+            email: user.email,
+            password: encode_new_pass,
+            date_created: Timex.today() |> to_string()
+          }
+          Old_password.changeset(%Old_password{}, keep_old_password)
+          |> Repo.insert()
+            conn
+            |> put_flash(:info, "Password changed successful, please login below using your new password.")
+            |> redirect(to: Routes.session_path(conn, :signout))
+        {:error, _failed_operation, failed_value, _changes_so_far} ->
+          reason = traverse_errors(failed_value.errors) |> List.first()
           conn
           |> put_flash(:error, reason)
           |> redirect(to: Routes.user_path(conn, :new_password))
-        else
-          {:ok, _} ->
-            conn.assigns.user
-            |> change_pwd(user_params)
-            |> Repo.transaction()
-            |> case do
-              {:ok, %{update: _update, insert: _insert}} ->
-                conn
-                |> put_flash(:info, "Password changed successful")
-                |> redirect(to: Routes.user_path(conn, :new_password))
-
-              {:error, _failed_operation, failed_value, _changes_so_far} ->
-                reason = traverse_errors(failed_value.errors) |> List.first()
-
-                conn
-                |> put_flash(:error, reason)
-                |> redirect(to: Routes.user_path(conn, :new_password))
-            end
         end
     end
-  # rescue
-  #   _ ->
-  #     conn
-  #     |> put_flash(:error, "Password changed with errors")
-  #     |> redirect(to: Routes.user_path(conn, :new_password))
+
+    defp james_password_authentication(conn, user_params) do
+      encode_new_pass = Base.encode16(:crypto.hash(:sha512, user_params["new_password"]))
+      old_password(conn)
+      |> case do
+        [] -> proceed_to_change_password(conn, conn.assigns.user, encode_new_pass, user_params)
+        old_pass ->
+          old_pass |> Enum.map(& &1.password) |> Enum.member?(encode_new_pass) |> case do
+            false -> proceed_to_change_password(conn, conn.assigns.user, encode_new_pass, user_params)
+            true ->
+              conn |> put_flash(:error, "previous password can only be reused after six months") |> redirect(to: Routes.user_path(conn, :new_password))
+          end
+      end
+  # old_pass |> Enum.map(fn used_pass -> if (used_pass.password == encode_new_pass) do true end end) |> Enum.filter(& !is_nil(&1)) |> Enum.member?(true)
+    end
+
+  defp old_password(conn) do
+    user = conn.assigns.user.id
+    Accounts.check_old_password(user, Timex.today() |> Date.add(-180) |> to_string)
   end
 
   def change_pwd(user, user_params) do
     pwd = String.trim(user_params["new_password"])
-
     Ecto.Multi.new()
     |> Ecto.Multi.update(:update, User.changeset(user, %{password: pwd, auto_password: "N"}))
     |> Ecto.Multi.insert(
       :insert,
-      User_log.changeset(
+      UserLogs.changeset(
         %UserLogs{},
         %{user_id: user.id, activity: "changed account password"}
       )
@@ -470,8 +492,6 @@ defmodule LoanSystemWeb.UserController do
          conn,
          %{"old_password" => pwd, "new_password" => new_pwd}
        ) do
-    # IO.inspect("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-    # IO.inspect conn
 
     with true <- String.trim(pwd) != "",
          true <- String.trim(new_pwd) != "" do
@@ -497,47 +517,84 @@ defmodule LoanSystemWeb.UserController do
     |> Enum.map(&%{count: 0, day: "#{&1}", status: nil})
   end
 
-  def random_string(length) do
-    :crypto.strong_rand_bytes(length)
-    |> Base.url_encode64()
-    |> binary_part(0, length)
+  def number do
+    spec =Enum.to_list(?2..?9)
+    length = 2
+    Enum.take_random(spec, length)
+  end
+  def number2 do
+    spec =Enum.to_list(?1..?9)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def caplock do
+    spec = Enum.to_list(?A..?N)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def small_latter do
+    spec = Enum.to_list(?a..?n)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def small_latter2 do
+    spec = Enum.to_list(?p..?z)
+    length = 2
+    Enum.take_random(spec, length)
+  end
+  def special do
+    spec = Enum.to_list(?#..?*)
+    length = 1
+    Enum.take_random(spec, length)|> to_string()|> String.replace("'", "^")|> String.replace("(", "!")|> String.replace(")", "@")
   end
 
-  # ----------------- / user management --------------------
-  def user_management(conn, _params) do
-    system_users = Accounts.list_tbl_users()
-    render(conn, "user_management.html", system_users: system_users)
+  def password_gen do
+    smll = to_string(small_latter())
+    smll2 = to_string(small_latter2())
+    nmb = to_string(number())
+    nmb2 = to_string(number2())
+    spc = to_string(special())
+    cpl = to_string(caplock())
+    smll<>""<>nmb<>""<>spc<>""<>cpl<>""<>nmb2<>""<>smll2
   end
 
-  def create_user(conn, params) do
-    case Accounts.create_user(params) do
-      {:ok, _} ->
-        conn
-        |> put_flash(:info, "User added.")
-        |> redirect(to: Routes.user_path(conn, :user_management))
+  def random_string() do
+    password_gen()
+  end
 
-        conn
+  def hash_pass(%{new_password: password_hash} = user, new_password) do
+    case Base.encode16(:crypto.hash(:sha512, new_password)) do
+      pwd when pwd == password_hash ->
+        {:ok, user}
 
-      {:error, _} ->
-        conn
-        |> put_flash(:error, "Failed to add user to system.")
-        |> redirect(to: Routes.user_path(conn, :user_management))
+      _ ->
+        {:error, "password/username not match"}
     end
   end
-
-  def view_mgt_user(conn, %{"id" => id}) do
-    view_users  = Accounts.get_user!(id)
-    render(conn, "view_management.html", view_users: view_users)
+  # ------------------ / user management -------------------
+  def user_mgt(conn, _params) do
+    pwd = random_string()
+    system_users = Accounts.list_tbl_users()
+    roles = Accounts.list_tbl_user_role()
+    render(conn, "user_mgt.html", system_users: system_users, roles: roles, pwd: pwd)
   end
 
-  # ---------------------- Deactivate Account ---------------------------------------
+  def user_logs(conn, _params) do
+    logs = Logs.list_tbl_user_logs()
+    render(conn, "user_logs.html", logs: logs)
+  end
+
+  def user_permission(conn, _params) do
+    render(conn, "user_permission.html")
+  end
+
   def deactivate_account(conn, %{"id" => id} = params) do
     system_users = Accounts.get_user!(id)
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:system_users, User.changeset(system_users, params))
-    |> Ecto.Multi.run(:userlogs, fn %{system_users: system_users} ->
-      activity = "ProLegals user account deactivated with ID \"#{system_users.id}\""
+    |> Ecto.Multi.run(:userlogs, fn (_,%{system_users: system_users}) ->
+      activity = "Funds Management system user account deactivated with ID \"#{system_users.id}\""
 
       userlogs = %{
         user_id: conn.assigns.user.id,
@@ -551,19 +608,19 @@ defmodule LoanSystemWeb.UserController do
     |> case do
       {:ok, %{system_users: _system_users, userlogs: _userlogs}} ->
         conn
-        |> put_flash(:info, "ProLegals system user account deactivated :-) ")
-        |> redirect(to: Routes.user_path(conn, :user_management))
+        |> put_flash(:info, "Funds Management system user account deactivated :-) ")
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
 
       {:error, _failed_operation, failed_value, _changes_so_far} ->
         reason = traverse_errors(failed_value.errors) |> List.first()
 
         conn
         |> put_flash(:error, reason)
-        |> redirect(to: Routes.user_path(conn, :user_management))
+        |> redirect(to: Routes.user_path(conn, :user_mgt))
     end
   end
 
-  # ---------------------- Leave Account --------------------------------------------
+    # ---------------------- Leave Account --------------------------------------------
 
   def users_on_leave(conn, _params) do
     users_on_leave = Accounts.list_tbl_users()
@@ -575,7 +632,7 @@ defmodule LoanSystemWeb.UserController do
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:users_on_leaves, User.changeset(users_on_leaves, params))
-    |> Ecto.Multi.run(:userlogs, fn %{users_on_leaves: users_on_leaves} ->
+    |> Ecto.Multi.run(:userlogs, fn (_,%{users_on_leaves: users_on_leaves}) ->
       activity = "User Account on leave activated with ID \"#{users_on_leaves.id}\""
 
       userlogs = %{
@@ -590,7 +647,7 @@ defmodule LoanSystemWeb.UserController do
     |> case do
       {:ok, %{users_on_leaves: _users_on_leaves, userlogs: _userlogs}} ->
         conn
-        |> put_flash(:info, "ProLegals system leave account activated :-) ")
+        |> put_flash(:info, "Funds Management system leave account activated :-) ")
         |> redirect(to: Routes.user_path(conn, :users_on_leave))
 
       {:error, _failed_operation, failed_value, _changes_so_far} ->
@@ -614,8 +671,8 @@ defmodule LoanSystemWeb.UserController do
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:dismissed_users, User.changeset(dismissed_users, params))
-    |> Ecto.Multi.run(:userlogs, fn %{dismissed_users: dismissed_users} ->
-      activity = "ProLegals dismissed account activated with ID \"#{dismissed_users.id}\""
+    |> Ecto.Multi.run(:userlogs, fn (_,%{dismissed_users: dismissed_users}) ->
+      activity = "Funds Management dismissed account activated with ID \"#{dismissed_users.id}\""
 
       userlogs = %{
         user_id: conn.assigns.user.id,
@@ -629,7 +686,7 @@ defmodule LoanSystemWeb.UserController do
     |> case do
       {:ok, %{dismissed_users: _dismissed_users, userlogs: _userlogs}} ->
         conn
-        |> put_flash(:info, "ProLegals system dismissed account activated :-) ")
+        |> put_flash(:info, "Funds Management system dismissed account activated :-) ")
         |> redirect(to: Routes.user_path(conn, :dismissed_users))
 
       {:error, _failed_operation, failed_value, _changes_so_far} ->
@@ -652,7 +709,7 @@ defmodule LoanSystemWeb.UserController do
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:suspended_user, User.changeset(suspended_user, params))
-    |> Ecto.Multi.run(:userlogs, fn %{suspended_user: suspended_user} ->
+    |> Ecto.Multi.run(:userlogs, fn (_,%{suspended_user: suspended_user}) ->
       activity = "Suspended account activated with ID \"#{suspended_user.id}\""
 
       userlogs = %{
@@ -667,7 +724,7 @@ defmodule LoanSystemWeb.UserController do
     |> case do
       {:ok, %{suspended_user: _suspended_user, userlogs: _userlogs}} ->
         conn
-        |> put_flash(:info, "ProLegals system suspended account activated :-) ")
+        |> put_flash(:info, "Funds Management system suspended account activated :-) ")
         |> redirect(to: Routes.user_path(conn, :suspended_users))
 
       {:error, _failed_operation, failed_value, _changes_so_far} ->
@@ -691,7 +748,7 @@ defmodule LoanSystemWeb.UserController do
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:retired_users, User.changeset(retired_users, params))
-    |> Ecto.Multi.run(:userlogs, fn %{retired_users: retired_users} ->
+    |> Ecto.Multi.run(:userlogs, fn (_,%{retired_users: retired_users}) ->
       activity = "ProLegals retired account activated with ID \"#{retired_users.id}\""
 
       userlogs = %{
@@ -706,7 +763,7 @@ defmodule LoanSystemWeb.UserController do
     |> case do
       {:ok, %{retired_users: _retired_users, userlogs: _userlogs}} ->
         conn
-        |> put_flash(:info, "ProLegals system retired account activated :-) ")
+        |> put_flash(:info, "Funds Management system retired account activated :-) ")
         |> redirect(to: Routes.user_path(conn, :retired_users))
 
       {:error, _failed_operation, failed_value, _changes_so_far} ->
@@ -718,11 +775,31 @@ defmodule LoanSystemWeb.UserController do
     end
   end
 
-  # ------------------------ User Logs -----------------------------------------
-
-  def user_logs(conn, _params) do
-    logs = Logs.list_tbl_user_logs()
-    render(conn, "user_logs.html", logs: logs)
-  end
-
 end
+
+  # def password do
+  #   alphabet = Enum.to_list(?2..?9)++ Enum.to_list(?a..?k)++Enum.to_list(?A..?K)++Enum.to_list(?#..?*)++Enum.to_list(?@..?@)
+  #   length = 7
+  #   Enum.take_random(alphabet, length)|> to_string()|> String.replace("'", "@")|> String.replace("(", "@")|> String.replace(")", "@")
+  #   # Enum.to_list(?a..?z) ++ Enum.to_list(?0..?9)++Enum.to_list(?A..?Z)++Enum.to_list(?#..?&)++Enum.to_list(?@..?@)
+  # end
+
+  # def random_string(length) do
+  #   :crypto.strong_rand_bytes(length)
+  #   |> Base.url_encode64()
+  #   |> binary_part(0, length)
+  # end
+
+  # @alphabet Enum.concat([?2..?9, ?A..?N, ?a..?n, ?#..?&])
+
+  # def randstring do
+  #   length = 10
+  #   :rand.seed(:exsplus, :os.timestamp())
+  #   Stream.repeatedly(&random_char_from_alphabet/0)
+  #   |> Enum.take(length)
+  #   |> List.to_string()
+  #   # Enum.concat([?2..?9, ?A..?N, ?a..?n, ?!..?&])
+  # end
+  # defp random_char_from_alphabet() do
+  #   Enum.random(@alphabet)
+  # end

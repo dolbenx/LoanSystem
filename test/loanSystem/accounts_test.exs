@@ -174,4 +174,67 @@ defmodule LoanSystem.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
   end
+
+  describe "tbl_old_password" do
+    alias LoanSystem.Accounts.Old_password
+
+    @valid_attrs %{date_created: "some date_created", email: "some email", password: "some password"}
+    @update_attrs %{date_created: "some updated date_created", email: "some updated email", password: "some updated password"}
+    @invalid_attrs %{date_created: nil, email: nil, password: nil}
+
+    def old_password_fixture(attrs \\ %{}) do
+      {:ok, old_password} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_old_password()
+
+      old_password
+    end
+
+    test "list_tbl_old_password/0 returns all tbl_old_password" do
+      old_password = old_password_fixture()
+      assert Accounts.list_tbl_old_password() == [old_password]
+    end
+
+    test "get_old_password!/1 returns the old_password with given id" do
+      old_password = old_password_fixture()
+      assert Accounts.get_old_password!(old_password.id) == old_password
+    end
+
+    test "create_old_password/1 with valid data creates a old_password" do
+      assert {:ok, %Old_password{} = old_password} = Accounts.create_old_password(@valid_attrs)
+      assert old_password.date_created == "some date_created"
+      assert old_password.email == "some email"
+      assert old_password.password == "some password"
+    end
+
+    test "create_old_password/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_old_password(@invalid_attrs)
+    end
+
+    test "update_old_password/2 with valid data updates the old_password" do
+      old_password = old_password_fixture()
+      assert {:ok, %Old_password{} = old_password} = Accounts.update_old_password(old_password, @update_attrs)
+      assert old_password.date_created == "some updated date_created"
+      assert old_password.email == "some updated email"
+      assert old_password.password == "some updated password"
+    end
+
+    test "update_old_password/2 with invalid data returns error changeset" do
+      old_password = old_password_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_old_password(old_password, @invalid_attrs)
+      assert old_password == Accounts.get_old_password!(old_password.id)
+    end
+
+    test "delete_old_password/1 deletes the old_password" do
+      old_password = old_password_fixture()
+      assert {:ok, %Old_password{}} = Accounts.delete_old_password(old_password)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_old_password!(old_password.id) end
+    end
+
+    test "change_old_password/1 returns a old_password changeset" do
+      old_password = old_password_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_old_password(old_password)
+    end
+  end
 end
