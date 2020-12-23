@@ -86,7 +86,7 @@
                   <span>Maintenance</span></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="">Company</a>
+                    <a href="<%= Routes.company_path(@conn, :companies)%>">Company</a>
                   </li>
                   <li>
                     <a href="">Stuff</a>
@@ -182,21 +182,21 @@
               <span>Maintenance</span>
             </li>
             <li class="">
-              <a href="">
+              <a href="<%= Routes.company_path(@conn, :companies)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>
                 <span>Company</span></a>
             </li>
             <li class="">
-              <a href="">
+           <a href="<%= Routes.company_path(@conn, :staff)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>
-                <span>Stuff</span></a>
+                <span>Staff</span></a>
             </li>
              <li class="">
-              <a href="">
+               <a href="<%= Routes.company_path(@conn, :products)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-wallet-loaded"></div>
                 </div>

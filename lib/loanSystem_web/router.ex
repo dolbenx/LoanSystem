@@ -71,7 +71,18 @@ defmodule LoanSystemWeb.Router do
     get "/Reports", ReportsController, :reports
     get "/Logs", ReportsController, :logs
     ########### END REPORT ROUTES #############
+
+    ########### MAINTENANCE ROUTES #############
+
     get("/Companies", CompanyController, :companies)
+      get("/staff", CompanyController, :staff)
+    get("/products", CompanyController, :products)
+    post("Companies", CompanyController, :add_company)
+    post("staff", CompanyController, :add_staff)
+    post("/add/products", CompanyController, :add_product)
+
+
+    ########### END OF MAINTENANCE ROUTES #############
   end
 
   # Other scopes may use custom stacks.
