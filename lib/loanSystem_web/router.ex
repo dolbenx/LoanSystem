@@ -89,8 +89,8 @@ defmodule LoanSystemWeb.Router do
     pipe_through([:browser, :app_client])
       # ---------------------------------------------Client Portal profile
       get "/Client/Portal", ClientPortalController, :index
-      post"/Client/Portal", ClientPortalController, :client_create_beneficiary
-      get "/Client/Accounts", ClientPortalController, :account
+      get "/Client/Payment/Schedule", ClientPortalController, :payment_schedule
+      get "/Client/Staff/Register", ClientPortalController, :register_staff
       get "/Client/Reports", ClientPortalController, :report
       get "/Client/Settings", ClientPortalController, :setting
       get "/Client/Investments/BalancedFund", ClientPortalController, :balanced_fund

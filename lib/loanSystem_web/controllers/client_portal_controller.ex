@@ -38,6 +38,14 @@ defmodule LoanSystemWeb.ClientPortalController do
 		render(conn, "index.html")
   end
 
+  def payment_schedule(conn, _params) do
+		render(conn, "payment_schedule.html")
+  end
+
+  def register_staff(conn, _params) do
+		render(conn, "register_staff.html")
+  end
+
   # def client_create_beneficiary(conn, params) do
   #   %{"customer_no" => customer_no} = params
   #   Ecto.Multi.new()
