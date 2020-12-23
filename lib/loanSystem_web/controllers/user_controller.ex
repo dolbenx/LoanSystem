@@ -202,9 +202,9 @@ defmodule LoanSystemWeb.UserController do
 
   def dashboard(conn, _params) do
     #users = Accounts.list_tbl_user_role()
-    # user = Accounts.get_user!(conn.assigns.user.id).id
+    user = Accounts.get_user!(conn.assigns.user.id).id
     # last_logged_in = Logs.last_logged_in(user)
-    render(conn, "dashboard.html")
+    render(conn, "dashboard.html", user: user)
   end
 
   def user_actitvity(conn, %{"id" => user_id}) do
@@ -575,8 +575,8 @@ defmodule LoanSystemWeb.UserController do
   def user_mgt(conn, _params) do
     pwd = random_string()
     system_users = Accounts.list_tbl_users()
-    roles = Accounts.list_tbl_user_role()
-    render(conn, "user_mgt.html", system_users: system_users, roles: roles, pwd: pwd)
+   # roles = Accounts.list_tbl_user_role()
+    render(conn, "user_mgt.html", system_users: system_users, pwd: pwd)
   end
 
   def user_logs(conn, _params) do

@@ -60,7 +60,7 @@
               </div>
               <div class="logged-user-info-w">
                 <div class="logged-user-name">
-                  <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
+                  Laxim Admin
                 </div>
                 <div class="logged-user-role">
                   Administrator
@@ -153,7 +153,7 @@
               </div>
               <div class="logged-user-info-w">
                 <div class="logged-user-name">
-                  <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
+                  Laxim Admin
                 </div>
                 <div class="logged-user-role">
                   Administrator
@@ -241,7 +241,7 @@
                 <span>System Params</span></a>
             </li>
             <li class="">
-              <a href="<%= Routes.system_settings_path(@conn, :mno)%>">
+              <a href="<%= Routes.user_path(@conn, :user_mgt)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-wifi"></div>
                 </div>
@@ -286,10 +286,10 @@
                       </div>
                       <div class="logged-user-info-w">
                         <div class="logged-user-name">
-                          <%= "#{String.capitalize(@conn.assigns.user.first_name)}"%>
+                          Laxim
                         </div>
                         <div class="logged-user-role">
-                          <%= "#{String.capitalize(@conn.assigns.user.user_role)}"%>
+                          Admin
                         </div>
                       </div>
                     </div>

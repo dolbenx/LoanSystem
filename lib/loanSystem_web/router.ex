@@ -54,6 +54,7 @@ defmodule LoanSystemWeb.Router do
     get("/forgortFleetHub//password", UserController, :forgot_password)
     post("/confirmation/token", UserController, :token)
     get("/reset/FleetHub/password", UserController, :default_password)
+    get("/User/Management", UserController, :user_mgt)
   end
 
   scope "/", LoanSystemWeb do
