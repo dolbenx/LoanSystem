@@ -83,11 +83,21 @@ defmodule LoanSystemWeb.Router do
     ########### END System Setting ROUTES #############
 
     get("/Companies", CompanyController, :companies)
-      get("/staff", CompanyController, :staff)
+    get("/staff", CompanyController, :staff)
     get("/products", CompanyController, :products)
     post("Companies", CompanyController, :add_company)
     post("staff", CompanyController, :add_staff)
     post("/add/products", CompanyController, :add_product)
+    get("/edit/Companies", CompanyController, :update_company)
+    post("/edit/Companies", CompanyController, :update_company)
+    post("/view/Companies", CompanyController, :update_company)
+    get("/view/staff", CompanyController, :update_staff)
+    post("/view/staff", CompanyController, :update_staff)
+    post("/edit/staff", CompanyController, :update_staff)
+    post("/Companies/disable", CompanyController, :disable)
+    get("/view/product", CompanyController, :update_product)
+    post("/view/product", CompanyController, :update_product)
+    post("/edit/product", CompanyController, :update_product)
 
 
     ########### END OF MAINTENANCE ROUTES #############

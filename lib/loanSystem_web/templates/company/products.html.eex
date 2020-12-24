@@ -1,9 +1,5 @@
 
 
-
-
-
-
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
             <h6 class="element-header">
@@ -17,11 +13,8 @@
                     <div class="form-desc">
                     <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Product</button>
                     </div>
-
-   <!--       ########################### STAFF TABLE ################################## -->
-
-                    <div class="table-responsive">
-                       <table  id="dt-product" width="100%" class="table table-striped table-lightfont">
+                <div class="table-responsive">
+                    <table  id="dt-product" width="100%" class="table table-striped table-lightfont">
                       <input type="hidden" id="csrf" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                            
                             <thead>
@@ -30,16 +23,14 @@
                                     <th>Code</th>
                                     <th>Details</th>
                                     <th>Currency</th>
-                                    <th>Currency decimals</th>
                                     <th>Annual interest</th>
                                     <th>Fixed period days</th>
-                                    <th>Year length days </th>
                                     <th>Min balance required</th>
                                     <th>Withdrawal fee amount</th>
-                                    <th>withdrawal fee transfer to mobile</th>
                                     <th>Deposit fee amount</th>
                                     <th>Days to inactive</th>
                                     <th>Days to dormancy</th>
+                                    <th>Actions</th>
                         </tr>
                            </thead>                    
                             <tbody>
@@ -49,28 +40,39 @@
                                         <td><%= product.code %></td>
                                         <td><%= product.details %></td>
                                         <td><%= product.currency %></td>
-                                        <td><%= product.currency_decimals %></td>
                                         <td><%= product.annual_interest %></td>  
                                         <td><%= product.fixed_period_days %></td>
-                                        <td><%= product.year_length_days  %></td>
                                         <td><%= product.min_balance_required   %></td>
-                                        <td><%= product.withdrawal_fee_amount  %></td>  
+                                        <td><%= product.withdrawal_fee_amount  %></td> 
+                                        <td><%= product.deposit_fee_amount  %></td>
                                         <td><%= product.days_to_inactive  %></td> 
-                                       <td><%= product.days_to_dormancy  %></td> 
-                                         </tr>                               
-                                     <% end %>
+                                        <td><%= product.days_to_dormancy  %></td> 
 
-                                
-                            </tbody>
-                        </table>
-                    </div>
 
-     <!--       ########################### END OF PRODUCT TABLE ################################## -->
-
+                                     <td>
+                                      <div class="btn-group mr-1 mb-1">
+                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Action</button>
+                                            <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu" style="">
+                                                <a type="button" class="dropdown-item" href="#"  data-id="<%= product.id %>" data-name="<%= product.name %>" data-code="<%= product.code %>" data-currency="<%= product.currency %>" data-currency_decimals="<%= product.currency_decimals %>" data-details ="<%= product.details %>" data-min_balance_required="<%= product.min_balance_required %>" data-annual_interest="<%= product.annual_interest %>" data-withdrawal_fee_amount="<%= product.withdrawal_fee_amount %>" data-withdrawal_fee_transfer_to_mobile="<%= product.withdrawal_fee_transfer_to_mobile %>" data-deposit_fee_amount="<%= product.deposit_fee_amount %>" data-fixed_period_days="<%= product.fixed_period_days %>" data-year_length_days="<%= product.year_length_days %>" data-days_to_inactive="<%= product.days_to_inactive %>" data-days_to_dormancy="<%= product.days_to_dormancy %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
+                                               
+                                        <%= if product.status == true do %>
+                                            <a class="dropdown-item js-sweetalert2-disable"  style="color: #ff0000" data-id="<%= product.id %>" >Disable</a>
+                                        <% else %>
+                                            <a class="dropdown-item enable"  style="color: #008000" data-id="<%= product.id %>" >Enable</a>
+                                        <% end %>
+                                        </div>
+                                        </td>
+                                    </tr>                               
+                            <% end %>
+                        </tbody>
+                    </table>
+                  </div>
                 </div>
             </div>
-        </div>
+      </div>
 </main>
+
+     <!--       ########################### END OF PRODUCT TABLE ################################## -->
 
  <!--       ########################### ADD PRODUCT ################################## -->
 
@@ -185,8 +187,7 @@
                               </div>                                                                       
                         </div>
                     </div>
-                    
-                    <div class="">
+                        <div class="">
                       <button type="submit" class="btn btn-primary disabled">Submit</button>
                     </div>
                     </form>
@@ -195,7 +196,261 @@
         </div>
       </div>
     </div>
-
- <!--       ########################### END OF ADD PRODUCT ################################## -->
-
  </div>
+<!--       ########################### END OF ADD PRODUCT ################################## -->
+
+
+
+
+<!--       ########################### EDIT PRODUCT ################################## -->
+<%= for product <- @product do %>
+    <div aria-hidden="true" class="onboarding-modal modal fade animated" id="edit_modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content text-center">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+                <div class="element-wrapper">
+                    <div class="element-box">
+                        <form id="" action="<%= Routes.company_path(@conn, :update_product) %>" method="post" id="edit_modal">
+                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                        <input type="hidden" name="client_id" value="21">
+                        <input type="hidden" name="id" id="id" value="<%= product.id %>">
+                        <h5 class="form-header">
+                            Edit Product
+                        </h5>
+                        <div class="form-desc">
+                        Product Details
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Name</label>
+                                        <input class="form-control" name="name" id="name" value="<%= product.name %>">
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                </div>                                      
+                            <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Code</label>
+                                        <input class="form-control" name="code" id="code" value="<%= product.code %>">
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Details</label>
+                                        <input type="text" class="form-control" name="details" id="details" value="<%= product.details %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Currency</label>
+                                        <input class="form-control" name="currency" id="currency" value="<%= product.currency %>">
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Currency Decimals</label><input class="form-control" name="currency_decimals" id="currency_decimals" value="<%= product.currency_decimals %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Annual Interest</label><input class="form-control" name="annual_interest" id="annual_interest" value="<%= product.annual_interest %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Fixed period days</label><input class="form-control" name="fixed_period_days" id="fixed_period_days" value="<%= product.fixed_period_days %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Year length days</label><input class="form-control" name="year_length_days" id="year_length_days" value="<%= product.year_length_days %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Min balance required</label><input class="form-control" name="min_balance_required" id="min_balance_required" value="<%= product.min_balance_required %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label for="">Withdraw fee amount</label><input class="form-control" name="withdrawal_fee_amount" id="withdrawal_fee_amount" value="<%= product.withdrawal_fee_amount %>">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                        </div>
+                                    </div>
+                            </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Withdraw fee transfer to mobile</label><input class="form-control" name="withdrawal_fee_transfer_to_mobile" id="withdrawal_fee_transfer_to_mobile" value="<%= product.withdrawal_fee_amount %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <label for="">Deposit fee amount</label><input class="form-control" name="deposit_fee_amount" id="deposit_fee_amount" value="<%= product.deposit_fee_amount %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div> 
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Days to inactive</label><input class="form-control" name="days_to_inactive" id="days_to_inactive" value="<%= product.days_to_inactive %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Days to dormancy</label><input class="form-control" name="days_to_dormancy" id="days_to_dormancy" value="<%= product.days_to_dormancy %>">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>                                                                       
+                            </div>
+                            <div class="">
+                        <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+<% end %>
+<!--       ########################### END OF EDIT PRODUCT ################################## -->
+
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
+
+
+<script>
+$(document).ready(function(){
+//view staff details
+    $('#view_modal').on('show.bs.modal', function (event){
+
+      
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var annual_interest = button.data('annual_interest')
+            var code = button.data('code')
+            var currency = button.data('currency')
+            var currency_decimals = button.data('currency_decimals')
+            var days_to_dormancy = button.data('days_to_dormancy')
+            var days_to_inactive = button.data('days_to_inactive')
+            var deposit_fee_amount = button.data('deposit_fee_amount')
+            var details = button.data('details')
+            var fixed_period_days = button.data('fixed_period_days')
+            var min_balance_required = button.data('min_balance_required')
+            var name = button.data('name')
+            var withdrawal_fee_amount = button.data('withdrawal_fee_amount')
+            var withdrawal_fee_transfer_to_mobile = button.data('withdrawal_fee_transfer_to_mobile')
+            var year_length_days = button.data('year_length_days')
+              
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #annual_interest').val(annual_interest);
+            modal.find('.modal-body #code').val(code);
+            modal.find('.modal-body #currency').val(currency);
+            modal.find('.modal-body #currency_decimals').val(currency_decimals);
+            modal.find('.modal-body #days_to_dormancy').val(days_to_dormancy);
+            modal.find('.modal-body #days_to_inactive').val(days_to_inactive);
+            modal.find('.modal-body #deposit_fee_amount').val(deposit_fee_amount);
+            modal.find('.modal-body #fixed_period_days').val(fixed_period_days);
+            modal.find('.modal-body #min_balance_required').val(min_balance_required);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #withdrawal_fee_amount').val(withdrawal_fee_amount);
+            modal.find('.modal-body #withdrawal_fee_transfer_to_mobile').val(withdrawal_fee_transfer_to_mobile);
+            modal.find('.modal-body #year_length_days').val(year_length_days);
+           
+    });
+
+    });
+
+
+ 
+</script>
+<script>
+$(document).ready(function(){
+
+    $('#rejected').on('show.bs.modal', function (event){
+
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var module_id = button.data('module_id')
+            var description = button.data('description')
+            var reason = button.data('reason')
+
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #module_id').val(module_id);
+            modal.find('.modal-body #description').val(description);
+            modal.find('.modal-body #reason').val(reason);
+    });
+});
+</script>
+
+<script>
+
+$(document).ready(function(){
+    $('#edit_modal').on('show.bs.modal', function (event){
+                
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var annual_interest = button.data('annual_interest')
+            var code = button.data('code')
+            var currency = button.data('currency')
+            var currency_decimals = button.data('currency_decimals')
+            var days_to_dormancy = button.data('days_to_dormancy')
+            var days_to_inactive = button.data('days_to_inactive')
+            var deposit_fee_amount = button.data('deposit_fee_amount')
+            var details = button.data('details')
+            var fixed_period_days = button.data('fixed_period_days')
+            var min_balance_required = button.data('min_balance_required')
+            var name = button.data('name')
+            var withdrawal_fee_amount = button.data('withdrawal_fee_amount')
+            var withdrawal_fee_transfer_to_mobile = button.data('withdrawal_fee_transfer_to_mobile')
+            var year_length_days = button.data('year_length_days')
+            
+        
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #annual').val(annual_interest);
+            modal.find('.modal-body #code').val(code);
+            modal.find('.modal-body #currency').val(currency);
+            modal.find('.modal-body #currency_decimals').val(currency_decimals);
+            modal.find('.modal-body #days_to_dormancy').val(days_to_dormancy);
+            modal.find('.modal-body #days_to_inactive').val(days_to_inactive);
+            modal.find('.modal-body #deposit_fee_amount').val(deposit_fee_amount);
+            modal.find('.modal-body #fixed_period_days').val(fixed_period_days);
+            modal.find('.modal-body #min_balance_required').val(min_balance_required);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #withdrawal_fee_amount').val(withdrawal_fee_amount);
+            modal.find('.modal-body #withdrawal_fee_transfer_to_mobile').val(withdrawal_fee_transfer_to_mobile);
+            modal.find('.modal-body #year_length_days').val(year_length_days);
+
+             console.log("params")
+            console.log(button.data('id'))
+            console.log(button.data('code'))
+            console.log(button.data('currency'))
+            console.log(button.data('annual_interest'))
+            console.log(button.data('currency_decimals'))
+
+            console.log("values")
+          
+           
+
+           
+    });
+});
+</script>

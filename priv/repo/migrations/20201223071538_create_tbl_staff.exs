@@ -16,6 +16,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblStaff do
       add :address, :string
       add :id_no, :string
       add :id_type, :string
+      add :status, :boolean, default: true
 
       timestamps()
     end
