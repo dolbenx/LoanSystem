@@ -30,7 +30,7 @@
                                     <th>Deposit fee amount</th>
                                     <th>Days to inactive</th>
                                     <th>Days to dormancy</th>
-                                    <th>Actions</th>
+                                    <th>Action</th>
                         </tr>
                            </thead>                    
                             <tbody>
@@ -87,7 +87,7 @@
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
                     <h5 class="form-header">
-                        Add Product
+                        Add Loan Product
                     </h5>
                     <div class="form-desc">
                        Please Add Product

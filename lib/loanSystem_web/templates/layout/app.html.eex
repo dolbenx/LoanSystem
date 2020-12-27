@@ -86,7 +86,7 @@
                   <span>Maintenance</span></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="<%= Routes.company_path(@conn, :companies)%>">Company</a>
+                    <a href="<%= Routes.company_path(@conn, :companies)%>">Client Management</a>
                   </li>
                   <li>
                     <a href="">Stuff</a>
@@ -125,7 +125,7 @@
                     <a href="<%= Routes.system_settings_path(@conn, :mno)%>">MNO</a>
                   </li>
                   <li>
-                    <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">System Parameters</a>
+                    <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">System Configs</a>
                   </li>
                 </ul>
               </li>
@@ -149,18 +149,57 @@
           <div class="logged-user-w avatar-inline">
             <div class="logged-user-i">
               <div class="avatar-w">
-                <img alt="" src="<%= Routes.static_path(@conn, "/images/logos/LAXMI.png") %>">
+                <img alt="" src="<%= Routes.static_path(@conn, "/images/avatar/2.jpg") %>">
               </div>
               <div class="logged-user-info-w">
                 <div class="logged-user-name">
                   <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
                 </div>
                 <div class="logged-user-role">
-                  Administrator
+                  <%= "#{(@conn.assigns.user.user_role)}"%>
                 </div>
               </div>
               <div class="logged-user-toggler-arrow">
                 <div class="os-icon os-icon-chevron-down"></div>
+              </div>
+              <div class="logged-user-menu">
+                <div class="logged-user-avatar-info">
+                  <div class="avatar-w">
+                    <img alt="" src="<%= Routes.static_path(@conn, "/images/avatar/2.jpg") %>">
+                  </div>
+                  <div class="logged-user-info-w">
+                    <div class="logged-user-name">
+                      <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
+                    </div>
+                    <div class="logged-user-role">
+                      <%= "#{(@conn.assigns.user.user_role)}"%>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-icon">
+                  <i class="os-icon os-icon-wallet-loaded"></i>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                  <tbody style="color:white;">
+                    <tr>
+                      <td> Name</td><td> <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%> </td>
+                    </tr>
+                    <tr>
+                      <td> Email</td><td> <%= "#{(@conn.assigns.user.email)}"%> </td>
+                    </tr>
+                    <tr>
+                      <td> Phone</td><td>  <%= "#{(@conn.assigns.user.phone)}"%> </td>
+                    </tr>
+                    <tr>
+                      <td> ID</td><td>  <%= "#{(@conn.assigns.user.id_no)}"%> </td>
+                    </tr>
+                    <tr>
+                      <td>Address</td><td> <%= "#{(@conn.assigns.user.address)}"%> </td>
+                    </tr>
+                  </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -176,6 +215,49 @@
                 <span>Dashboad</span></a>
             </li>
             <li class="sub-header">
+              <span>Loans</span>
+            </li>
+            <li class="has-sub-menu">
+              <a href="#">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wallet-loaded"></div>
+                </div>
+                <span>Loans</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                 Loan Menu
+                </div>
+                <div class="sub-menu-icon">
+                  <i class="os-icon os-icon-layers"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan)%>">Loans</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_transactions)%>">Loan Transactions</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_collateral)%>">Loan Collateral</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_sche_mapping)%>">Loan Scheduling Mapping</a>
+                    </li>
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan_overdue)%>">Loan Overdue</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="sub-header">
               <span>Maintenance</span>
             </li>
             <li class="">
@@ -183,14 +265,7 @@
                 <div class="icon-w">
                   <div class="os-icon os-icon-cv-2"></div>
                 </div>
-                <span>Company</span></a>
-            </li>
-            <li class="">
-           <a href="<%= Routes.company_path(@conn, :staff)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-users"></div>
-                </div>
-                <span>Staff</span></a>
+                <span>Client Management</span></a>
             </li>
              <li class="">
                <a href="<%= Routes.company_path(@conn, :products)%>">
@@ -231,14 +306,21 @@
                 <div class="icon-w">
                   <div class="os-icon os-icon-coins-4"></div>
                 </div>
-                <span>BANK</span></a>
+                <span>Bank</span></a>
             </li>
              <li class="">
               <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
                 <div class="icon-w">
                   <div class="os-icon os-icon-ui-46"></div>
                 </div>
-                <span>System Params</span></a>
+                <span>System Configs</span></a>
+            </li>
+            <li class="">
+              <a href="<%= Routes.user_path(@conn, :user_mgt)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-users"></div>
+                </div>
+                <span>User Management</span></a>
             </li>
           </ul>
           <div class="side-menu-magic">
@@ -270,19 +352,19 @@
               <div class="logged-user-w">
                 <div class="logged-user-i">
                   <div class="avatar-w">
-                    <img alt="" src="<%= Routes.static_path(@conn, "/images/logos/LAXMI.png") %>">
+                    <img alt="" src="<%= Routes.static_path(@conn, "/images/avatar/2.jpg") %>">
                   </div>
-                  <div class="logged-user-menu color-style-bright">
+                  <div class="logged-user-menu">
                     <div class="logged-user-avatar-info">
                       <div class="avatar-w">
-                        <img alt="" src="<%= Routes.static_path(@conn, "/images/logos/LAXMI.png") %>">
+                        <img alt="" src="<%= Routes.static_path(@conn, "/images/avatar/2.jpg") %>">
                       </div>
                       <div class="logged-user-info-w">
                         <div class="logged-user-name">
-                          <%= "#{String.capitalize(@conn.assigns.user.first_name)}"%>
+                          <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
                         </div>
                         <div class="logged-user-role">
-                          <%= "#{String.capitalize(@conn.assigns.user.user_role)}"%>
+                          <%= "#{(@conn.assigns.user.user_role)}"%> 
                         </div>
                       </div>
                     </div>
@@ -291,7 +373,7 @@
                     </div>
                     <ul>
                       <li>
-                        <a href="users_profile_big.html"><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>
+                        <a href="<%= Routes.user_path(@conn, :change_password)%>"><i class="os-icon os-icon-fingerprint"></i><span>Change Password</span></a>
                       </li>
                       <li>
                         <a href="<%= Routes.session_path(@conn, :signout)%>"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>

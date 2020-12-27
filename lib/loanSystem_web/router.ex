@@ -46,6 +46,22 @@ defmodule LoanSystemWeb.Router do
   end
 
   scope "/", LoanSystemWeb do
+    pipe_through([:browser, :app])
+
+    get("/dashboard", UserController, :dashboard)
+    get("/User/Management", UserController, :user_mgt)
+    get("/User/Logs", UserController, :user_logs)
+    get "/User/Roles", UserController, :user_roles
+    post "/Create/User/Role", UserController, :create_roles
+
+    get("/all/users", UserController, :list_users)
+    get("/new/user", UserController, :new)
+    get "/Create/User", UserController, :create_user
+    post("/new/user", UserController, :create)
+
+  end
+
+  scope "/", LoanSystemWeb do
     pipe_through([:session, :app])
     # pipe_through :browser
     # get "/Dashboard", UserController, :dashboard
@@ -54,22 +70,24 @@ defmodule LoanSystemWeb.Router do
     get("/forgortFleetHub//password", UserController, :forgot_password)
     post("/confirmation/token", UserController, :token)
     get("/reset/FleetHub/password", UserController, :default_password)
+
+
+    get "/Users/On/Leave", UserController, :users_on_leave
+    post "/Activate/Leave/Account", UserController, :activate_user_on_leave
   end
 
   scope "/", LoanSystemWeb do
-    pipe_through([:session, :dashboard_layout])
+    pipe_through([:browser, :app])
     # ---------------------------Test
     get("/new/password", UserController, :new_password)
     post("/reset/password", UserController, :default_password)
     post("/reset/user/password", UserController, :reset_pwd)
+    post("/new/password", UserController, :change_password)
     # ----------------------------------------------------------------
   end
 
   scope "/", LoanSystemWeb do
     pipe_through([:browser, :api])
-
-
-    get("/dashboard", UserController, :dashboard)
 
     ########### REPORT ROUTES #############
     get "/Reports", ReportsController, :reports
@@ -78,8 +96,21 @@ defmodule LoanSystemWeb.Router do
 
     ########### System Setting ROUTES #############
     get "/Bank/Settings", SystemSettingsController, :bank
+    post("Add/Bank", SystemSettingsController, :add_bank)
     get "/MNO/Settings", SystemSettingsController, :mno
+    post("/Add/MNO", SystemSettingsController, :add_mno)
     get "/System/Parameters", SystemSettingsController, :systemparams
+    post("Add/System/Params", SystemSettingsController, :add_systemparams)
+    ########### END System Setting ROUTES #############
+
+    ########### Loan ROUTES #############
+    get "/Customer/Loan", LoanController, :loan
+    get "/Customer/Loan/Transactions", LoanController, :loan_transactions
+    get "/Customer/Loan/Charge", LoanController, :loan_charge
+    get "/Customer/Loan/Collateral", LoanController, :loan_collateral
+    get "/Customer/Loan/Advance", LoanController, :loan_advance
+    get "/Customer/Loan/Schedule/Mapping", LoanController, :loan_sche_mapping
+    get "/Customer/Loan/Overdue", LoanController, :loan_overdue
     ########### END System Setting ROUTES #############
 
     get("/Companies", CompanyController, :companies)
@@ -98,8 +129,9 @@ defmodule LoanSystemWeb.Router do
     get("/view/product", CompanyController, :update_product)
     post("/view/product", CompanyController, :update_product)
     post("/edit/product", CompanyController, :update_product)
-
-
+    post "/Upload/Company", CompanyController, :handle_bulk_upload
+    get("/Admin/Portal/User", CompanyController, :portal_admin)
+    post "/Generate/Company/ID", CompanyController, :generate_company_id
     ########### END OF MAINTENANCE ROUTES #############
   end
 

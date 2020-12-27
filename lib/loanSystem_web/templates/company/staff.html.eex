@@ -1,20 +1,24 @@
 <!--                   ######          Staff table    -->
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
-            <h6 class="element-header">Staffs</h6>
+            <h6 class="element-header">
+              <%= @companies.company_name %> Staff
+            </h6>
             <div class="element-wrapper">
                 <div class="element-box">
+                 <button class="mr-2 mb-2 btn btn-primary btn-rounded"  style="float: right;" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Staff</button>
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded"  style="float: right;" data-target="#upload" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Bulk Upload</button>
                     <h5 class="form-header">
-                    Staff Table
+                    Maintain Staff
                     </h5>
-                    <div class="form-desc">
-                       <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Staff</button>
-                    </div>
 
-                <div class="table-responsive">
-                    <table id="dt-staff" width="100%" class="table table-striped table-lightfont">
-                       <input type="hidden" id="csrf" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                <thead>
+   <!--       ########################### STAFF TABLE ################################## -->
+
+                    <div class="table-responsive">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                       <table id="dt-staff" width="100%" class="table table-striped table-lightfont">
+                            
+                            <thead>
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
@@ -26,7 +30,7 @@
                                     <th>ID Type</th>
                                     <th>Company Name</th>
                                     <th>Action</th>
-                            </tr>
+                        </tr>
                             </thead>
                              <tbody>
                                <%= for staff <- @staff do %>
@@ -39,8 +43,20 @@
                                         <td><%= staff.address %></td>  
                                         <td><%= staff.id_no %></td>
                                         <td><%= staff.id_type   %></td>
-                                        <td><%= staff.company_name  %></td>  
+                                        <td><%= staff.tpin_no   %></td>
+                                        <td><%= staff.company_name  %></td> 
                                         <td>
+                                            <div class="btn-group mr-1 mb-1">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"> Disable</a>
+                                                </div>
+                                            </div>
+                                        </td> 
+                                         </tr>                               
+                                     <% end %>
 
                               <div class="btn-group mr-1 mb-1">
                                     <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Action</button>
@@ -48,15 +64,8 @@
                                         <a class="dropdown-item" href="#"  data-id="<%= staff.id %>" data-first_name="<%= staff.first_name %>" data-last_name="<%= staff.last_name %>" data-other_name="<%= staff.other_name %>" data-phone="<%= staff.phone %>" data-email="<%= staff.email %>" data-id_no="<%= staff.id_no %>" data-address ="<%= staff.address %>" data-tpin_no="<%= staff.tpin_no %>" data-id_type="<%= staff.id_type %>" data-company_name="<%= staff.company_name %>" data-company_id="<%= staff.company_id %>" data-country="<%= staff.country %>" data-city="<%= staff.city %>" data-toggle="modal" data-target="#view_modal">View</a>
                                         <a class="dropdown-item" href="#"  data-id="<%= staff.id %>" data-first_name="<%= staff.first_name %>" data-last_name="<%= staff.last_name %>" data-other_name="<%= staff.other_name %>" data-phone="<%= staff.phone %>" data-email="<%= staff.email %>" data-id_no="<%= staff.id_no %>" data-address ="<%= staff.address %>" data-tpin_no="<%= staff.tpin_no %>" data-id_type="<%= staff.id_type %>" data-company_name="<%= staff.company_name %>" data-company_id="<%= staff.company_id %>" data-country="<%= staff.country %>" data-city="<%= staff.city %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
                                        
-                                        
-                                        <%= if staff.status == true do %>
-                                            <a class="dropdown-item js-sweetalert2-disable"  style="color: #ff0000" data-id="<%= staff.id %>" >Disable</a>
-                                        <% else %>
-                                            <a class="dropdown-item enable"  style="color: #008000" data-id="<%= staff.id %>" >Enable</a>
-                                        <% end %>
                                     </td>
-                              </tr> 
-                              <% end %>                                                       
+                              </tr>                                                  
                            </tbody>
                     </table>
                 </div>
@@ -66,7 +75,7 @@
 </main>
   <!--       ########################### END OF STAFF TABLE ################################## -->
 
- <!--       ########################### EDIT STAFF ################################## -->
+                    <!--  ########################### END OF STAFF TABLE ################################## -->
 
 <div aria-hidden="true" class="onboarding-modal modal fade animated" id="edit_modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg" role="document">
@@ -409,20 +418,38 @@
 </div>
 
 <!--                           #########  View  STAFF ################-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ </div>
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload File</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <form enctype="multipart/form-data" action="<% Routes.company_path(@conn, :handle_bulk_upload)%>" method="POST">
+            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+            <div class="modal-body">
+                    <div class="panel-container show">
+                        <div class="panel-content">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fal fa-file"></i></span>
+                                </div>
+                                <input type="file" name="staff_file_nafme" class="form-control" required="required">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-themed">Upload</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -514,4 +541,3 @@ $(document).ready(function(){
     });
 });
 </script>
-

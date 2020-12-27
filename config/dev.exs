@@ -2,12 +2,13 @@ use Mix.Config
 
 # Configure your database
 config :loanSystem, LoanSystem.Repo,
-  username: "lindiwe",
-  password: "incorrect",
+  username: "probase",
+  password: "Password123$$",
   database: "loansystem_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
-  pool_size: 90
+  pool_size: 90,
+  queues: ["default"]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
