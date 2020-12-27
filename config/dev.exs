@@ -7,7 +7,8 @@ config :loanSystem, LoanSystem.Repo,
   database: "loansystem_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
-  pool_size: 90
+  pool_size: 90,
+  queues: ["default"]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

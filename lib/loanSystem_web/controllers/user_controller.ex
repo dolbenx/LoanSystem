@@ -201,10 +201,10 @@ defmodule LoanSystemWeb.UserController do
   end
 
   def dashboard(conn, _params) do
-    #users = Accounts.list_tbl_user_role()
+    users = Accounts.list_tbl_users()
     user = Accounts.get_user!(conn.assigns.user.id).id
-    # last_logged_in = Logs.last_logged_in(user)
-    render(conn, "dashboard.html", user: user)
+    last_logged_in = Logs.last_logged_in(user)
+    render(conn, "dashboard.html", users: users, last_logged_in: last_logged_in)
   end
 
   def user_actitvity(conn, %{"id" => user_id}) do

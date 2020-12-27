@@ -1,15 +1,15 @@
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
             <h6 class="element-header">
-               System Parameters
+               Company Configurations
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
                     <h5 class="form-header">
-                    System Params Table
+                    Company Config Table
                     </h5>
                     <div class="form-desc">
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Params</button>
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company Configs</button>
                     </div>
                     <!--------------------
                     START - Basic Table
@@ -18,16 +18,32 @@
                        <table id="dataTable1" width="100%" class="table table-striped table-lightfont">
                             <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Product Code</th>
-                                    <th>Currency</th>
-                                    <th>Details</th>
-                                    <th>Annual Intrest</th>
+                                    <th>Company Name</th>
+                                    <th>Company Description</th>
+                                    <th>Logo</th>
+                                    <th>Accounts</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                 <%= for systemparam <- @systemparams do %>
+                                    <tr>
+                                        <td><%= systemparam.name %></td>
+                                        <td><%= systemparam.code %></td>
+                                        <td><%= systemparam.url %></td> 
+                                        <td><%= systemparam.username %></td> 
+                                        <td>
+                                            <div class="btn-group mr-1 mb-1">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="#"> Disablw</a>
+                                                </div>
+                                            </div>
+                                        </td> 
+                                         </tr>
+                                    <% end %>
                             </tbody>
                         </table>
                     </div>
@@ -45,111 +61,49 @@
           <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
                 <div class="element-box">
-                    <form id="" action="" method="post">
+                    <form id="" action="<%= Routes.system_settings_path(@conn, :add_systemparams) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
                     <h5 class="form-header">
-                        Add Params
+                        Add Configuration
                     </h5>
                     <div class="form-desc">
-                       Please Add your Products
+                       Please Configure Your Company
                     </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Product Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
+                                    <label for=""> Company Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Product Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
+                                    <label for="">Company Description</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Description </label><input class="form-control" name="details" required="required" type="text">
+                                    <label for="">Company Logo </label><input class="form-control" name="url" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Currency</label><input class="form-control" name="currency" required="required" type="text">
+                                    <label for="">Company Accounts</label><input class="form-control" name="username" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Currency Decimals</label><input class="form-control" name="currency_decimals" placeholder="" required="required" type="text">
+                                    <label for=""> Company Code</label><input class="form-control" name="password" placeholder="" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Annual Interest</label><input class="form-control" name="annual_interest" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group ">
-                                    <label for=""> Fixed Period Days</label><input class="form-control" name="fixed_period_days" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" name="year_length_days" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Min Balance Required</label><input class="form-control" name="min_balance_required" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" name="year_length_days" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Amount</label><input class="form-control" name="withdrawal_fee_amount" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Transfer To Mobile</label><input class="form-control" name="withdrawal_fee_transfer_to_mobile" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Deposit Fee Amount</label><input class="form-control" name="deposit_fee_amount" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Inactive</label><input class="form-control" name="days_to_inactive" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Dormancy</label><input class="form-control" name="days_to_dormancy" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                     
@@ -175,107 +129,45 @@
                     <input type="hidden" id="client_id" name="client_id" value="21">
                     <input type="hidden" name="id" id="id" value="">
                     <h5 class="form-header">
-                        Update Product
+                        Update Params
                     </h5>
                     <div class="form-desc">
-                       Please Update your Products
+                       Please Update your Params
                     </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Product Name</label><input class="form-control" id="name" name="name" placeholder="Name" required="required" type="text">
+                                    <label for=""> System parma Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Product Code</label><input class="form-control" id="code" name="code" placeholder="Code" required="required" type="text">
+                                    <label for="">System parma Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Description </label><input class="form-control" id="details" name="details" required="required" type="text">
+                                    <label for="">URL </label><input class="form-control" name="url" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Currency</label><input class="form-control" id="currency" name="currency" required="required" type="text">
+                                    <label for="">Username</label><input class="form-control" name="username" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Currency Decimals</label><input class="form-control" id="currency_decimals" name="currency_decimals" placeholder="" required="required" type="text">
+                                    <label for=""> Password</label><input class="form-control" name="password" placeholder="" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Annual Interest</label><input class="form-control" id="annual_interest" name="annual_interest" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group ">
-                                    <label for=""> Fixed Period Days</label><input class="form-control" id="fixed_period_days" name="fixed_period_days" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" id="year_length_days" name="year_length_days" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Min Balance Required</label><input class="form-control" id="min_balance_required" name="min_balance_required" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" id="year_length_days" name="year_length_days" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Amount</label><input class="form-control" id="withdrawal_fee_amount" name="withdrawal_fee_amount" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Transfer To Mobile</label><input class="form-control" id="withdrawal_fee_transfer_to_mobile" name="withdrawal_fee_transfer_to_mobile" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Deposit Fee Amount</label><input class="form-control" id="deposit_fee_amount" name="deposit_fee_amount" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Inactive</label><input class="form-control" id="days_to_inactive" name="days_to_inactive" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Dormancy</label><input class="form-control" id="days_to_dormancy" name="days_to_dormancy" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                     
@@ -300,107 +192,45 @@
                     <input type="hidden" id="client_id" name="client_id" value="21">
                     <input type="hidden" name="id" id="id" value="">
                     <h5 class="form-header">
-                        View Product
+                        View Param
                     </h5>
                     <div class="form-desc">
-                       Product Details
+                       Param Details
                     </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Product Name</label><input class="form-control" id="name" name="name" placeholder="Name" required="required" readonly type="text">
+                                    <label for=""> System parma Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Product Code</label><input class="form-control" id="code" name="code" placeholder="Code" required="required" readonly type="text">
+                                    <label for="">System parma Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Description </label><input class="form-control" id="details" name="details" required="required" readonly type="text">
+                                    <label for="">URL </label><input class="form-control" name="url" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Currency</label><input class="form-control" id="currency" name="currency" required="required" readonly type="text">
+                                    <label for="">Username</label><input class="form-control" name="username" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Currency Decimals</label><input class="form-control" id="currency_decimals" name="currency_decimals" placeholder="" readonly required="required" type="text">
+                                    <label for=""> Password</label><input class="form-control" name="password" placeholder="" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Annual Interest</label><input class="form-control" id="annual_interest" name="annual_interest" required="required" readonly type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group ">
-                                    <label for=""> Fixed Period Days</label><input class="form-control" id="fixed_period_days" name="fixed_period_days" required="required" readonly type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" id="year_length_days" name="year_length_days" required="required" readonly type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Min Balance Required</label><input class="form-control" id="min_balance_required" name="min_balance_required" required="required" readonly type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Year Length Days</label><input class="form-control" id="year_length_days" name="year_length_days" required="required" readonly type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Amount</label><input class="form-control" id="withdrawal_fee_amount" name="withdrawal_fee_amount" required="required" readonly type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Withdrawal Fee Transfer To Mobile</label><input class="form-control" id="withdrawal_fee_transfer_to_mobile" name="withdrawal_fee_transfer_to_mobile" readonly required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Deposit Fee Amount</label><input class="form-control" id="deposit_fee_amount" name="deposit_fee_amount" required="required" type="text" readonly>
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Inactive</label><input class="form-control" id="days_to_inactive" name="days_to_inactive" required="required" type="text" readonly>
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Days To Dormancy</label><input class="form-control" id="days_to_dormancy" name="days_to_dormancy" required="required" type="text" readonly>
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                     </form>

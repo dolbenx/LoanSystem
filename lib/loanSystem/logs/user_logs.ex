@@ -7,7 +7,7 @@ defmodule LoanSystem.Logs.UserLogs do
    # field :user_id, :string
 
     belongs_to :user, LoanSystem.Accounts.User, foreign_key: :user_id, type: :id
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

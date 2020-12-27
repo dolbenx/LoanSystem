@@ -6,12 +6,10 @@
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
+                 <a class="mr-2 mb-2 btn btn-primary btn-rounded" href="#" id="com_id" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</a>
                     <h5 class="form-header">
                     Companies Table
                     </h5>
-                    <div class="form-desc">
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</button>
-                    </div>
 
    <!--       ########################### COMPANY TABLE ################################## -->
 
@@ -29,7 +27,7 @@
                                     <th>Tpin #</th>
                                     <th>Date of incorporation</th>
                                     <th>country</th>
-                                    <th>City</th>
+                                    <th>Action</th>
                         </tr>
                             </thead>
                             <tbody>
@@ -44,7 +42,18 @@
                                         <td><%= company.tpin_no %></td>
                                         <td><%= company.date_of_incorporation   %></td>
                                         <td><%= company.country  %></td>  
-                                        <td><%= company.city  %></td> 
+                                        <td>
+                                            <div class="btn-group mr-1 mb-1">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :staff, company_id: company.company_id)%>"> Add Staff</a>
+                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin)%>"> Add Admin</a>
+                                                <a class="dropdown-item" href="#"> Disable</a>
+                                                </div>
+                                            </div>
+                                        </td> 
                                          </tr>
                                     <% end %>
                             </tbody>
@@ -61,7 +70,7 @@
  <!--       ########################### ADD COMPANY ################################## -->
 
 
-<div aria-hidden="true" class="onboarding-modal modal fade animated" id="onboardingWideFormModal" role="dialog" tabindex="-1">
+<div aria-hidden="true" class="onboarding-modal modal fade animated" id="add-client" role="dialog" tabindex="-1">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content text-center">
           <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
@@ -69,7 +78,8 @@
                 <div class="element-box">
                     <form id="" action="<%= Routes.company_path(@conn, :add_company) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="client_id" value="21">
+                    <input type="hidden" name="company_file_name" value="asasas">
+                    <input type="hidden" name="company_id" id="companies_id">
                     <h5 class="form-header">
                         Add Company
                     </h5>
@@ -96,12 +106,6 @@
                                     <label for="">Email</label><input class="form-control" name="email" placeholder="Email" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Company ID</label><input class="form-control" name="company_id" placeholder="Company ID" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -149,100 +153,8 @@
       </div>
     </div>
 
- <!--       ########################### END OF ADD COMPANY ################################## -->
-
-
-
-<%# <!--       ########################### VIEW COMPANY DETAILS################################## -->
-
-<div class="modal fade" id="view_modal"  tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title text-black"><i class='subheader-icon fal fa-lock-alt'></i>
-                                    Company 
-                                </h4>
-                                <button type="button" class="close text-black" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                </button>
-                            </div>
-
-    <div class="modal-body">
-    <!--   replace add_company with update for editing  -->
-                <form action="<%= Routes.company_path(@conn, :add_company) %>" method="POST" id="company_form_data">
-                    <%# <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                        <!-- FORM CONTENT -->
-    <%# <div class="panel-content">
-            <div class="container">
-                <div class="panel-content">
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                            <label class="form-label" for="">Company Name <span class="text-danger">*</span> </label>
-                                <input type="hidden" name="id" id="id">
-                                <input type="text" name="company_name" class="form-control" id="company_name"  disabled>
-                                <div class="valid-tooltip">
-                                   
-                            </div>
-                        </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label" for="">company rep <span class="text-danger">*</span></label>
-                                <input type="text" name="company_rep" class="form-control" id="company_rep" disabled>
-                                <div class="valid-tooltip">
-                                </div>
-                        </div>
-
-                    <div class="col-md-6 mb-3">
-                                    <label class="form-label" for="">Tpin No <span class="text-danger">*</span> </label>
-                                    <input type="text" name="tpin_no" class="form-control" id="tpin_no" disabled>
-                                    <div class="valid-tooltip">
-                                       
-                            </div>
-                        </div>
-
-                    <div class="col-md-6 mb-3">
-                                <label class="form-label" for="">Email <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                                    </div>
-                                    <input type="text" name="email" class="form-control" id="email" aria-describedby="inputGroupPrepend2" disabled>
-                                    <div class="invalid-tooltip">
-                                       
-                                </div>
-                            </div>
-                        </div>
-                        
-                    <div class="col-md-6 mb-3">
-                                <label class="form-label" for="">City <span class="text-danger">*</span></label>
-                                    <input type="text" name="city" class="form-control" id="city" disabled>
-                                    <div class="invalid-tooltip">
-                                  </div>
-                            </div>  
-                        </div>
-                       
-                        <br><br><br><br>
-                        <div class="center" > 
-                            <button type="button" class="btn btn-outline-danger waves-effect waves-themed" position="center" data-dismiss="modal">Close</button>
-                        </div>                               
-                        </div>
-                            <br><br>
-                    
-                            </div>
-                        </div>
-                    </form>
-                    <!------------------>
-                </div> 
-            </div>
-        </div>
  </div>
-   %> %>
-<!--       ############################## END OF VIEW COMPANY DETAILS ################################## --> %>
 
-
-
-
- </div>
 
 
 
@@ -252,30 +164,34 @@
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="<%= Routes.static_path(@conn, "/js/jquery.js") %>"></script>
-<script src="<%= Routes.static_path(@conn, "/js/notifications/sweetalert2/sweetalert2.bundle.js") %>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/dist/parsley.js"></script>
 
+ <script>
+    $('#com_id').on('click', function (event){
+        var modal= $("#add-client");
+        var acc= ""
+        $.ajax({
+            url: '/Generate/Company/ID',
+            type: 'POST',
+            data: {_csrf_token: $('#csrf').val()},
+            success: function(result) {
+                if (result.account){
+                    acc = result.account
+                    modal.find('#companies_id').val(acc);
+                    modal.modal("show")
+                } else {
+                    modal.find('#companies_id').val("error");
+                    modal.modal("show")
+                }
+            },
+            error: function(request, msg, error) {
+                modal.find('#companies_id').val("error 2");
+                modal.modal("show")
+            }
+        })
 
-<script>
-   $(document).ready(function(){
-   //View Company details
-    $('body').on('click', '.view_modal', function(e){
-        e.preventDefault()
-        let id = $(this).attr('id')
-        let company_name = $(this).attr('company_name')
-        let company_rep = $(this).attr('company_rep')
-        let tpin_no = $(this).attr('tpin_no')
-        let email = $(this).attr('email')
-        let city = $(this).attr('city')
-         $('#company_form_data')[0][1].value = id
-         $('#company_form_data')[0][2].value = company_name 
-         $('#company_form_data')[0][3].value = company_rep
-         $('#company_form_data')[0][4].value = tpin_no
-         $('#company_form_data')[0][5].value = email
-         $('#company_form_data')[0][6].value = city
-         
-             console.log( $('#company_form_data'))
-
-        });
-   })
+    });
 </script>

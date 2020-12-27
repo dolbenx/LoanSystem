@@ -1,3 +1,7 @@
+mix phx.gen.context Accounts User tbl_users title:string first_name:string last_name:string email:string password:string user_type:integer user_role:string status:integer auto_password:string sex:string age:integer id_type:string id_no:string phone:string address:string creator_id:integer acc_inactive_reason:string last_modified_by:string created_by:string loan_officer:integer
+
+mix phx.gen.context Accounts UserRoles tbl_user_role created_by:string role_description:string role_name:string user_id:string 
+
 mix phx.gen.context Companies Company tbl_companies email phone company_name tpin_no city country date_of_incorporation company_id address
 
 mix phx.gen.context Companies_staff Staff tbl_staff first_name last_name other_name email phone company_name tpin_no city country company_id address id_no id_type
@@ -5,6 +9,21 @@ mix phx.gen.context Companies_staff Staff tbl_staff first_name last_name other_n
 mix phx.gen.context Products Product tbl_products name code details currency currency_decimals annual_interest fixed_period_days year_length_days min_balance_required withdrawal_fee_amount withdrawal_fee_transfer_to_mobile deposit_fee_amount days_to_inactive days_to_dormancy
 
 mix phx.gen.context Accounts Old_password tbl_old_password date_created email password
+
+mix phx.gen.context Settings Mno tbl_mnos name code url username password
+
+mix phx.gen.context Settings Bank tbl_banks name code url username password
+
+mix phx.gen.context Settings SystemParams tbl_system_params company_name company_description code company_logo 
+
+mix phx.gen.context System_Directories Directory tbl_system_directories failed processed bulk_trns esb_complete esb_download esb_failed esb_pending internet_trns inwards outwards errors auth_status modification reason
+
+mix ecto.gen.migration alter_tbl_staff
+
+
+
+
+
 
 mix phx.gen.context Branch Branchs tbl_branchs branch_name:string branch_address:string branch_province:string branch_district:string parent_branch_id:integer opening_date:date
 

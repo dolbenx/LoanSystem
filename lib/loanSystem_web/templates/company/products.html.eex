@@ -36,10 +36,10 @@
                                     <th>Year length days </th>
                                     <th>Min balance required</th>
                                     <th>Withdrawal fee amount</th>
-                                    <th>withdrawal fee transfer to mobile</th>
                                     <th>Deposit fee amount</th>
                                     <th>Days to inactive</th>
                                     <th>Days to dormancy</th>
+                                    <th>Action</th>
                         </tr>
                            </thead>                    
                             <tbody>
@@ -54,9 +54,18 @@
                                         <td><%= product.fixed_period_days %></td>
                                         <td><%= product.year_length_days  %></td>
                                         <td><%= product.min_balance_required   %></td>
-                                        <td><%= product.withdrawal_fee_amount  %></td>  
                                         <td><%= product.days_to_inactive  %></td> 
                                        <td><%= product.days_to_dormancy  %></td> 
+                                        <td>
+                                            <div class="btn-group mr-1 mb-1">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"> Disable</a>
+                                                </div>
+                                            </div>
+                                        </td>
                                          </tr>                               
                                      <% end %>
 
@@ -85,7 +94,7 @@
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
                     <h5 class="form-header">
-                        Add Product
+                        Add Loan Product
                     </h5>
                     <div class="form-desc">
                        Please Add Product

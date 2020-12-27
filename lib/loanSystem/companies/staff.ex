@@ -8,7 +8,7 @@ defmodule LoanSystem.Companies.Staff do
     field :company_id, :string
     field :company_name, :string
     field :country, :string
-    field :email, :string, null: false
+    field :email, :string
     field :first_name, :string
     field :id_no, :string
     field :id_type, :string
@@ -16,6 +16,7 @@ defmodule LoanSystem.Companies.Staff do
     field :other_name, :string
     field :phone, :string
     field :tpin_no, :string
+    field :staff_file_name, :string
 
     timestamps()
   end
@@ -23,7 +24,7 @@ defmodule LoanSystem.Companies.Staff do
   @doc false
   def changeset(staff, attrs) do
     staff
-    |> cast(attrs, [:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type])
-    |> validate_required([:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type])
+    |> cast(attrs, [:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type, :staff_file_name])
+   # |> validate_required([:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type, :staff_file_name])
   end
 end

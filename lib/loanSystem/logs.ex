@@ -21,6 +21,18 @@ defmodule LoanSystem.Logs do
     Repo.all(UserLogs)
   end
 
+  def last_logged_in (log) do
+    Repo.all(
+      from(
+        u in UserLogs,
+        where: u.activity == "logged in" and u.user_id == ^log,
+        select: u,
+        order_by: [desc: u.inserted_at],
+        limit: 2
+      )
+    )
+  end
+
   @doc """
   Gets a single user_logs.
 

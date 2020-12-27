@@ -1,6 +1,7 @@
 defmodule LoanSystem.Accounts.Old_password do
   use Ecto.Schema
   import Ecto.Changeset
+  use Endon
 
   schema "tbl_old_password" do
     field :date_created, :string
@@ -14,7 +15,7 @@ defmodule LoanSystem.Accounts.Old_password do
   @doc false
   def changeset(old_password, attrs) do
     old_password
-    |> cast(attrs, [:date_created, :email, :password])
-    |> validate_required([:date_created, :email, :password])
+    |> cast(attrs, [:date_created, :email, :password, :user_id])
+    # |> validate_required([:date_created, :email, :password])
   end
 end

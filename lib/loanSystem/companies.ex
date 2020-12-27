@@ -29,6 +29,16 @@ defmodule LoanSystem.Companies do
   """
   def get_company!(id), do: Repo.get!(Company, id)
 
+  def comp_id(company_id) do
+    Company
+    |> where([a], a.company_id == ^company_id)
+    |> select(
+      [a],
+      map(a, [:company_id, :company_id, :company_name])
+    )
+    |> Repo.one()
+ end
+
   @doc """
   Creates a company.
   ## Examples
@@ -89,6 +99,25 @@ defmodule LoanSystem.Companies do
   """
   def list_tbl_staff do
     Repo.all(Staff)
+  end
+
+  def list_stuff_with_company_id(company_id) do
+    Company
+    |> join(:left, [c], s in "tbl_staff", on: c.company_id == s.company_id)
+    |> where([c, s], c.company_id == ^company_id)
+    |> select([c, s], %{
+      company_name: c.company_name,
+      first_name: s.first_name,
+      last_name: s.last_name,
+      other_name: s.other_name,
+      email: s.email,
+      phone: s.phone,
+      address: s.address,
+      id_no: s.id_no,
+      id_type: s.id_type,
+      tpin_no: s.tpin_no
+    })
+    |> Repo.all()
   end
 
   @doc """

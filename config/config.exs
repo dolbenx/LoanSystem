@@ -10,6 +10,25 @@ use Mix.Config
 config :loanSystem,
   ecto_repos: [LoanSystem.Repo]
 
+# Email Config
+config :loanSystem, LoanSystem.Emails.Mailer,
+adapter: Bamboo.SMTPAdapter,
+server: "smtp.gmail.com", #smtp.office365.com
+port: 587,
+# or {:system, "SMTP_USERNAME"}
+username: "johnmfula360@gmail.com",
+# or {:system, "SMTP_PASSWORD"}
+password: "john@360d",
+# can be `:always` or `:never`
+tls: :if_available,
+allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
+# can be `true`
+ssl: false,
+retries: 2
+
+# config :loanSystem, LoanSystem.Mailer,
+#   adapter: Bamboo.LocalAdapter
+
 # Configures the endpoint
 config :loanSystem, LoanSystemWeb.Endpoint,
   url: [host: "localhost"],
