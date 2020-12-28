@@ -55,7 +55,7 @@
                                             <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu" style="">
                                                 <a type="button" class="dropdown-item" href="#"  data-id="<%= product.id %>" data-name="<%= product.name %>" data-code="<%= product.code %>" data-currency="<%= product.currency %>" data-currency_decimals="<%= product.currency_decimals %>" data-details ="<%= product.details %>" data-min_balance_required="<%= product.min_balance_required %>" data-annual_interest="<%= product.annual_interest %>" data-withdrawal_fee_amount="<%= product.withdrawal_fee_amount %>" data-withdrawal_fee_transfer_to_mobile="<%= product.withdrawal_fee_transfer_to_mobile %>" data-deposit_fee_amount="<%= product.deposit_fee_amount %>" data-fixed_period_days="<%= product.fixed_period_days %>" data-year_length_days="<%= product.year_length_days %>" data-days_to_inactive="<%= product.days_to_inactive %>" data-days_to_dormancy="<%= product.days_to_dormancy %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
                                                
-                                        <%= if product.status == true do %>
+                                        <%= if product.status == ACTIVE do %>
                                             <a class="dropdown-item js-sweetalert2-disable"  style="color: #ff0000" data-id="<%= product.id %>" >Disable</a>
                                         <% else %>
                                             <a class="dropdown-item enable"  style="color: #008000" data-id="<%= product.id %>" >Enable</a>
@@ -86,6 +86,7 @@
                     <form id="" action="<%= Routes.company_path(@conn, :add_product) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
+                    <input type="hidden" name="status" value="ACTIVE">
                     <h5 class="form-header">
                         Add Loan Product
                     </h5>

@@ -119,6 +119,16 @@ defmodule LoanSystemWeb.Router do
     post("Companies", CompanyController, :add_company)
     post("Staff", CompanyController, :add_staff)
     post("/Add/Products", CompanyController, :add_product)
+    get("/edit/Companies", CompanyController, :update_company)
+    post("/edit/Companies", CompanyController, :update_company)
+    post("/view/Companies", CompanyController, :update_company)
+    get("/view/staff", CompanyController, :update_staff)
+    post("/view/staff", CompanyController, :update_staff)
+    post("/edit/staff", CompanyController, :update_staff)
+    post("/Companies/disable", CompanyController, :disable)
+    get("/view/product", CompanyController, :update_product)
+    post("/view/product", CompanyController, :update_product)
+    post("/edit/product", CompanyController, :update_product)
     post "/Upload/Company", CompanyController, :handle_bulk_upload
     get("/Admin/Portal/User", CompanyController, :portal_admin)
     post "/Generate/Company/ID", CompanyController, :generate_company_id

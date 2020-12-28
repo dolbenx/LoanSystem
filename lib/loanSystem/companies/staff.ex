@@ -25,6 +25,6 @@ defmodule LoanSystem.Companies.Staff do
   def changeset(staff, attrs) do
     staff
     |> cast(attrs, [:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type, :staff_file_name])
-   # |> validate_required([:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type, :staff_file_name])
+    #|> validate_required([:first_name, :last_name, :other_name, :email, :phone, :company_name, :tpin_no, :city, :country, :company_id, :address, :id_no, :id_type, :staff_file_name])
   end
 end

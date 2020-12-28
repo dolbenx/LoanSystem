@@ -215,6 +215,23 @@
                 <span>Dashboad</span></a>
             </li>
             <li class="sub-header">
+              <span>Maintenance</span>
+            </li>
+            <li class="">
+              <a href="<%= Routes.company_path(@conn, :companies)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-cv-2"></div>
+                </div>
+                <span>Client Management</span></a>
+            </li>
+             <li class="">
+               <a href="<%= Routes.company_path(@conn, :products)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wallet-loaded"></div>
+                </div>
+                <span>Product Setup</span></a>
+            </li>
+            <li class="sub-header">
               <span>Loans</span>
             </li>
             <li class="has-sub-menu">
@@ -248,31 +265,11 @@
                       <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
                     </li>
                     <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_sche_mapping)%>">Loan Scheduling Mapping</a>
-                    </li>
-                    <li>
                       <a href="<%= Routes.loan_path(@conn, :loan_overdue)%>">Loan Overdue</a>
                     </li>
                   </ul>
                 </div>
               </div>
-            </li>
-            <li class="sub-header">
-              <span>Maintenance</span>
-            </li>
-            <li class="">
-              <a href="<%= Routes.company_path(@conn, :companies)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-cv-2"></div>
-                </div>
-                <span>Client Management</span></a>
-            </li>
-             <li class="">
-               <a href="<%= Routes.company_path(@conn, :products)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
-                </div>
-                <span>Product Setup</span></a>
             </li>
             <li class="sub-header">
               <span>Reports</span>
@@ -294,20 +291,6 @@
             <li class="sub-header">
               <span>Settings</span>
             </li>
-            <li class="">
-              <a href="<%= Routes.system_settings_path(@conn, :mno)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-wifi"></div>
-                </div>
-                <span>MNO</span></a>
-            </li>
-            <li class="">
-              <a href="<%= Routes.system_settings_path(@conn, :bank)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-coins-4"></div>
-                </div>
-                <span>Bank</span></a>
-            </li>
              <li class="">
               <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
                 <div class="icon-w">
@@ -321,6 +304,28 @@
                   <div class="os-icon os-icon-users"></div>
                 </div>
                 <span>User Management</span></a>
+            </li>
+            <li class="has-sub-menu">
+              <a href="#">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-wallet-loaded"></div>
+                </div>
+                <span>Intergrations</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                 Intergrations Menu
+                </div>
+                <div class="sub-menu-icon">
+                  <i class="os-icon os-icon-layers"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="<%= Routes.loan_path(@conn, :loan)%>">MNO</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </li>
           </ul>
           <div class="side-menu-magic">

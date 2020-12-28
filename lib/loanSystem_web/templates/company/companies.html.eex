@@ -46,8 +46,9 @@
                                             <div class="btn-group mr-1 mb-1">
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
                                                 <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"> View</a>
-                                                <a class="dropdown-item" href="#"> View</a>
+                                                <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#Edit_modal">Edit</a>
+                                                <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
+                                        
                                                 <a class="dropdown-item" href="<%= Routes.company_path(@conn, :staff, company_id: company.company_id)%>"> Add Staff</a>
                                                 <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin)%>"> Add Admin</a>
                                                 <a class="dropdown-item" href="#"> Disable</a>
@@ -67,7 +68,7 @@
         </div>
 </main>
 
- <!--       ########################### ADD COMPANY ################################## -->
+
 
 
 <div aria-hidden="true" class="onboarding-modal modal fade animated" id="add-client" role="dialog" tabindex="-1">
@@ -156,18 +157,204 @@
  </div>
 
 
+ <!--       ########################### END OF ADD COMPANY ################################## -->
 
 
+<!--       ########################### VIEW COMPANY DETAILS################################## -->
 
 
-  <!--       ########################### js CODES ################################## -->
-
+<div aria-hidden="true" class="onboarding-modal modal fade animated" id="view_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content text-center">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <div class="element-wrapper">
+                <div class="element-box">
+                    <div class="modal-header">
+                
+                        <div class="modal-body">
+    
+                            <form action="<%= Routes.company_path(@conn, :update_company) %>" method="POST" id="view_modal">
+                                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                        <!-- FORM CONTENT -->
+                                <h5 >
+                                        Company details
+                                </h5><br>
+                                <div class="panel-content">
+                                    <div class="container">
+                                        <div class="panel-content">       
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                            <label for="">Company Name</label>
+                                                            <input class="form-control" name="company_name" id="company_name" disabled>
+                                                            <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                        <div class="col-sm-6">
+                                                                <label for=">phone</label>
+                                                                <input class="form-control" name="phone" id="phone" disabled>
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                                </div>  
+                                                         </div>                      
+                                                            <div class="col-sm-6">
+                                                                <label for="">Email</label>
+                                                                <input class="form-control" name="email" id="email" disabled>
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>       
+                                                            <div class="col-sm-6">
+                                                                <label for="">phone</label>
+                                                                <input class="form-control" name="phone" id="phone"  disabled>
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>  
+                                                            <div class="col-sm-6">                                    
+                                                                <label for="">Company ID</label>
+                                                                <input class="form-control" name="company_id" id="company_id"  disabled>
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">                                    
+                                                                <label for="">Address</label>
+                                                                <input class="form-control" name="address" id="address"  disabled>
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Tpin #</label>
+                                                                <input class="form-control" name="tpin_no" id="tpin_no"  disabled>
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Date of incorporation</label>
+                                                                <input class="form-control" name="date_of_incorporation" id="date_of_incorporation"  disabled>
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Country</label>
+                                                                <input class="form-control" name="country" id="country"  disabled>
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">City</label>
+                                                                <input class="form-control" name="city" id="city"  disabled>
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                        </div>   
+                                                    </div>                                                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                        
+                            </form>
+                            <br> <br>
+                            <div class="center" > <br>
+                                <button type="button" class="btn btn-outline-danger waves-effect waves-themed" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<!--       ############################## END OF VIEW COMPANY DETAILS ################################## -->
+<div aria-hidden="true" class="onboarding-modal modal fade animated" id="Edit_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content text-center">
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <div class="element-wrapper">
+                <div class="element-box">
+                    <div class="modal-header">z
+                
+                        <div class="modal-body">
+    
+                            <form action="<%= Routes.company_path(@conn, :update_company) %>" method="POST" id="Edit_modal">
+                                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                  <input type="hidden" name="client_id" value="21">
+                                        <!-- FORM CONTENT -->
+                                <h5 >
+                                       Edit Company details
+                                </h5><br>
+                                <div class="panel-content">
+                                    <div class="container">
+                                        <div class="panel-content">       
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label for="">Company Name</label>
+                                                    <input class="form-control" name="company_name" id="company_name" type="text">
+                                                    <input type="hidden" name="id" id="id">
+                                                            <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            <div class="col-sm-6">
+                                                                <label for=">phone</label>
+                                                                <input class="form-control" name="phone" id="phone">
+                                                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                                    </div>  
+                                                                  </div>                      
+                                                            <div class="col-sm-6">
+                                                                <label for="">Email</label>
+                                                                <input class="form-control" name="email" id="email">
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">phone</label>
+                                                                <input class="form-control" name="phone" id="phone">
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>  
+                                                            <div class="col-sm-6">                                    
+                                                                <label for="">Company ID</label>
+                                                                <input class="form-control" name="company_id" id="company_id" >
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">                                    
+                                                                <label for="">Address</label>
+                                                                <input class="form-control" name="address" id="address" >
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Tpin #</label>
+                                                                <input class="form-control" name="tpin_no" id="tpin_no">
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Date of incorporation</label>
+                                                                <input class="form-control" name="date_of_incorporation" id="date_of_incorporation">
+                                                                <div class="help-block form-text text-muted form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">Country</label>
+                                                                <input class="form-control" name="country" id="country">
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="">City</label>
+                                                                <input class="form-control" name="city" id="city">
+                                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                                            </div>
+                                                        </div>   
+                                                    </div>                                                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                        
+                            
+                            <br> <br>
+                            <div class="center" > <br>
+                                <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/dist/parsley.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
+
 
  <script>
     $('#com_id').on('click', function (event){
@@ -194,4 +381,62 @@
         })
 
     });
+</script>
+
+<script>
+$(document).ready(function(){
+//view company details
+    $('#view_modal').on('show.bs.modal', function (event){
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var company_name = button.data('company_name')
+            var phone = button.data('phone')
+            var email = button.data('email')
+            var company_id = button.data('company_id')
+            var address = button.data('address')
+            var tpin_no = button.data('tpin_no')
+            var date_of_incorporation = button.data('date_of_incorporation')
+            var country = button.data('country')
+            var city = button.data('city')
+              
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #company_name').val(company_name);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #email').val(email);
+            modal.find('.modal-body #company_id').val(company_id);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #tpin_no').val(tpin_no);
+            modal.find('.modal-body #date_of_incorporation').val(date_of_incorporation);
+            modal.find('.modal-body #country').val(country);
+            modal.find('.modal-body #city').val(city);
+           
+    });
+    $('#Edit_modal').on('show.bs.modal', function (event){
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var company_name = button.data('company_name')
+            var phone = button.data('phone')
+            var email = button.data('email')
+            var company_id = button.data('company_id')
+            var address = button.data('address')
+            var tpin_no = button.data('tpin_no')
+            var date_of_incorporation = button.data('date_of_incorporation')
+            var country = button.data('country')
+            var city = button.data('city')
+              
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #company_name').val(company_name);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #email').val(email);
+            modal.find('.modal-body #company_id').val(company_id);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #tpin_no').val(tpin_no);
+            modal.find('.modal-body #date_of_incorporation').val(date_of_incorporation);
+            modal.find('.modal-body #country').val(country);
+            modal.find('.modal-body #city').val(city);
+           
+    });
+});
 </script>

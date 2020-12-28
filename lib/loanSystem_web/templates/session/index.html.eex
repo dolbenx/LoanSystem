@@ -36,11 +36,11 @@
                         <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
                             <div class="row">   
                                 <div class="col col-md-6 col-lg-7 hidden-sm-down">
-                                    <h1 id="app-name">Loan System</h1>
+                                    <h1 id="app-name">Chikwama Loan System</h1>
 
                                     <h2 class="fs-xxl fw-500 mt-4 text-white">
                                         <small id="login-content">
-                                            Loan Mangement system is an online loan system management system, Easy to use and secure. Manage borrowers, loans, repayments, and reports.
+                                           Chikwama Loan Mangement system is an online loan system management system, Easy to use and secure. Manage borrowers, loans, repayments, and reports.
                                         </small>
                                     </h2>
 
