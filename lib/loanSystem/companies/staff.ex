@@ -16,7 +16,6 @@ defmodule LoanSystem.Companies.Staff do
     field :other_name, :string
     field :phone, :string
     field :tpin_no, :string
-    field :status, :boolean, default: true
     field :staff_file_name, :string
 
     timestamps()

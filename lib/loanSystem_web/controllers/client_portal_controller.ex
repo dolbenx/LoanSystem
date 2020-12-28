@@ -43,6 +43,7 @@ defmodule LoanSystemWeb.ClientPortalController do
   end
 
   def register_staff(conn, _params) do
+
 		render(conn, "register_staff.html")
   end
 

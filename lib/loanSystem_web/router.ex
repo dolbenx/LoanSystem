@@ -114,11 +114,11 @@ defmodule LoanSystemWeb.Router do
     ########### END System Setting ROUTES #############
 
     get("/Companies", CompanyController, :companies)
-    get("/staff", CompanyController, :staff)
-    get("/products", CompanyController, :products)
+    get("/Staff", CompanyController, :staff)
+    get("/Products", CompanyController, :products)
     post("Companies", CompanyController, :add_company)
-    post("staff", CompanyController, :add_staff)
-    post("/add/products", CompanyController, :add_product)
+    post("Staff", CompanyController, :add_staff)
+    post("/Add/Products", CompanyController, :add_product)
     get("/edit/Companies", CompanyController, :update_company)
     post("/edit/Companies", CompanyController, :update_company)
     post("/view/Companies", CompanyController, :update_company)
@@ -132,6 +132,7 @@ defmodule LoanSystemWeb.Router do
     post "/Upload/Company", CompanyController, :handle_bulk_upload
     get("/Admin/Portal/User", CompanyController, :portal_admin)
     post "/Generate/Company/ID", CompanyController, :generate_company_id
+    post("/Create/User", UserController, :create_user)
     ########### END OF MAINTENANCE ROUTES #############
   end
 

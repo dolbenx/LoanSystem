@@ -63,7 +63,7 @@
                 <div class="element-box">
                     <form id="" action="<%= Routes.system_settings_path(@conn, :add_systemparams) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="client_id" value="21">
+                    <input type="hidden" name="tpin_no" value="21023923">
                     <h5 class="form-header">
                         Add Configuration
                     </h5>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Company Description</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
+                                    <label for="">Pacra Registration Number</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
@@ -99,7 +99,14 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Company Code</label><input class="form-control" name="password" placeholder="" required="required" type="text">
+                                    <label for=""> Address</label><input class="form-control" name="password" placeholder="" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for=""> Phone Number</label><input class="form-control" name="password" placeholder="" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>

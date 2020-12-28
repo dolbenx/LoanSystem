@@ -19,6 +19,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblProducts do
       add :days_to_dormancy, :string
       add :status, :boolean, default: true
 
+
       timestamps()
     end
 
