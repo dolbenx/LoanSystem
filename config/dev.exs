@@ -4,7 +4,7 @@ use Mix.Config
 config :loanSystem, LoanSystem.Repo,
   username: "probase",
   password: "Password123$$",
-  database: "loansystem_dev",
+  database: "loansystem_dev_ussd1",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 90,

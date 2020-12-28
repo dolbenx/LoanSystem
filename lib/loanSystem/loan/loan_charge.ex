@@ -15,7 +15,7 @@ defmodule LoanSystem.Loan.LoanCharge do
     field :charge_id, :integer
     field :charge_payment_mode_enum, :string
     field :charge_time_enum, :string
-    field :due_for_collection_as_of_date, :string
+    field :due_for_collection_as_of_date, :date
     field :is_active, :boolean, default: false
     field :is_paid_derived, :boolean, default: false
     field :is_penalty, :boolean, default: false

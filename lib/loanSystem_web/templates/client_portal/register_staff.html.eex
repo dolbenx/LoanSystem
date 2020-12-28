@@ -6,6 +6,24 @@
         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
     </ol>
     <div class="row">
+        <div class="col-md-12 col-lg-offset-2">
+            <div class="form-group">
+                <%= if get_flash(@conn, :info) do %>
+                    <div class="alert alert-success alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    <%= get_flash(@conn, :info) %>
+                    </div>
+                <% end %>
+                <%= if get_flash(@conn, :error) do %>
+                    <div class="alert alert-danger alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    Oops! <%= get_flash(@conn, :error) %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="row">
                 <div class="col-lg-12 col-xl-9 order-lg-3 order-xl-2">
                     <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
@@ -24,44 +42,22 @@
                                                 <thead>
                                                     <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 185px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Staff Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 279px;" aria-label="Position: activate to sort column ascending">Company Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 137px;" aria-label="Office: activate to sort column ascending">Amount</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 69px;" aria-label="Age: activate to sort column ascending">Intrest</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 125px;" aria-label="Start date: activate to sort column ascending">Loan date</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 107px;" aria-label="Salary: activate to sort column ascending">Date Schedule</th></tr>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 279px;" aria-label="Position: activate to sort column ascending">Phone</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 137px;" aria-label="Office: activate to sort column ascending">ID</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 69px;" aria-label="Age: activate to sort column ascending">Address</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 125px;" aria-label="Start date: activate to sort column ascending">Email</th></tr>
                                                 </thead>
                                                 <tbody>
-                                                    
-                                                <tr role="row" class="odd">
-                                                        <td tabindex="0" class="sorting_1">Airi Satou</td>
-                                                        <td>Accounts LTD</td>
-                                                        <td>500</td>
-                                                        <td>33</td>
-                                                        <td>2008/11/28</td>
-                                                        <td>2008/11/28</td>
-                                                    </tr><tr role="row" class="even">
-                                                        <td class="sorting_1" tabindex="0">Angelica Ramos</td>
-                                                        <td>Probase</td>
-                                                        <td>700</td>
-                                                        <td>47</td>
-                                                        <td>2009/10/09</td>
-                                                        <td>2009/10/09</td>
-                                                    </tr><tr role="row" class="odd">
-                                                        <td tabindex="0" class="sorting_1">Ashton Cox</td>
-                                                        <td>Junior Technical Institution</td>
-                                                        <td>7000</td>
-                                                        <td>66</td>
-                                                        <td>2009/01/12</td>
-                                                        <td>2009/01/12</td>
-                                                    </tr><tr role="row" class="even">
-                                                        <td class="sorting_1" tabindex="0">Bradley Greer</td>
-                                                        <td>Engineer Of Zambia</td>
-                                                        <td>290</td>
-                                                        <td>41</td>
-                                                        <td>2012/10/13</td>
-                                                        <td>2012/10/13</td>
-                                                    </tr>
-                                                    </tbody>
+                                                    <%= for staffs <- @staff do %>
+                                                        <tr>
+                                                            <td><%= staffs.first_name %> <%= staffs.last_name %></td>
+                                                            <td><%= staffs.phone  %></td>
+                                                            <td><%= staffs.id_no %></td>  
+                                                            <td><%= staffs.address %></td>
+                                                            <td><%= staffs.email   %></td>
+                                                        </tr>
+                                                    <% end %>
+                                                </tbody>
                                             </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="dt-basic-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="dt-basic-example_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="dt-basic-example_previous"><a href="#" aria-controls="dt-basic-example" data-dt-idx="0" tabindex="0" class="page-link"><i class="fal fa-chevron-left"></i></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="dt-basic-example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="dt-basic-example_next"><a href="#" aria-controls="dt-basic-example" data-dt-idx="7" tabindex="0" class="page-link"><i class="fal fa-chevron-right"></i></a></li></ul></div></div></div></div>
                                             <!-- datatable end -->
                                         </div>
@@ -123,51 +119,106 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form id="" action="<%= Routes.client_portal_path(@conn, :add_staff) %>" method="post">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" name="company_id" value="344333443">
+                    <input type="hidden" name="tpin_no" value="344333443">
+                    <input type="hidden" name="account_no" value="344333443">
+                    <input type="hidden" name="branch_id" value="344333443">
+                    <input type="hidden" name="staff_file_name" value="null">
                     <div class="panel-container show">
                         <div class="panel-content">
-                            <div class="form-group">
-                                <label class="form-label" for="name-f">Company & Staff Name</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-success">
-                                            <i class="ni ni-user fs-xl"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" aria-label="First name" class="form-control" placeholder="Company name" id="name-f">
-                                    <input type="text" aria-label="Last name" class="form-control" placeholder="Staff name" id="name-l">
+                            <div class="row">
+                        
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Company Name</label><input class="form-control" name="company_name" placeholder="Company Name " value="Company XYZ" required="required" type="text" readonly>
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
+                            <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label" for="dollar-1">NRC, Intrest & Amount </label>
-                                <div class="input-group input-group-multi-transition">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="" id="dollar-1" placeholder="NRC">
-                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Intrest">
-                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Amount">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">0.00</span>
+                                 <label for="">First Name</label><input class="form-control" name="first_name" placeholder="First Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Payout Date & Scheduled Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append input-group-prepend">
-                                        <span class="input-group-text"><i class="fal fa-exchange fs-xl"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Last Name</label><input class="form-control" name="last_name" placeholder="Last Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                </div>
+                             </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Other Name</label><input class="form-control" name="other_name" placeholder="Other Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                                
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Email</label><input class="form-control" name="email" placeholder="Email" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                   </div>
+                          </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Phone number</label><input class="form-control" name="phone" placeholder="Phone number" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for=""> Address</label><input class="form-control" name="address" placeholder="Address" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">ID No</label><input class="form-control" name="id_no" placeholder="ID No" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">ID Type</label>
+                                    <select class="form-control" name="id_type">
+                                        <option value="NRC">
+                                        NRC
+                                        </option>
+                                        <option value="passport">
+                                       Passport
+                                        </option>
+                                        <option value="DriversLicense">
+                                        Drivers License
+                                        </option>
+                                    </select>
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Country</label><input class="form-control" name="country" placeholder="Country" required="required" value="ZAMBIA" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>  
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">City</label><input class="form-control" name="city" placeholder="City" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div> 
+                        </div>
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-themed">Submit</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-themed">Submit</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -182,29 +233,34 @@
                     <span aria-hidden="true"><i class="fal fa-times"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
-                    <div class="panel-container show">
-                        <div class="panel-content">
-                            <div class="form-group">
-                                <label class="form-label" for="inputGroupFile01">Select file to upload</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            
+            <form enctype="multipart/form-data" action="<% Routes.company_path(@conn, :handle_bulk_upload)%>" method="POST">
+                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <div class="modal-body">
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <div class="form-group">
+                                    <label class="form-label" for="inputGroupFile01">Select file to upload</label>
+                                    <div class="input-group">
+                                    <input type="hidden" name="company_id" value="34434334">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" name="staff_file_name" class="" id="" aria-describedby="inputGroupFileAddon01">
+                                            <label class="" for="inputGroupFile01"></label>
+                                        </div>
                                     </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
+                                    <span class="help-block">You can upload a list of client in CSV file format</span>
                                 </div>
-                                <span class="help-block">You can upload a list of client in CSV file format</span>
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-themed">Upload</button>
-            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-themed">Upload</button>
+                    </div>
+            </form>
         </div>
     </div>
 </div>

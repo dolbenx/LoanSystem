@@ -25,10 +25,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%= for log <- @logs do %>
+                                 <%= for log <- @logs do %>
                                 <tr>
-                                    <td><%= FundsMgt.Accounts.get_user!(log.user_id).first_name %> <%= FundsMgt.Accounts.get_user!(log.user_id).last_name %></td>
-                                    <td><%= FundsMgt.Accounts.get_user!(log.user_id).user_role %></td>
+                                    <td><%= LoanSystem.Accounts.get_user!(log.user_id).first_name %> <%= LoanSystem.Accounts.get_user!(log.user_id).last_name %></td>
+                                    <td><%= LoanSystem.Accounts.get_user!(log.user_id).user_role %></td>
                                     <td><%= log.activity%></td>
                                     <td><%= "#{log.inserted_at |> Calendar.DateTime.shift_zone!("Africa/Cairo") |> Calendar.Strftime.strftime!("%d-%b-%Y %H:%M:%S")}" %></td>
                                     <td><%= @conn.host%></td>

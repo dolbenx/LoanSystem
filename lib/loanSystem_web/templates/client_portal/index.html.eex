@@ -61,7 +61,7 @@
                                 <div class="card mb-g border shadow-0">
                                     <div class="card-body">
                                         <h5 class="frame-heading">
-                                            Client List <button type="button" style="float: right;" class="btn btn-xs btn-outline-info waves-effect waves-themed">View Stuff</button>
+                                            Client List <a type="submit" href="<%= Routes.client_portal_path(@conn, :register_staff)%>" style="float: right;" class="btn btn-xs btn-outline-info waves-effect waves-themed">View Stuff</a>
                                         </h5>
                                         <div class="frame-wrap p-0 border-0 m-0">
                                             <table class="table m-0 table-bordered" id="table-example">
@@ -126,23 +126,6 @@
                             </div>
                             <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
                                 <!-- add : -->
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#beneficary" class="d-flex flex-row align-items-center">
-                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                <i class="fal fa-user-plus icon-stack-1x opacity-100 color-primary-500"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <strong>
-                                                    Add Beneficiaries
-                                                </strong>
-                                                <br>
-                                                Adding Beneficiaries will help easily share funds
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                                 <div class="card mb-g">
                                     <div class="card-body">
                                         <a href="javascript:void(0);" data-toggle="modal" data-target="#help" class="d-flex flex-row align-items-center">
@@ -152,10 +135,10 @@
                                             </div>
                                             <div class="ml-3">
                                                 <strong>
-                                                    Get Help!
+                                                    Notification!
                                                 </strong>
                                                 <br>
-                                                Send a compliment or Complaint
+                                                New Notifications
                                             </div>
                                         </a>
                                     </div>

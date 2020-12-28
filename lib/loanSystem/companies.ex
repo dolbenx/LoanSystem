@@ -18,6 +18,16 @@ defmodule LoanSystem.Companies do
     Repo.all(Company)
   end
 
+  def comp_id(company_id) do
+    Company
+    |> where([a], a.company_id == ^company_id)
+    |> select(
+      [a],
+      map(a, [:company_id, :company_id, :company_name])
+    )
+    |> Repo.one()
+ end
+
   @doc """
   Gets a single company.
   Raises `Ecto.NoResultsError` if the Company does not exist.
@@ -28,16 +38,6 @@ defmodule LoanSystem.Companies do
       ** (Ecto.NoResultsError)
   """
   def get_company!(id), do: Repo.get!(Company, id)
-
-  def comp_id(company_id) do
-    Company
-    |> where([a], a.company_id == ^company_id)
-    |> select(
-      [a],
-      map(a, [:company_id, :company_id, :company_name])
-    )
-    |> Repo.one()
- end
 
   @doc """
   Creates a company.
@@ -123,7 +123,6 @@ defmodule LoanSystem.Companies do
     })
     |> Repo.all()
   end
-
   @doc """
   Gets a single staff.
   Raises `Ecto.NoResultsError` if the Staff does not exist.

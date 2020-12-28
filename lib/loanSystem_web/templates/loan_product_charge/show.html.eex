@@ -1,0 +1,18 @@
+<h1>Show Loan product charge</h1>
+
+<ul>
+
+  <li>
+    <strong>Loan product:</strong>
+    <%= @loan_product_charge.loan_product_id %>
+  </li>
+
+  <li>
+    <strong>Charge:</strong>
+    <%= @loan_product_charge.charge_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.loan_product_charge_path(@conn, :edit, @loan_product_charge) %></span>
+<span><%= link "Back", to: Routes.loan_product_charge_path(@conn, :index) %></span>

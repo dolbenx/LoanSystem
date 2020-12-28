@@ -1,0 +1,186 @@
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Loan Management</a></li>
+        <li class="breadcrumb-item active">Loan</li>
+        <li class="breadcrumb-item active">Balances</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
+    </ol>
+    <div class="row">
+                <div class="col-lg-12 col-xl-9 order-lg-3 order-xl-2">
+                    <div id="panel-1" class="panel">
+                                    <div class="panel-hdr">
+                                        <h2>
+                                            Loan <span class="fw-300"><i>Balances</i></span>
+                                        </h2>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <!-- datatable start -->
+                                            <div id="dt-basic-example_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row mb-3"><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-start"><div id="dt-basic-example_filter" class="dataTables_filter"><label><div class="input-group-text d-inline-flex width-3 align-items-center justify-content-center border-bottom-right-radius-0 border-top-right-radius-0 border-right-0"><i class="fal fa-search"></i></div><input type="search" class="form-control border-top-left-radius-0 border-bottom-left-radius-0 ml-0 width-lg shadow-inset-1" placeholder="Search" aria-controls="dt-basic-example"></label></div></div><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end"><div class="dataTables_length" id="dt-basic-example_length"><label>Show <select name="dt-basic-example_length" aria-controls="dt-basic-example" class="form-control custom-select"><option value="10">10</option><option value="15">15</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> entries</label></div></div></div><div class="row"><div class="col-sm-12"><table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100 dataTable dtr-inline" role="grid" aria-describedby="dt-basic-example_info" style="width: 1159px;">
+                                                <thead>
+                                                    <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 185px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Staff Name</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 279px;" aria-label="Position: activate to sort column ascending">Phone Number</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 137px;" aria-label="Office: activate to sort column ascending">Amount</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 69px;" aria-label="Age: activate to sort column ascending">Intrest</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 125px;" aria-label="Start date: activate to sort column ascending">Loan date</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 107px;" aria-label="Salary: activate to sort column ascending">Date Schedule</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                <tr role="row" class="odd">
+                                                        <td tabindex="0" class="sorting_1">Airi Satou</td>
+                                                        <td>0968838233</td>
+                                                        <td>500</td>
+                                                        <td>33</td>
+                                                        <td>2008/11/28</td>
+                                                        <td>2008/11/28</td>
+                                                    </tr><tr role="row" class="even">
+                                                        <td class="sorting_1" tabindex="0">Angelica Ramos</td>
+                                                        <td>0968838455</td>
+                                                        <td>700</td>
+                                                        <td>47</td>
+                                                        <td>2009/10/09</td>
+                                                        <td>2009/10/09</td>
+                                                    </tr><tr role="row" class="odd">
+                                                        <td tabindex="0" class="sorting_1">Ashton Cox</td>
+                                                        <td>0968242442</td>
+                                                        <td>7000</td>
+                                                        <td>66</td>
+                                                        <td>2009/01/12</td>
+                                                        <td>2009/01/12</td>
+                                                    </tr><tr role="row" class="even">
+                                                        <td class="sorting_1" tabindex="0">Bradley Greer</td>
+                                                        <td>0964565656</td>
+                                                        <td>290</td>
+                                                        <td>41</td>
+                                                        <td>2012/10/13</td>
+                                                        <td>2012/10/13</td>
+                                                    </tr>
+                                                    </tbody>
+                                            </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="dt-basic-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="dt-basic-example_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="dt-basic-example_previous"><a href="#" aria-controls="dt-basic-example" data-dt-idx="0" tabindex="0" class="page-link"><i class="fal fa-chevron-left"></i></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="dt-basic-example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="dt-basic-example_next"><a href="#" aria-controls="dt-basic-example" data-dt-idx="7" tabindex="0" class="page-link"><i class="fal fa-chevron-right"></i></a></li></ul></div></div></div></div>
+                                            <!-- datatable end -->
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+                <!-- add : -->
+                <div class="card mb-g">
+                    <div class="card-body">
+                        <a href="#" data-toggle="modal" data-target="#help" class="d-flex flex-row align-items-center">
+                            <div class='icon-stack display-3 flex-shrink-0'>
+                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                <i class="fal fa-info icon-stack-1x opacity-100 color-warning-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <strong>
+                                    Notification
+                                </strong>
+                                <br>
+                                Notification Alerts
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- rating -->
+                <div class="card mb-g">
+                    <div class="row row-grid no-gutters">
+                        <div class="col-12" style="background-color: #00204E; color:white;">
+                            <div class="p-3">
+                                <h2 class="mb-0 fs-xl">
+                                    About Loans
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3">
+                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#tax-free-plan"> All loans need to be payed back within a period of 30 days</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3">
+                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#FLEXIBLE-plan">No staff is allowed to get a loan after the 15th if ever month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3">
+                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#switch-funds">Late repayments of loans will attract a particuler amount if intrest.</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="background-color: #00204E; color:white;">
+                            <div class="p-3">
+                                <div class="fw-500 fs-xs">
+                                    <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</main>
+
+<div class="modal fade" id="default-example-modal-lg-center" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <div class="panel-container show">
+                        <div class="panel-content">
+                            <div class="form-group">
+                                <label class="form-label" for="name-f">Staff Name & Phone</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text text-success">
+                                            <i class="ni ni-user fs-xl"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" aria-label="First name" class="form-control" placeholder="Staffname" id="name-f">
+                                    <input type="text" aria-label="Last name" class="form-control" placeholder="Phone Number" id="name-l">
+                                </div>
+                            </div>a
+                            <div class="form-group">
+                                <label class="form-label" for="dollar-1">NRC, Intrest & Amount </label>
+                                <div class="input-group input-group-multi-transition">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="" id="dollar-1" placeholder="NRC">
+                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Intrest">
+                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Amount">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Payout Date & Scheduled Date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append input-group-prepend">
+                                        <span class="input-group-text"><i class="fal fa-exchange fs-xl"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary waves-effect waves-themed">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

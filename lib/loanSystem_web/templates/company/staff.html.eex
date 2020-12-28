@@ -300,9 +300,9 @@
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div> 
-                              </div>
-                </div>       
-                  </div>
+                        </div>
+                            </div>       
+                            </div>
                                                                            
                    
               
@@ -450,7 +450,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fal fa-file"></i></span>
                                 </div>
-                                <input type="file" name="staff_file_nafme" class="form-control" required="required">
+                                <input type="file" name="staff_file_name" class="form-control">
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoanCharge do
       add :charge_id, :integer
       add :is_penalty, :boolean, default: false, null: false
       add :charge_time_enum, :string
-      add :due_for_collection_as_of_date, :string
+      add :due_for_collection_as_of_date, :date
       add :charge_calculation_enum, :string
       add :charge_payment_mode_enum, :string
       add :calculation_percentage, :float

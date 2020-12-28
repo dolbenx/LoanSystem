@@ -195,7 +195,7 @@
                       <td> ID</td><td>  <%= "#{(@conn.assigns.user.id_no)}"%> </td>
                     </tr>
                     <tr>
-                      <td>Address</td><td> <%= "#{(@conn.assigns.user.address)}"%> </td>
+                      <td>Address</td><td>  </td>
                     </tr>
                   </tbody>
                   </table>
@@ -222,7 +222,14 @@
                 <div class="icon-w">
                   <div class="os-icon os-icon-cv-2"></div>
                 </div>
-                <span>Client Management</span></a>
+                <span>Profile Management</span></a>
+            </li>
+            <li class="">
+              <a href="<%= Routes.company_path(@conn, :staff_uploads)%>">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-cv-2"></div>
+                </div>
+                <span>Customer Management</span></a>
             </li>
              <li class="">
                <a href="<%= Routes.company_path(@conn, :products)%>">

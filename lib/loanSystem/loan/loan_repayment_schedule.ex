@@ -14,7 +14,7 @@ defmodule LoanSystem.Loan.LoanRepaymentSchedule do
     field :fee_charges_waived_derived, :float
     field :fee_charges_writtenoff_derived, :float
     field :fromdate, :date
-    field :installment, :float
+    field :installment, :integer
     field :interest_amount, :float
     field :interest_completed_derived, :float
     field :interest_waived_derived, :float
