@@ -68,7 +68,7 @@ defmodule LoanSystemWeb.UserController do
 
         conn
 
-      {:error, _} ->
+      {:error, error} -> IO.inspect error.error
 
         conn
         |> put_flash(:error, "Failed to add user to system.")

@@ -24,6 +24,7 @@ defmodule LoanSystemWeb.CompanyController do
 
   def logs(conn, _params) do
     render(conn, "logs.html")
+
   end
   def companies(conn, _params) do
     companies = Companies.list_tbl_companies()
@@ -36,9 +37,10 @@ defmodule LoanSystemWeb.CompanyController do
     render(conn, "staff.html", staff: staff, companies: companies)
   end
 
-  def portal_admin(conn, _params) do
+  def portal_admin(conn, %{"company_id" => company_id}) do
+     companies = Companies.comp_id(company_id)
      system_users = Accounts.list_tbl_users()
-     render(conn, "portal_admin.html", system_users: system_users)
+     render(conn, "portal_admin.html", system_users: system_users, companies: companies)
   end
   def products(conn, _params) do
 
@@ -544,7 +546,7 @@ end
 
         Xlsxir.close(id)
         {:ok, items}
-s
+
 
       {:error, reason} ->
         {:error, reason}

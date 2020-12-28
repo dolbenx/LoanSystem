@@ -5,19 +5,20 @@ defmodule LoanSystem.Companies do
 
   import Ecto.Query, warn: false
   alias LoanSystem.Repo
-
+  alias LoanSystem.Companies.Staff
   alias LoanSystem.Companies.Company
 
   @doc """
   Returns the list of tbl_companies.
   ## Examples
-      iex> list_tbl_companies()
-      [%Company{}, ...]
-  """
+   """
   def list_tbl_companies do
     Repo.all(Company)
   end
 
+  def list_tbl_staff do
+    Repo.all(Staff)
+  end
   @doc """
   Gets a single company.
   Raises `Ecto.NoResultsError` if the Company does not exist.

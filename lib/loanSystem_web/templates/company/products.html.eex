@@ -10,8 +10,9 @@
                     Products Table
                     </h5>
                     <div class="form-desc">
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Product</button>
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Product</button>
                     </div>
+                    
                 <div class="table-responsive">
                     <table  id="dt-product" width="100%" class="table table-striped table-lightfont">
                       <input type="hidden" id="csrf" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
@@ -447,8 +448,7 @@ $(document).ready(function(){
             console.log(button.data('currency_decimals'))
 
             console.log("values")
-          
-           
+
 
            
     });

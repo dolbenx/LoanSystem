@@ -1,8 +1,11 @@
 defmodule LoanSystemWeb.LoanController do
   use LoanSystemWeb, :controller
 
+  alias LoanSystem.Companies
+
   def loan(conn, _params) do
-    render(conn, "loan.html")
+    staff = Companies.list_tbl_staff
+    render(conn, "loan.html", staff: staff)
   end
 
   def loan_transactions(conn, _params) do

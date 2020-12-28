@@ -637,7 +637,7 @@
                   <footer class="page-footer" role="contentinfo">
                   
                       <div class="d-flex align-items-center flex-1 text-muted">
-                          <span class="hidden-md-down fw-700"><%= Timex.today.year %> © Fund Management Powered By&nbsp;
+                          <span class="hidden-md-down fw-700"><%= Timex.today.year %> © Loan Mangement system Powered By&nbsp;
                               <a href='http://www.probasegroup.com/' class='text-info fw-500' title='proBASE' target='_blank'>
                                   <img src="<%= Routes.static_path(@conn, "/images/logos/2.png") %>" width="100">
                               </a>

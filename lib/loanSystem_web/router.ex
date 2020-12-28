@@ -132,6 +132,8 @@ defmodule LoanSystemWeb.Router do
     post "/Upload/Company", CompanyController, :handle_bulk_upload
     get("/Admin/Portal/User", CompanyController, :portal_admin)
     post "/Generate/Company/ID", CompanyController, :generate_company_id
+    post("/Create/User", UserController, :create_user)
+
     ########### END OF MAINTENANCE ROUTES #############
   end
 

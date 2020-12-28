@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :loanSystem, LoanSystem.Repo,
-  username: "probase",
-  password: "Password123$$",
+  username: "Lindiwe",
+  password: "incorrect",
   database: "loansystem_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

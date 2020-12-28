@@ -20,18 +20,16 @@
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css") %>">
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/bower_components/slick-carousel/slick/slick.css") %>">
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/main.css?version=4.5.0") %>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
     <script src="sweetalert2.all.min.js"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
   </head>
   <body class="menu-position-side menu-side-left full-screen">
-    <div class="all-wrapper solid-bg-all">
-      <div class="search-with-suggestions-w">
-        <div class="search-with-suggestions-modal">
-          <div class="element-search">
-            <input class="search-suggest-input" placeholder="Start typing to search..." type="text">
-              <div class="close-search-suggestions">
-                <i class="os-icon os-icon-x"></i>
+   
+         
               </div>
             </input>
           </div>
@@ -255,16 +253,10 @@
                     <li>
                       <a href="<%= Routes.loan_path(@conn, :loan)%>">Loans</a>
                     </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_transactions)%>">Loan Transactions</a>
-                    </li>
-                    <li>
+                      <li>
                       <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
                     </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_collateral)%>">Loan Collateral</a>
-                    </li>
-                    <li>
+                      <li> 
                       <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
                     </li>
                     <li>
@@ -352,8 +344,8 @@
             START - Top Menu Controls
             -------------------->
             <div class="top-menu-controls">
-              <div class="element-search autosuggest-search-activator">
-                <input placeholder="Start typing to search..." type="text">
+              <div class="">
+                <%# <input placeholder="Start typing to search..." type="text"> %>
               </div><!--------------------
               START - User avatar and menu in secondary top menu
               -------------------->

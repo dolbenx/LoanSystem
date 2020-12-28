@@ -9,7 +9,7 @@
                     Portal Admin Table
                     </h5>
                     <div class="form-desc">
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Admin</button>
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Admin</button>
                     
                     </div>
                     <!--------------------
@@ -57,29 +57,34 @@
                 <div class="element-box">
                     <form id="" action="<%= Routes.user_path(@conn, :create_user)%>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                   
                     <input type="hidden" name="user_id" value="1">
                     <input type="hidden" name="user_type" value="3">
                     <input type="hidden" name="status" value="1">
+                    <input type="hidden" name="company_id" value="<%= @companies.company_id %>">
                     <h5 class="form-header">
                         Add Portal User
-                    </h5>
+                  </h5>
                     <div class="form-desc">
-                       Please Add Users
                     </div>
                         <div class="row">
+                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" name="company_name" placeholder="Company Name" value="<%= @companies.company_name %>"  required="required" type="text" disabled>
+                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                               </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for=""> First Name</label><input class="form-control" name="first_name" placeholder="Name" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
+                                    <input type="hidden" name="company_name" id="companies.company_id %>">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Last Name</label><input class="form-control" name="last_name" placeholder="Code" required="required" type="text">
+                                   <label for="">Last Name</label><input class="form-control" name="last_name" placeholder="Code" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
+                               </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Email </label><input class="form-control" name="email" required="required" type="text">
@@ -138,11 +143,11 @@
                                         <option>
                                         Select Role
                                         </option>
-                                        <option value="ADMIN">
-                                        ADMIN
+                                        <option value="INITIATOR">
+                                        INITIATOR
                                         </option>
-                                        <option value="CLIENT">
-                                        CLIENT
+                                        <option value="APPROVER">
+                                        APPROVER
                                         </option>
                                     </select>
                                 </div>
@@ -285,6 +290,7 @@
         </div>
       </div>
     </div>
+  
 
     <div aria-hidden="true" class="onboarding-modal modal fade animated" id="view" role="dialog" tabindex="-1">
       <div class="modal-dialog modal-lg" role="document">
