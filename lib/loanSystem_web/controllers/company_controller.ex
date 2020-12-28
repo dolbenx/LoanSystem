@@ -4,6 +4,8 @@ defmodule LoanSystemWeb.CompanyController do
   @moduledoc """
       Company Controller.
   """
+  alias LoanSystem.Accounts
+  alias LoanSystem.Accounts.User
   alias LoanSystem.Repo
   alias LoanSystem.Logs.UserLogs
   alias LoanSystem.Companies.Company
@@ -11,6 +13,10 @@ defmodule LoanSystemWeb.CompanyController do
   alias LoanSystem.Products.Product
   alias LoanSystem.Products
   alias LoanSystem.Companies
+  alias LoanSystem.System_Directories
+
+  @headers ~w/ first_name last_name other_name id_no phone tpin_no/a
+
 
   def reports(conn, _params) do
     render(conn, "reports.html")
@@ -21,23 +27,40 @@ defmodule LoanSystemWeb.CompanyController do
   end
   def companies(conn, _params) do
     companies = Companies.list_tbl_companies()
-       render(conn, "companies.html", companies: companies)
+    render(conn, "companies.html", companies: companies)
   end
 
-  def staff(conn, _params) do
-      staff = Companies.list_tbl_staff()
-       render(conn, "staff.html", staff: staff)
+  def staff(conn,  %{"company_id" => company_id}) do
+    companies = Companies.comp_id(company_id)
+    staff = Companies.list_stuff_with_company_id(company_id)
+    render(conn, "staff.html", staff: staff, companies: companies)
   end
 
+  def portal_admin(conn, _params) do
+     system_users = Accounts.list_tbl_users()
+     render(conn, "portal_admin.html", system_users: system_users)
+  end
   def products(conn, _params) do
+
     product = Products.list_tbl_products()
     render(conn, "products.html", product: product)
 end
 
+def generate_company() do
+  random = Enum.random(111111..999999) |> to_string
+  year = to_string(Timex.now()|> Timex.format!("%Y", :strftime)|>String.slice(-2..-1))
+  month = to_string(Timex.format!(Timex.today(), "%m", :strftime))
+  year<>""<>month<>""<>random
+end
+
+def generate_company_id(conn, _param) do
+  account = generate_company()
+  json(conn, %{"account" => account})
+end
 
 # -------------------ADD COMPANY FN -----------------
 
-def add_company(conn, params) do
+  def add_company(conn, params) do
     IO.inspect "-----------------------------------"
     IO.inspect params
   Ecto.Multi.new()
@@ -45,36 +68,33 @@ def add_company(conn, params) do
   |> Ecto.Multi.run(:user_log, fn(_, %{companies: _companies}) ->
   activity = "Company has been Added"
 
-    user_log = %{
-    user_id: conn.assigns.user.id,
-    activity: activity
-    }
 
-      UserLogs.changeset(%UserLogs{}, user_log)
-      |> Repo.insert()
-      end)
-      |> Repo.transaction()
-      |> case do
-      {:ok, %{companies: _companies, user_log: _user_log}} ->
-      conn
-      |> put_flash(:info, "Company has been Added Successfully.")
-      |> redirect(to: Routes.company_path(conn, :companies))
+  user_log = %{
+  user_id: conn.assigns.user.id,
+  activity: activity
+  }
 
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-      reason = traverse_errors(failed_value.errors) |> List.first()
-      conn
-      |> put_flash(:error, reason)
-      |> redirect(to: Routes.company_path(conn, :companies))
-      end
-      # rescue
-      # _ ->
-      # conn
-      # |> put_flash(:error, "An error occurred, reason unknown. try again")
-      # |> redirect(to: Routes.customer_path(conn, :index))
-end
+  UserLogs.changeset(%UserLogs{}, user_log)
+  |> Repo.insert()
+  end)
+  |> Repo.transaction()
+  |> case do
+  {:ok, %{companies: _companies, user_log: _user_log}} ->
+  conn
+  |> put_flash(:info, "Company has been Added Successfully.")
+  |> redirect(to: Routes.company_path(conn, :companies))
 
-def traverse_errors(errors) do
-    for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+  {:error, _failed_operation, failed_value, _changes_so_far} ->
+  reason = traverse_errors(failed_value.errors) |> List.first()
+  conn
+  |> put_flash(:error, reason)
+  |> redirect(to: Routes.company_path(conn, :companies))
+  end
+  # rescue
+  # _ ->
+  # conn
+  # |> put_flash(:error, "An error occurred, reason unknown. try again")
+  # |> redirect(to: Routes.customer_path(conn, :index))
   end
 
   # -------------------END OF ADD COMPANY FN -----------------
@@ -88,45 +108,193 @@ def traverse_errors(errors) do
   def add_staff(conn, params) do
     IO.inspect "-----------------------------------"
     IO.inspect params
+    %{"company_id" => company_id} = params
     Ecto.Multi.new()
-      |> Ecto.Multi.insert(:staff, Staff.changeset(%Staff{}, params))
-      |> Ecto.Multi.run(:user_log, fn(_, %{staff: _staff}) ->
-       activity = "Staff has been Added"
+    |> Ecto.Multi.insert(:staff, Staff.changeset(%Staff{}, params))
+    |> Ecto.Multi.run(:user_log, fn(_, %{staff: _staff}) ->
+    activity = "Staff has been Added"
     # activity = "Staff has been Added Successfully"
 
-        user_log = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
+  user_log = %{
+  user_id: conn.assigns.user.id,
+  activity: activity
+  }
+
+  UserLogs.changeset(%UserLogs{}, user_log)
+  |> Repo.insert()
+  end)
+  |> Repo.transaction()
+  |> case do
+  {:ok, %{staff: _staff, user_log: _user_log}} ->
+  conn
+  |> put_flash(:info, "Staff has been Added Successfully.")
+  |> redirect(to: Routes.company_path(conn, :staff, company_id: company_id))
+
+  {:error, _failed_operation, failed_value, _changes_so_far} ->
+  reason = traverse_errors(failed_value.errors) |> List.first()
+  conn
+  |> put_flash(:error, reason)
+  |> redirect(to: Routes.company_path(conn, :staff, company_id: company_id))
+  end
+  # rescue
+  # _ ->
+  # conn
+  # |> put_flash(:error, "An error occurred, reason unknown. try again")
+  # |> redirect(to: Routes.customer_path(conn, :index))
+  end
+  # -------------------END OF ADD STAFF FN -----------------
+
+     # -------------------UPDATE COMPANY FN -----------------
+
+     def update_company(conn, params) do
+      IO.inspect params
+      companies = Companies.get_company!(params["id"])
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:companies, Company.changeset(companies, params))
+      |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
+          activity = "Updated Company with code \"#{companies.company_name}\""
+
+          user_logs = %{
+            user_id: conn.assigns.user.id,
+            activity: activity
+          }
+
+          UserLogs.changeset(%UserLogs{}, user_logs)
+          |> Repo.insert()
+      end)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{companies: _companies, user_log: _user_log}} ->
+          conn
+          |> put_flash(:info, "Company details updated successfully")
+          |> redirect(to: Routes.company_path(conn, :companies))
+
+          {:error, _failed_operation, failed_value, _changes_so_far} ->
+            reason = traverse_errors(failed_value.errors) |> List.first()
+            conn
+            |> put_flash(:error, reason)
+            |> redirect(to: Routes.company_path(conn, :companies))
+      end
+    end
+
+
+    def update_product(conn, params) do
+      product_data = Products.get_product!(params["id"])
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:product, Product.changeset(product_data, params))
+      |> Ecto.Multi.run(:user_log, fn(_, %{product: product}) ->
+            activity = "Updated product with code \"#{product.name}\""
+
+            # activity = "Staff has been Added Successfully"
+
+            user_log = %{
+                user_id: conn.assigns.user.id,
+                activity: activity
+            }
+
+            UserLogs.changeset(%UserLogs{}, user_log)
+            |> Repo.insert()
+            end)
+            |> Repo.transaction()
+            |> case do
+            {:ok, %{product: _staff, user_log: _user_log}} ->
+            conn
+            |> put_flash(:info, "Product has been updates Successfully.")
+            |> redirect(to: Routes.company_path(conn, :products))
+
+            {:error, _failed_operation, failed_value, _changes_so_far} ->
+            reason = traverse_errors(failed_value.errors) |> List.first()
+            conn
+            |> put_flash(:error, reason)
+            |> redirect(to: Routes.company_path(conn, :products))
+            end
+            # rescue
+            # _ ->
+            # conn
+            # |> put_flash(:error, "An error occurred, reason unknown. try again")
+            # |> redirect(to: Routes.customer_path(conn, :index))
+            end
+
+            def traverse_errors(errors) do
+              for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+            end
+
+            def update_staff(conn, params) do
+              staff_data = Companies.get_staff!(params["id"])
+              Ecto.Multi.new()
+              |> Ecto.Multi.update(:staff, Staff.changeset(staff_data, params))
+              |> Ecto.Multi.run(:user_log, fn(_, %{staff: staff}) ->
+                    activity = "Updated Staff with code \"#{staff.first_name}\""
+
+                    # activity = "Staff has been Added Successfully"
+
+                    user_log = %{
+                        user_id: conn.assigns.user.id,
+                        activity: activity
+                    }
+
+                    UserLogs.changeset(%UserLogs{}, user_log)
+                    |> Repo.insert()
+                    end)
+                    |> Repo.transaction()
+                    |> case do
+                    {:ok, %{staff: _staff, user_log: _user_log}} ->
+                    conn
+                    |> put_flash(:info, "Staff has been updates Successfully.")
+                    |> redirect(to: Routes.company_path(conn, :staff))
+
+                    {:error, _failed_operation, failed_value, _changes_so_far} ->
+                    reason = traverse_errors(failed_value.errors) |> List.first()
+                    conn
+                    |> put_flash(:error, reason)
+                    |> redirect(to: Routes.company_path(conn, :staff))
+                    end
+                    # rescue
+                    # _ ->
+                    # conn
+                    # |> put_flash(:error, "An error occurred, reason unknown. try again")
+                    # |> redirect(to: Routes.customer_path(conn, :index))
+                    end
+
+                    def traverse_errors(errors) do
+                      for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+                    end
+
+
+
+
+
+
+
+  #disable company record
+
+  def disable(conn, params) do
+    companies = Companies.get_company!(params["id"])
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:companies, Company.changeset(companies, %{status: false}))
+    |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
+        activity = "Updated Company with code \"#{companies.company_name}\""
+
+        user_logs = %{
+          user_id: conn.assigns.user.id,
+          activity: activity
         }
 
-    UserLogs.changeset(%UserLogs{}, user_log)
-    |> Repo.insert()
+        UserLogs.changeset(%UserLogs{}, user_logs)
+        |> Repo.insert()
     end)
     |> Repo.transaction()
     |> case do
-    {:ok, %{staff: _staff, user_log: _user_log}} ->
-    conn
-    |> put_flash(:info, "Staff has been Added Successfully.")
-    |> redirect(to: Routes.company_path(conn, :staff))
-
-    {:error, _failed_operation, failed_value, _changes_so_far} ->
-    reason = traverse_errors(failed_value.errors) |> List.first()
-    conn
-    |> put_flash(:error, reason)
-    |> redirect(to: Routes.company_path(conn, :staff))
-    end
-    # rescue
-    # _ ->
-    # conn
-    # |> put_flash(:error, "An error occurred, reason unknown. try again")
-    # |> redirect(to: Routes.customer_path(conn, :index))
+      {:ok, %{companies: _companies, user_log: _user_log}} ->
+        conn |> json(%{message: "Company Disabled successfully", status: 0})
+        {:error, _failed_operation, failed_value, _changes_so_far} ->
+          reason = traverse_errors(failed_value.errors) |> List.first()
+          conn |> json(%{message: reason, status: 1})
     end
 
-    def traverse_errors(errors) do
-      for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+
   end
-
-  # -------------------END OF ADD STAFF FN -----------------
 
 # -------------------ADD PRODUCT FN -----------------
 
@@ -167,287 +335,233 @@ def traverse_errors(errors) do
   # |> redirect(to: Routes.customer_path(conn, :index))
   end
 
-  def traverse_errors(errors) do
-    for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
-  end
-
   # -------------------END OF ADD PRODUCT FN -----------------
 
+  def handle_bulk_upload(conn, params) do
+    user = conn.assigns.user
 
-   # -------------------UPDATE COMPANY FN -----------------
+    {key, msg, _invalid} = handle_file_upload(user, params)
 
-def update_company(conn, params) do
-    IO.inspect params
-    companies = Companies.get_company!(params["id"])
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:companies, Company.changeset(companies, params))
-    |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
-        activity = "Updated Company with code \"#{companies.company_name}\""
+    if key == :info do
+      conn
+      |> put_flash(key, msg)
+      |> redirect(to: Routes.company_path(conn, :products))
 
-        user_logs = %{
-          user_id: conn.assigns.user.id,
-          activity: activity
-        }
+    else
+      conn
+      |> put_flash(key, msg)
+      |> redirect(to: Routes.company_path(conn, :products))
+    end
+  end
 
-        UserLogs.changeset(%UserLogs{}, user_logs)
-        |> Repo.insert()
-    end)
-    |> Repo.transaction()
-    |> case do
-      {:ok, %{companies: _companies, user_log: _user_log}} ->
-        conn
-        |> put_flash(:info, "Company details updated successfully")
-        |> redirect(to: Routes.company_path(conn, :companies))
+  defp handle_file_upload(user, params) do
 
-        {:error, _failed_operation, failed_value, _changes_so_far} ->
-          reason = traverse_errors(failed_value.errors) |> List.first()
-          conn
-          |> put_flash(:error, reason)
-          |> redirect(to: Routes.company_path(conn, :companies))
+    with {:ok, filename, destin_path, _rows} <- is_valide_file(params) do
+      user
+      |> process_bulk_upload(filename, destin_path)
+      |> case do
+        {:ok, {invalid, valid}} ->
+          {:info, "#{valid} Successful entrie(s) and #{invalid} invalid entrie(s)", invalid}
+
+        {:error, reason} ->
+          {:error, reason, 0}
+      end
+    else
+      {:error, reason} ->
+        {:error, reason, 0}
     end
   end
 
 
-def update_product(conn, params) do
-product_data = Products.get_product!(params["id"])
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:product, Product.changeset(product_data, params))
-  |> Ecto.Multi.run(:user_log, fn(_, %{product: product}) ->
-      activity = "Updated product with code \"#{product.name}\""
+  def process_csv(file) do
+    case File.exists?(file) do
+      true ->
+        data =
+          File.stream!(file)
+          |> CSV.decode!(separator: ?,, headers: true)
+          |> Enum.map(& &1)
 
-      # activity = "Staff has been Added Successfully"
+        {:ok, data}
 
-      user_log = %{
-          user_id: conn.assigns.user.id,
-          activity: activity
-      }
+      false ->
+        {:error, "File does not exist"}
+    end
+  end
 
-      UserLogs.changeset(%UserLogs{}, user_log)
-      |> Repo.insert()
-      end)
-      |> Repo.transaction()
+  def process_bulk_upload(user, filename, path) do
+    # try do
+      {:ok, items} = extract_xlsx(path)
+
+      prepare_bulk_params(user, filename, items)
+      |> Repo.transaction(timeout: 290_000)
       |> case do
-      {:ok, %{product: _staff, user_log: _user_log}} ->
-      conn
-      |> put_flash(:info, "Product has been updates Successfully.")
-      |> redirect(to: Routes.company_path(conn, :products))
+        {:ok, multi_records} ->
+          {invalid, valid} =
+            multi_records
+            |> Map.values()
+            |> Enum.reduce({0, 0}, fn item, {invalid, valid} ->
+              case item do
+                %{staff_file_name: _src} -> {invalid, valid + 1}
+                %{col_index: _index} -> {invalid + 1, valid}
+                _ -> {invalid, valid}
+              end
+            end)
 
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-      reason = traverse_errors(failed_value.errors) |> List.first()
-      conn
-      |> put_flash(:error, reason)
-      |> redirect(to: Routes.company_path(conn, :products))
+          {:ok, {invalid, valid}}
+
+        {:error, _, changeset, _} ->
+          # prepare_error_log(changeset, filename)
+          reason = traverse_errors(changeset.errors) |> Enum.join("\r\n")
+          {:error, reason}
       end
-      # rescue
-      # _ ->
-      # conn
-      # |> put_flash(:error, "An error occurred, reason unknown. try again")
-      # |> redirect(to: Routes.customer_path(conn, :index))
+    # after
+    #   filename = Path.rootname(filename) |> Path.basename()
+    # end
+  end
+
+  defp prepare_bulk_params(user, filename, items) do
+
+    items
+    |> Stream.with_index(2)
+    |> Stream.map(fn {item, index} ->
+      changeset =
+        %Staff{staff_file_name: filename}
+        |> Staff.changeset(Map.put(item, :user_id, user.id))
+
+      Ecto.Multi.insert(Ecto.Multi.new(), Integer.to_string(index), changeset)
+
+    end)
+
+    # |> filter_upload_errors(filename)
+    |> Enum.reject(fn
+      %{operations: [{_, {:run, _}}]} -> false
+      %{operations: [{_, {_, changeset, _}}]} -> changeset.valid? == false
+    end)
+    |> Enum.reduce(Ecto.Multi.new(), &Ecto.Multi.append/2)
+  end
+
+  # ---------------------- file persistence --------------------------------------
+  def is_valide_file(%{"staff_file_name" => params}) do
+      if upload = params do
+        case Path.extname(upload.filename) do
+          ext when ext in ~w(.xlsx .XLSX .xls .XLS .csv .CSV) ->
+            with {:ok, destin_path} <- persist(upload) do
+              case ext not in ~w(.csv .CSV) do
+                true ->
+                  case Xlsxir.multi_extract(destin_path, 0, false, extract_to: :memory) do
+                    {:ok, table_id} ->
+                      row_count = Xlsxir.get_info(table_id, :rows)
+                      Xlsxir.close(table_id)
+                      {:ok, upload.filename, destin_path, row_count - 1}
+
+                    {:error, reason} ->
+                      {:error, reason}
+                  end
+
+                _ ->
+                  {:ok, upload.filename, destin_path, "N(count)"}
+              end
+            else
+              {:error, reason} ->
+                {:error, reason}
+            end
+
+          regan ->
+            IO.inspect "================================================================================="
+            IO.inspect regan
+            {:error, "Invalid File Format"}
+        end
+      else
+        {:error, "No File Uploaded"}
       end
+    end
 
-      def traverse_errors(errors) do
-        for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
-      end
+  def csv(path, upload) do
+    case process_csv(path) do
+      {:ok, data} ->
+        row_count = Enum.count(data)
+        IO.inspect("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        IO.inspect(row_count)
 
-def update_staff(conn, params) do
-staff_data = Companies.get_staff!(params["id"])
-Ecto.Multi.new()
-|> Ecto.Multi.update(:staff, Staff.changeset(staff_data, params))
-|> Ecto.Multi.run(:user_log, fn(_, %{staff: staff}) ->
-      activity = "Updated Staff with code \"#{staff.first_name}\""
+        case row_count do
+          rows when rows in 1..100_000 ->
+            {:ok, upload.filename, path, row_count}
 
-      # activity = "Staff has been Added Successfully"
+          _ ->
+            {:error, "File records should be between 1 to 100,000"}
+        end
 
-      user_log = %{
-          user_id: conn.assigns.user.id,
-          activity: activity
-      }
+      {:error, reason} ->
+        IO.inspect(reason)
 
-      UserLogs.changeset(%UserLogs{}, user_log)
-      |> Repo.insert()
-      end)
-      |> Repo.transaction()
-      |> case do
-      {:ok, %{staff: _staff, user_log: _user_log}} ->
-      conn
-      |> put_flash(:info, "Staff has been updates Successfully.")
-      |> redirect(to: Routes.company_path(conn, :staff))
-
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-      reason = traverse_errors(failed_value.errors) |> List.first()
-      conn
-      |> put_flash(:error, reason)
-      |> redirect(to: Routes.company_path(conn, :staff))
-      end
-      # rescue
-      # _ ->
-      # conn
-      # |> put_flash(:error, "An error occurred, reason unknown. try again")
-      # |> redirect(to: Routes.customer_path(conn, :index))
-      end
-
-      def traverse_errors(errors) do
-        for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
-      end
-
-#disable company record
-
-def disable_company(conn, params) do
-  companies = Companies.get_company!(params["id"])
-
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:companies, Company.changeset(companies, %{status: false}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
-      activity = "Updated Company with code \"#{companies.company_name}\""
-
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{companies: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Company Disabled successfully", status: 0})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 1})
+        {:error, reason}
+    end
   end
-end
 
-def enable_company(conn, params) do
-  companies = Companies.get_company!(params["id"])
 
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:companies, Company.changeset(companies, %{status: true}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
-      activity = "Updated Company with code \"#{companies.company_name}\""
 
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
+    def persist(%Plug.Upload{filename: filename, path: path}) do
+      dir_path = System_Directories.directories()
 
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{companies: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Company Enabled successfully", status: 1})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 0})
+      destin_path = (dir_path && dir_path.processed)  ||  "C:/Users/Dolben/Desktop/staffFile" |> default_dir()
+      destin_path = Path.join(destin_path, filename)
+
+        {_key, _resp} =
+        with true <- File.exists?(destin_path) do
+          {:error, "File with the same name aready exists"}
+        else
+          false ->
+            File.cp(path, destin_path)
+            {:ok, destin_path}
+        end
+    end
+
+
+
+    def default_dir(path) do
+      File.mkdir_p(path)
+      path
+    end
+
+
+  def extract_xlsx(path) do
+    case Xlsxir.multi_extract(path, 0, false, extract_to: :memory) do
+      {:ok, id} ->
+        items =
+          Xlsxir.get_list(id)
+          |> Enum.reject(&Enum.empty?/1)
+          |> Enum.reject(&Enum.all?(&1, fn item -> is_nil(item)
+        end))
+          |> List.delete_at(0)
+          |> Enum.map(
+            &Enum.zip(
+              Enum.map(@headers, fn h -> h end),
+              Enum.map(&1, fn v -> strgfy_term(v) end)
+            )
+          )
+          |> Enum.map(&Enum.into(&1, %{}))
+          |> Enum.reject(&(Enum.join(Map.values(&1)) == ""))
+
+        Xlsxir.close(id)
+        {:ok, items}
+s
+
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
-end
+
+    defp strgfy_term(term) when is_tuple(term), do: term
+    defp strgfy_term(term) when not is_tuple(term), do: String.trim("#{term}")
 
 
-def disable_product(conn, params) do
-  product_data = Products.get_product!(params["id"])
 
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:product, Product.changeset(product_data, %{status: false}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{product: product}) ->
-    activity = "Disabled product with code \"#{product.name}\""
-
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{product: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Product Disabled successfully", status: 0})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 1})
-  end
-end
+    def traverse_errors(errors) do
+      for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+    end
 
 
-def enable_product(conn, params) do
-  product_data = Products.get_product!(params["id"])
 
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:product, Product.changeset(product_data, %{status: true}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{product: product}) ->
-    activity = "Enable product with code \"#{product.name}\""
 
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{product: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Product enable successfully", status: 1})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 1})
-  end
-end
-
-def disable_staff(conn, params) do
-  staff_data = Companies.get_staff!(params["id"])
-
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:staff, Staff.changeset(staff_data, %{status: false}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{staff: staff}) ->
-    activity = "Disabled staff with code \"#{staff.first_name}\""
-
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{staff: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Staff Disabled successfully", status: 0})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 1})
-  end
-end
-
-def enable_staff(conn, params) do
-  staff_data = Companies.get_staff!(params["id"])
-
-  Ecto.Multi.new()
-  |> Ecto.Multi.update(:staff, Staff.changeset(staff_data, %{status: true}))
-  |> Ecto.Multi.run(:user_log, fn (_, %{staff: staff}) ->
-    activity = "Enabled staff with code \"#{staff.first_name}\""
-
-      user_logs = %{
-        user_id: conn.assigns.user.id,
-        activity: activity
-      }
-
-      UserLogs.changeset(%UserLogs{}, user_logs)
-      |> Repo.insert()
-  end)
-  |> Repo.transaction()
-  |> case do
-    {:ok, %{staff: _companies, user_log: _user_log}} ->
-      conn |> json(%{message: "Staff Enabled successfully", status: 1})
-      {:error, _failed_operation, failed_value, _changes_so_far} ->
-        reason = traverse_errors(failed_value.errors) |> List.first()
-        conn |> json(%{message: reason, status: 1})
-  end
-end
 
 end

@@ -17,7 +17,11 @@ defmodule LoanSystem.Products.Product do
     field :withdrawal_fee_amount, :string
     field :withdrawal_fee_transfer_to_mobile, :string
     field :year_length_days, :string
+<<<<<<< HEAD
     field :status, :boolean, default: true
+=======
+    field :status, :string
+>>>>>>> DAVIES
 
     timestamps()
   end
@@ -26,6 +30,10 @@ defmodule LoanSystem.Products.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :code, :details, :currency, :currency_decimals, :annual_interest, :fixed_period_days, :year_length_days, :min_balance_required, :withdrawal_fee_amount, :withdrawal_fee_transfer_to_mobile, :deposit_fee_amount, :days_to_inactive, :days_to_dormancy, :status])
+<<<<<<< HEAD
     |> validate_required([:name, :code, :details, :currency, :currency_decimals, :annual_interest, :fixed_period_days, :year_length_days, :min_balance_required, :withdrawal_fee_amount, :withdrawal_fee_transfer_to_mobile, :deposit_fee_amount, :days_to_inactive, :days_to_dormancy])
+=======
+    |> validate_required([:name, :code, :details, :currency, :currency_decimals, :annual_interest, :fixed_period_days, :year_length_days, :min_balance_required, :withdrawal_fee_amount, :withdrawal_fee_transfer_to_mobile, :deposit_fee_amount, :days_to_inactive, :days_to_dormancy, :status])
+>>>>>>> DAVIES
   end
 end

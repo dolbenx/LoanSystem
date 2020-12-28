@@ -1,5 +1,3 @@
-<link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/notifications/sweetalert2/sweetalert2.bundle.css") %>">
-<link rel="stylesheet" media="screen, print" href="css/notifications/sweetalert2/sweetalert2.bundle.css">
 
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
@@ -31,7 +29,7 @@
                                     <th>Deposit fee amount</th>
                                     <th>Days to inactive</th>
                                     <th>Days to dormancy</th>
-                                    <th>Actions</th>
+                                    <th>Action</th>
                         </tr>
                            </thead>                    
                             <tbody>
@@ -49,20 +47,20 @@
                                         <td><%= product.days_to_inactive  %></td> 
                                         <td><%= product.days_to_dormancy  %></td> 
 
-                                       <td>
+
+                                     <td>
                                       <div class="btn-group mr-1 mb-1">
                                             <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Action</button>
                                             <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu" style="">
                                                 <a type="button" class="dropdown-item" href="#"  data-id="<%= product.id %>" data-name="<%= product.name %>" data-code="<%= product.code %>" data-currency="<%= product.currency %>" data-currency_decimals="<%= product.currency_decimals %>" data-details ="<%= product.details %>" data-min_balance_required="<%= product.min_balance_required %>" data-annual_interest="<%= product.annual_interest %>" data-withdrawal_fee_amount="<%= product.withdrawal_fee_amount %>" data-withdrawal_fee_transfer_to_mobile="<%= product.withdrawal_fee_transfer_to_mobile %>" data-deposit_fee_amount="<%= product.deposit_fee_amount %>" data-fixed_period_days="<%= product.fixed_period_days %>" data-year_length_days="<%= product.year_length_days %>" data-days_to_inactive="<%= product.days_to_inactive %>" data-days_to_dormancy="<%= product.days_to_dormancy %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
-                                                <a type="button" class="dropdown-item" href="#"  data-id="<%= product.id %>" data-name="<%= product.name %>" data-code="<%= product.code %>" data-currency="<%= product.currency %>" data-currency_decimals="<%= product.currency_decimals %>" data-details ="<%= product.details %>" data-min_balance_required="<%= product.min_balance_required %>" data-annual_interest="<%= product.annual_interest %>" data-withdrawal_fee_amount="<%= product.withdrawal_fee_amount %>" data-withdrawal_fee_transfer_to_mobile="<%= product.withdrawal_fee_transfer_to_mobile %>" data-deposit_fee_amount="<%= product.deposit_fee_amount %>" data-fixed_period_days="<%= product.fixed_period_days %>" data-year_length_days="<%= product.year_length_days %>" data-days_to_inactive="<%= product.days_to_inactive %>" data-days_to_dormancy="<%= product.days_to_dormancy %>" data-toggle="modal" data-target="#view_modal">View</a>
-                                        <%= if product.status == true do %>
-                                            <a class="dropdown-item js-sweetalert2-disable_product" href="#" style="color: #ff0000" data-id="<%= product.id %>">Disable</a>
-                                            <% else %>
-                                            <a class="dropdown-item js-sweetalert2-enable_company" href="#" style="color: #008000" data-id="<%= product.id %>" >Enable</a>
+                                               
+                                        <%= if product.status == ACTIVE do %>
+                                            <a class="dropdown-item js-sweetalert2-disable"  style="color: #ff0000" data-id="<%= product.id %>" >Disable</a>
+                                        <% else %>
+                                            <a class="dropdown-item enable"  style="color: #008000" data-id="<%= product.id %>" >Enable</a>
                                         <% end %>
                                         </div>
                                         </td>
-                                   
                                     </tr>                               
                             <% end %>
                         </tbody>
@@ -87,8 +85,9 @@
                     <form id="" action="<%= Routes.company_path(@conn, :add_product) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="client_id" value="21">
+                    <input type="hidden" name="status" value="ACTIVE">
                     <h5 class="form-header">
-                        Add Product
+                        Add Loan Product
                     </h5>
                     <div class="form-desc">
                        Please Add Product
@@ -327,143 +326,6 @@
     </div>
 <% end %>
 <!--       ########################### END OF EDIT PRODUCT ################################## -->
-
-
-<!--       ########################### VIEW PRODUCT ################################## -->
-<%= for product <- @product do %>
-    <div aria-hidden="true" class="onboarding-modal modal fade animated" id="view_modal" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content text-center">
-            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
-                <div class="element-wrapper">
-                    <div class="element-box">
-                        <form id="" action="<%= Routes.company_path(@conn, :update_product) %>" method="post" id="view_modal">
-                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                        <input type="hidden" name="client_id" value="21">
-                        <input type="hidden" name="id" id="id" value="<%= product.id %>">
-                        <h5 class="form-header">
-                         Product
-                        </h5>
-                        <div class="form-desc">
-                        Product Details
-                        </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Name</label>
-                                        <input class="form-control" name="name" id="name" value="<%= product.name %>" disabled>
-                                        <div class="help-block form-text text-muted form-control-feedback"></div>
-                                    </div>
-                                </div>                                      
-                            <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Code</label>
-                                        <input class="form-control" name="code" id="code" value="<%= product.code %>" disabled>
-                                        <div class="help-block form-text text-muted form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Details</label>
-                                        <input type="text" class="form-control" name="details" id="details" value="<%= product.details %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Currency</label>
-                                        <input class="form-control" name="currency" id="currency" value="<%= product.currency %>" disabled>
-                                        <div class="help-block form-text text-muted form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Currency Decimals</label>
-                                        <input class="form-control" name="currency_decimals" id="currency_decimals" value="<%= product.currency_decimals %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Annual Interest</label>
-                                        <input class="form-control" name="annual_interest" id="annual_interest" value="<%= product.annual_interest %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Fixed period days</label>
-                                        <input class="form-control" name="fixed_period_days" id="fixed_period_days" value="<%= product.fixed_period_days %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Year length days</label>
-                                        <input class="form-control" name="year_length_days" id="year_length_days" value="<%= product.year_length_days %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Min balance required</label>
-                                        <input class="form-control" name="min_balance_required" id="min_balance_required" value="<%= product.min_balance_required %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>                 
-                                <div class="col-sm-6">
-                                    <div class="form-group ">
-                                        <label for="">Withdraw fee amount</label>
-                                        <input class="form-control" name="withdrawal_fee_amount" id="withdrawal_fee_amount" value="<%= product.withdrawal_fee_amount %>" disabled>
-                                        <div class="help-block form-text text-muted form-control-feedback">
-                                        </div>
-                                    </div>
-                            </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Withdraw fee transfer to mobile</label>
-                                        <input class="form-control" name="withdrawal_fee_transfer_to_mobile" id="withdrawal_fee_transfer_to_mobile" value="<%= product.withdrawal_fee_amount %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                            
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                    <label for="">Deposit fee amount
-                                    </label>
-                                    <input class="form-control" name="deposit_fee_amount" id="deposit_fee_amount" value="<%= product.deposit_fee_amount %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div> 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Days to inactive</label><input class="form-control" name="days_to_inactive" id="days_to_inactive" value="<%= product.days_to_inactive %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="">Days to dormancy</label><input class="form-control" name="days_to_dormancy" id="days_to_dormancy" value="<%= product.days_to_dormancy %>" disabled>
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>                                                                       
-                            </div>
-                            <div class="">
-                         <button type="button" class="btn btn-primary disabled" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-<% end %>
-<!--       ########################### END OF VIEW PRODUCT ################################## -->
-
-
 
 
 

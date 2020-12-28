@@ -9,9 +9,6 @@
                     Search for Reports
                     </h5>
                     <div class="form-desc">
-<<<<<<< HEAD
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i>Product</button>
-=======
                         <form class="form-inline">
                             <label class="sr-only"> Type</label>
                                 <select class="form-control mb-2 mr-sm-2 mb-sm-0">
@@ -22,16 +19,16 @@
                                     All
                                     </option>
                                     <option>
-                                    Successful Transactions
+                                    Successful 
                                     </option>
                                     <option>
-                                    Failed Transactions
+                                    Failed 
                                     </option>
                                     <option>
-                                    Audit Logs
+                                    Loan Repayment
                                     </option>
                                     <option>
-                                    Products Reports
+                                    Loan Payout
                                     </option>
                                 </select>
 
@@ -56,7 +53,6 @@
                             </div>
                             <button class="btn btn-primary" type="submit"> Generate</button>
                         </form>
->>>>>>> DAVIES
                     </div>
                     <!--------------------
                     START - Basic Table
