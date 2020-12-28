@@ -94,10 +94,23 @@ defmodule LoanSystemWeb.Router do
     get("/view/staff", CompanyController, :update_staff)
     post("/view/staff", CompanyController, :update_staff)
     post("/edit/staff", CompanyController, :update_staff)
-    post("/Companies/disable", CompanyController, :disable)
+    post("/Companies/disable", CompanyController, :disable_company)
+    post("/Companies/enable", CompanyController, :enable_company)
     get("/view/product", CompanyController, :update_product)
     post("/view/product", CompanyController, :update_product)
     post("/edit/product", CompanyController, :update_product)
+    post("/products/disable", CompanyController, :disable_product)
+    post("/products/enable", CompanyController, :enable_product)
+    post("/staff/disable", CompanyController, :disable_staff)
+    post("/staff/enable", CompanyController, :enable_staff)
+
+
+
+
+
+
+
+
 
 
     ########### END OF MAINTENANCE ROUTES #############
