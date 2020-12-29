@@ -17,12 +17,12 @@ defmodule LoanSystem.Accounts.User do
     field :last_name, :string
     field :loan_officer, :integer
     field :password, :string
-    field :phone, :string
+    field :phone, :integer
     field :sex, :string
     field :status, :integer
     field :title, :string
     field :user_role, :string
-    field :user_type, :integer
+    belongs_to :user, LoanSystem.Accounts.User, foreign_key: :user_id, type: :id
 
     timestamps(type: :utc_datetime)
   end
