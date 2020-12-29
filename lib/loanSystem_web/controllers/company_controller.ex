@@ -37,18 +37,14 @@ defmodule LoanSystemWeb.CompanyController do
     render(conn, "staff.html", staff: staff, companies: companies)
   end
 
-<<<<<<< HEAD
-  def portal_admin(conn, %{"company_id" => company_id}) do
-     companies = Companies.comp_id(company_id)
-=======
   def staff_uploads(conn, _params) do
     companies = Companies.list_tbl_companies()
     staff = Companies.list_tbl_staff()
     render(conn, "staff_upload.html", companies: companies, staff: staff)
   end
 
-  def portal_admin(conn, _params) do
->>>>>>> DAVIES
+  def portal_admin(conn, %{"company_id" => company_id}) do
+     companies = Companies.comp_id(company_id)
      system_users = Accounts.list_tbl_users()
      render(conn, "portal_admin.html", system_users: system_users, companies: companies)
   end
@@ -56,9 +52,9 @@ defmodule LoanSystemWeb.CompanyController do
 
     product = Products.list_tbl_products()
     render(conn, "products.html", product: product)
-end
+  end
 
-def generate_company() do
+  def generate_company() do
   random = Enum.random(111111..999999) |> to_string
   year = to_string(Timex.now()|> Timex.format!("%Y", :strftime)|>String.slice(-2..-1))
   month = to_string(Timex.format!(Timex.today(), "%m", :strftime))
