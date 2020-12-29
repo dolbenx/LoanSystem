@@ -18,6 +18,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblStaff do
       add :id_type, :string
       add :account_no, :string
       add :branch_id, :integer
+      add :staff_file_name, :string
 
       timestamps()
     end

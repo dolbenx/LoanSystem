@@ -25,10 +25,11 @@
                                     <th>User Role</th>
                                     <th>ID</th>
                                     <th>Phone Number</th>
+                                    <th>Company</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <%= for user <- @system_users do %>  
+                                <%= for user <- @client_users do %>  
                                     <tr>
                                         <td><%= user.first_name %></td>
                                         <td><%= user.last_name %></td>
@@ -36,6 +37,7 @@
                                         <td><%= user.user_role %></td>
                                         <td><%= user.id_no %></td>
                                         <td><%= user.phone %></td>
+                                        <td><%= user.company_name %></td>
                                     </tr>
                                 <% end %>
                             </tbody>

@@ -209,6 +209,9 @@
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" name="company_id" value="<%= @companies.company_id %>">
                     <input type="hidden" name="tpin_no" value="323223233">
+                    <input type="hidden" name="account_no" value="323223233">
+                    <input type="hidden" name="branch_id" value="323223233">
+                     <input type="hidden" name="staff_file_name" value="Single Upload">
                     <input type="hidden" name="date_of_incorporation" value="10-10-2019">
                     <h5 class="form-header">
                         Add Staff

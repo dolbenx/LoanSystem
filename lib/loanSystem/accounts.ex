@@ -7,7 +7,7 @@ defmodule LoanSystem.Accounts do
   alias LoanSystem.Repo
 
   alias LoanSystem.Accounts.User
-
+  alias LoanSystem.Companies.Company
   @doc """
   Returns the list of tbl_users.
 
@@ -20,6 +20,26 @@ defmodule LoanSystem.Accounts do
   def list_tbl_users do
     Repo.all(User)
   end
+
+ def get_client_users(company_id) do
+  Company
+    |> join(:left, [c], u in "tbl_users", on: c.company_id == u.company_id)
+    |> where([c, u], c.company_id == ^company_id)
+    |> select([c, u], %{
+      company_name: c.company_name,
+      first_name: u.first_name,
+      last_name: u.last_name,
+      id: u.id,
+      company_id: u.company_id,
+      email: u.email,
+      phone: u.phone,
+      address: u.address,
+      id_no: u.id_no,
+      id_type: u.id_type,
+      user_role: u.user_role
+    })
+    |> Repo.all()
+ end
 
   @doc """
   Gets a single user.

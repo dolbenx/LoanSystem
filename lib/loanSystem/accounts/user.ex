@@ -15,9 +15,10 @@ defmodule LoanSystem.Accounts.User do
     field :phone, :integer
     field :sex, :string
     field :status, :integer
-    field :user_id, :string
+    field :user_id, :integer
     field :user_role, :string
-    belongs_to :user, LoanSystem.Accounts.User, foreign_key: :user_id, type: :id
+    field :company_id, :string
+    field :user_type, :integer
 
     timestamps()
   end
@@ -41,7 +42,8 @@ defmodule LoanSystem.Accounts.User do
       :status,
       :user_id,
       :user_role,
-      :user_type
+      :user_type,
+      :company_id
     ])
     |> validate_required([
       # :first_name,
@@ -122,6 +124,6 @@ defmodule LoanSystem.Accounts.User do
   def encrypt_password(password), do: Base.encode16(:crypto.hash(:sha512, password))
 end
 
-# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "NRC", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
 
 # LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Probase", secondary_email: "client@admin.com", email: "client@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "3", status: "1", user_role: "CLIENT", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})

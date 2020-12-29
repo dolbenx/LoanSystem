@@ -12,7 +12,8 @@ defmodule LoanSystem.Repo.Migrations.CreateTblCompanies do
       add :date_of_incorporation, :string
       add :company_id, :string
       add :address, :string
-      add :status, :boolean, default: true
+      add :status, :string
+      add :company_file_name, :string
 
       timestamps()
     end

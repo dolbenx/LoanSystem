@@ -16,13 +16,16 @@ defmodule LoanSystem.Repo.Migrations.CreateTblUsers do
       add :age, :integer
       add :id_type, :string
       add :id_no, :string
-      add :phone, :string
+      add :phone, :integer
       add :address, :string
       add :creator_id, :integer
       add :acc_inactive_reason, :string
       add :last_modified_by, :string
       add :created_by, :string
       add :loan_officer, :integer
+      add :home_add, :string
+      add :user_id, :integer
+      add :company_id, :string
 
       timestamps()
     end

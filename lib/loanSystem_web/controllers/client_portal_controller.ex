@@ -49,13 +49,8 @@ defmodule LoanSystemWeb.ClientPortalController do
 		render(conn, "loan_balance.html")
   end
   def register_staff(conn, _params) do
-<<<<<<< HEAD
-
-		render(conn, "register_staff.html")
-=======
     staff = Companies.list_tbl_staff()
 		render(conn, "register_staff.html", staff: staff)
->>>>>>> DAVIES
   end
 
   def add_staff(conn, params) do

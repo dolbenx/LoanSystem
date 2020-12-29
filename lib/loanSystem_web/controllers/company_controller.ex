@@ -27,8 +27,9 @@ defmodule LoanSystemWeb.CompanyController do
 
   end
   def companies(conn, _params) do
+    products = Products.list_tbl_products()
     companies = Companies.list_tbl_companies()
-    render(conn, "companies.html", companies: companies)
+    render(conn, "companies.html", companies: companies, products: products)
   end
 
   def staff(conn,  %{"company_id" => company_id}) do
@@ -45,8 +46,8 @@ defmodule LoanSystemWeb.CompanyController do
 
   def portal_admin(conn, %{"company_id" => company_id}) do
      companies = Companies.comp_id(company_id)
-     system_users = Accounts.list_tbl_users()
-     render(conn, "portal_admin.html", system_users: system_users, companies: companies)
+     client_users = Accounts.get_client_users(company_id)
+     render(conn, "portal_admin.html", client_users: client_users, companies: companies)
   end
   def products(conn, _params) do
 
