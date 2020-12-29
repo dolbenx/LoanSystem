@@ -18,15 +18,13 @@
 
 
 <main id="js-page-content" role="main" class="page-content">
-    <div class="element-wrapper">
-        <h6 class="element-header">Companies</h6>
         <div class="element-wrapper">
             <h6 class="element-header">
                Companies
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
-                 <a class="mr-2 mb-2 btn btn-primary btn-rounded" href="#" id="com_id" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</a>
+                 <button class="mr-2 mb-2 btn btn-primary btn-rounded"data-target="#add-client" data-toggle="modal" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</button>
                     <h5 class="form-header">
                     Companies Table
                     </h5>
@@ -100,8 +98,7 @@
                 <div class="element-box">
                     <form id="" action="<%= Routes.company_path(@conn, :add_company) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="company_file_name" value="asasas">
-                    <input type="hidden" name="company_id" id="companies_id">
+                    <input type="hidden" name="company_file_name" value="Single_upload">
                     <h5 class="form-header">
                         Add Company
                     </h5>
@@ -113,6 +110,14 @@
                                 <div class="form-group">
                                     <label for="">Company Name</label>
                                     <input class="form-control" name="company_name" placeholder="Company Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Pacra Number</label>
+                                    <input class="form-control" name="company_id" placeholder="Company ID" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
@@ -172,7 +177,7 @@
                             <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Select Product</label>
-                                        <select class="form-control" name="company_id">
+                                        <select class="form-control" name="product_code">
                                         <%= for product <- @products do %>
                                             <option value="<%= product.code %>">
                                             <%= product.name %>
@@ -396,33 +401,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
 
-
- <script>
-    $('#com_id').on('click', function (event){
-        var modal= $("#add-client");
-        var acc= ""
-        $.ajax({
-            url: '/Generate/Company/ID',
-            type: 'POST',
-            data: {_csrf_token: $('#csrf').val()},
-            success: function(result) {
-                if (result.account){
-                    acc = result.account
-                    modal.find('#companies_id').val(acc);
-                    modal.modal("show")
-                } else {
-                    modal.find('#companies_id').val("error");
-                    modal.modal("show")
-                }
-            },
-            error: function(request, msg, error) {
-                modal.find('#companies_id').val("error 2");
-                modal.modal("show")
-            }
-        })
-
-    });
-</script>
 
 <script>
 $(document).ready(function(){

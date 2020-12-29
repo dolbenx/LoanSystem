@@ -61,7 +61,7 @@
                                 <div class="card mb-g border shadow-0">
                                     <div class="card-body">
                                         <h5 class="frame-heading">
-                                            Client List <a type="submit" href="<%= Routes.client_portal_path(@conn, :register_staff)%>" style="float: right;" class="btn btn-xs btn-outline-info waves-effect waves-themed">View Stuff</a>
+                                            Client List <a type="submit" href="<%= Routes.client_portal_path(@conn, :register_staff, company_id: @conn.assigns.user.company_id)%>" style="float: right;" class="btn btn-xs btn-outline-info waves-effect waves-themed">View Stuff</a>
                                         </h5>
                                         <div class="frame-wrap p-0 border-0 m-0">
                                             <table class="table m-0 table-bordered" id="table-example">

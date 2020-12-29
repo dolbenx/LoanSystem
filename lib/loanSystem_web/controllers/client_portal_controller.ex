@@ -48,12 +48,14 @@ defmodule LoanSystemWeb.ClientPortalController do
   def loan_balance(conn, _params) do
 		render(conn, "loan_balance.html")
   end
-  def register_staff(conn, _params) do
-    staff = Companies.list_tbl_staff()
-		render(conn, "register_staff.html", staff: staff)
+  def register_staff(conn, %{"company_id" => company_id}) do
+    companies = Companies.comp_id(company_id)
+    staff = Companies.list_stuff_with_company_id(company_id)
+		render(conn, "register_staff.html", staff: staff, companies: companies)
   end
 
   def add_staff(conn, params) do
+    %{"company_id" => company_id} = params
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:staff, Staff.changeset(%Staff{}, params))
     |> Ecto.Multi.run(:user_log, fn(_, %{staff: _staff}) ->
@@ -73,13 +75,13 @@ defmodule LoanSystemWeb.ClientPortalController do
   {:ok, %{staff: _staff, user_log: _user_log}} ->
   conn
   |> put_flash(:info, "Staff has been Added Successfully.")
-  |> redirect(to: Routes.client_portal_path(conn, :register_staff))
+  |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
 
   {:error, _failed_operation, failed_value, _changes_so_far} ->
   reason = traverse_errors(failed_value.errors) |> List.first()
   conn
   |> put_flash(:error, reason)
-  |> redirect(to: Routes.client_portal_path(conn, :register_staff))
+  |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
   end
   # rescue
   # _ ->
@@ -90,18 +92,19 @@ defmodule LoanSystemWeb.ClientPortalController do
 
   def handle_bulk_upload(conn, params) do
     user = conn.assigns.user
+    %{"company_id" => company_id} = params
 
     {key, msg, _invalid} = handle_file_upload(user, params)
 
     if key == :info do
       conn
       |> put_flash(key, msg)
-      |> redirect(to: Routes.client_portal_path(conn, :register_staff))
+      |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
 
     else
       conn
       |> put_flash(key, msg)
-      |> redirect(to: Routes.client_portal_path(conn, :register_staff))
+      |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
     end
   end
 

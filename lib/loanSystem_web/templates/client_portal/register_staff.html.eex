@@ -121,18 +121,18 @@
             <div class="modal-body">
                 <form id="" action="<%= Routes.client_portal_path(@conn, :add_staff) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="company_id" value="344333443">
+                    <input type="hidden" name="company_id" value="<%= "#{(@conn.assigns.user.company_id)}"%>">
                     <input type="hidden" name="tpin_no" value="344333443">
                     <input type="hidden" name="account_no" value="344333443">
                     <input type="hidden" name="branch_id" value="344333443">
-                    <input type="hidden" name="staff_file_name" value="null">
+                    <input type="hidden" name="staff_file_name" value="Single Upload">
                     <div class="panel-container show">
                         <div class="panel-content">
                             <div class="row">
                         
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Company Name</label><input class="form-control" name="company_name" placeholder="Company Name " value="Company XYZ" required="required" type="text" readonly>
+                                    <label for="">Company Name</label><input class="form-control" name="company_name" placeholder="Company Name " value="<%= @companies.company_name %>" required="required" type="text" readonly>
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="inputGroupFile01">Select file to upload</label>
                                     <div class="input-group">
-                                    <input type="hidden" name="company_id" value="34434334">
+                                    <input type="hidden" name="company_id" value="<%= @companies.company_id %>">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                         </div>

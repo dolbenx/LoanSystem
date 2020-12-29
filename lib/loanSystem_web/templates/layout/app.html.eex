@@ -263,11 +263,7 @@
                       <li>
                       <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
                     </li>
-<<<<<<< HEAD
-                      <li> 
-=======
                     <li>
->>>>>>> DAVIES
                       <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
                     </li>
                     <li>
