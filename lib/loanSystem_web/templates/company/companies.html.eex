@@ -50,7 +50,7 @@
                                                 <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
                                         
                                                 <a class="dropdown-item" href="<%= Routes.company_path(@conn, :staff, company_id: company.company_id)%>"> View Staff</a>
-                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin)%>"> Add HR</a>
+                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin, company_id: company.company_id)%>"> Add HR</a>
                                                 <a class="dropdown-item" href="#"> Disable</a>
                                                 </div>
                                             </div>

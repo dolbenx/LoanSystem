@@ -7,7 +7,6 @@
             <div class="element-wrapper">
                 <div class="element-box">
                  <button class="mr-2 mb-2 btn btn-primary btn-rounded"  style="float: right;" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Staff</button>
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded"  style="float: right;" data-target="#upload" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Bulk Upload</button>
                     <h5 class="form-header">
                     Maintain Staff
                     </h5>

@@ -790,7 +790,6 @@
     <script src="<%= Routes.static_path(@conn, "/js/clientvendors.bundle.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/clientapp.bundle.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/datagrid/datatables/datatables.export.js") %>"></script>
-    <script src="<%= Routes.static_path(@conn, "/js/datagrid/datatables/datatables.bundle.js") %>"></script>
     <script>
       $(document).ready(function()
         {

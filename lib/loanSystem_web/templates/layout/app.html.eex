@@ -266,9 +266,6 @@
                       <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
                     </li>
                     <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_collateral)%>">Loan Collateral</a>
-                    </li>
-                    <li>
                       <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
                     </li>
                     <li>
