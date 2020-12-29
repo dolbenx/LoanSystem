@@ -1,4 +1,4 @@
-defmodule LoanSystem.System_Directories do
+defmodule LoanSystem.SystemDirectories do
   @moduledoc """
   The System_Directories context.
   """
@@ -6,7 +6,7 @@ defmodule LoanSystem.System_Directories do
   import Ecto.Query, warn: false
   alias LoanSystem.Repo
 
-  alias LoanSystem.System_Directories.Directory
+  alias LoanSystem.SystemDirectories.Directory
 
   @doc """
   Returns the list of tbl_system_directories.

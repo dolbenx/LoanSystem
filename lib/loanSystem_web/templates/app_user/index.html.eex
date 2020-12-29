@@ -1,0 +1,30 @@
+<h1>Listing Appusers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Mobile number</th>
+      <th>Password</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for app_user <- @appusers do %>
+    <tr>
+      <td><%= app_user.user_id %></td>
+      <td><%= app_user.mobile_number %></td>
+      <td><%= app_user.password %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.app_user_path(@conn, :show, app_user) %></span>
+        <span><%= link "Edit", to: Routes.app_user_path(@conn, :edit, app_user) %></span>
+        <span><%= link "Delete", to: Routes.app_user_path(@conn, :delete, app_user), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New App user", to: Routes.app_user_path(@conn, :new) %></span>

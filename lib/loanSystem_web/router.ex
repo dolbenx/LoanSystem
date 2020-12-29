@@ -76,6 +76,15 @@ defmodule LoanSystemWeb.Router do
     post "/Activate/Leave/Account", UserController, :activate_user_on_leave
   end
 
+
+
+  scope "/", LoanSystemWeb do
+    pipe_through([:browser, :no_layout])
+    get("/emulator-ussd", UssdController, :index)
+    get("/appusers", UssdController, :index)
+    get("/ussd", UssdController, :initiateUssd)
+  end
+
   scope "/", LoanSystemWeb do
     pipe_through([:browser, :app])
     # ---------------------------Test
@@ -115,6 +124,8 @@ defmodule LoanSystemWeb.Router do
 
     get("/Companies", CompanyController, :companies)
     get("/Staff", CompanyController, :staff)
+    get("/Staff/Upload", CompanyController, :staff_uploads)
+    post("/Staff/Upload", CompanyController, :handle_bulk_upload)
     get("/Products", CompanyController, :products)
     post("Companies", CompanyController, :add_company)
     post("Staff", CompanyController, :add_staff)
@@ -142,6 +153,11 @@ defmodule LoanSystemWeb.Router do
       get "/Client/Portal", ClientPortalController, :index
       get "/Client/Payment/Schedule", ClientPortalController, :payment_schedule
       get "/Client/Staff/Register", ClientPortalController, :register_staff
+      post "/Client/Staff/Register", ClientPortalController, :handle_bulk_upload
+      post "/Client/Staff", ClientPortalController, :add_staff
+      get "/Client/Loan/Balances", ClientPortalController, :loan_balance
+
+
       get "/Client/Reports", ClientPortalController, :report
       get "/Client/Settings", ClientPortalController, :setting
       get "/Client/Investments/BalancedFund", ClientPortalController, :balanced_fund

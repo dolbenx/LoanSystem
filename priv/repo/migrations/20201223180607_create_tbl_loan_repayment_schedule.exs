@@ -6,7 +6,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoanRepaymentSchedule do
       add :loan_id, :integer
       add :fromdate, :date
       add :duedate, :date
-      add :installment, :float
+      add :installment, :integer
       add :principal_amount, :float
       add :principal_completed_derived, :float
       add :principal_writtenoff_derived, :float

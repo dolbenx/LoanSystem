@@ -1,0 +1,68 @@
+<h1>Listing Loanproducts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Short code</th>
+      <th>Name</th>
+      <th>Currency code</th>
+      <th>Min principal amount</th>
+      <th>Max principal amount</th>
+      <th>Arrearstolerance amount</th>
+      <th>Description</th>
+      <th>Min nominal interest rate per period</th>
+      <th>Max nominal interest rate per period</th>
+      <th>Min loan period</th>
+      <th>Max loan period</th>
+      <th>Interest method type</th>
+      <th>Min number of repayments</th>
+      <th>Max number of repayments</th>
+      <th>Start date</th>
+      <th>Close date</th>
+      <th>Days in month</th>
+      <th>Days in year</th>
+      <th>External</th>
+      <th>Overdue days for npa</th>
+      <th>Max outstanding loan balance</th>
+      <th>Require collateral</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for loan_product <- @loanproducts do %>
+    <tr>
+      <td><%= loan_product.short_code %></td>
+      <td><%= loan_product.name %></td>
+      <td><%= loan_product.currency_code %></td>
+      <td><%= loan_product.min_principal_amount %></td>
+      <td><%= loan_product.max_principal_amount %></td>
+      <td><%= loan_product.arrearstolerance_amount %></td>
+      <td><%= loan_product.description %></td>
+      <td><%= loan_product.min_nominal_interest_rate_per_period %></td>
+      <td><%= loan_product.max_nominal_interest_rate_per_period %></td>
+      <td><%= loan_product.min_loan_period %></td>
+      <td><%= loan_product.max_loan_period %></td>
+      <td><%= loan_product.interest_method_type %></td>
+      <td><%= loan_product.min_number_of_repayments %></td>
+      <td><%= loan_product.max_number_of_repayments %></td>
+      <td><%= loan_product.start_date %></td>
+      <td><%= loan_product.close_date %></td>
+      <td><%= loan_product.days_in_month %></td>
+      <td><%= loan_product.days_in_year %></td>
+      <td><%= loan_product.external_id %></td>
+      <td><%= loan_product.overdue_days_for_npa %></td>
+      <td><%= loan_product.max_outstanding_loan_balance %></td>
+      <td><%= loan_product.require_collateral %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.loan_product_path(@conn, :show, loan_product) %></span>
+        <span><%= link "Edit", to: Routes.loan_product_path(@conn, :edit, loan_product) %></span>
+        <span><%= link "Delete", to: Routes.loan_product_path(@conn, :delete, loan_product), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Loan product", to: Routes.loan_product_path(@conn, :new) %></span>

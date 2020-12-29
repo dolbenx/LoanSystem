@@ -4,7 +4,6 @@ defmodule LoanSystem.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised

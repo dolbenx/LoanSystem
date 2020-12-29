@@ -48,6 +48,7 @@ defmodule LoanSystem.MixProject do
       {:bamboo, "~> 1.3"},
       {:bamboo_smtp, "~> 2.1.0"},
       {:csv, "~> 2.3"},
+      {:calendar, "~> 0.17.0"},
       {:xlsxir, "~> 1.6.2"},
       {:endon, "~> 1.0"},
       {:elixlsx, "~>  0.1.1"}

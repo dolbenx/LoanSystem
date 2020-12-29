@@ -6,7 +6,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoans do
       add :account_no, :string
       add :external_id, :string
       add :customer_id, :integer
-      add :product_id, :string
+      add :product_id, :integer
       add :loan_status, :string
       add :loan_type, :string
       add :currency_code, :string
@@ -18,7 +18,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoans do
       add :term_frequency, :integer
       add :term_frequency_type, :string
       add :repay_every, :integer
-      add :repay_every_type, :date
+      add :repay_every_type, :string
       add :number_of_repayments, :integer
       add :approvedon_date, :date
       add :approvedon_userid, :integer
@@ -65,6 +65,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoans do
       add :loan_counter, :integer
       add :is_npa, :boolean, default: false, null: false
       add :is_legacyloan, :boolean, default: false, null: false
+      add :loan_identity_number, :string
 
       timestamps()
     end

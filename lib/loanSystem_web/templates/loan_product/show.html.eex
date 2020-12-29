@@ -1,0 +1,118 @@
+<h1>Show Loan product</h1>
+
+<ul>
+
+  <li>
+    <strong>Short code:</strong>
+    <%= @loan_product.short_code %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @loan_product.name %>
+  </li>
+
+  <li>
+    <strong>Currency code:</strong>
+    <%= @loan_product.currency_code %>
+  </li>
+
+  <li>
+    <strong>Min principal amount:</strong>
+    <%= @loan_product.min_principal_amount %>
+  </li>
+
+  <li>
+    <strong>Max principal amount:</strong>
+    <%= @loan_product.max_principal_amount %>
+  </li>
+
+  <li>
+    <strong>Arrearstolerance amount:</strong>
+    <%= @loan_product.arrearstolerance_amount %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @loan_product.description %>
+  </li>
+
+  <li>
+    <strong>Min nominal interest rate per period:</strong>
+    <%= @loan_product.min_nominal_interest_rate_per_period %>
+  </li>
+
+  <li>
+    <strong>Max nominal interest rate per period:</strong>
+    <%= @loan_product.max_nominal_interest_rate_per_period %>
+  </li>
+
+  <li>
+    <strong>Min loan period:</strong>
+    <%= @loan_product.min_loan_period %>
+  </li>
+
+  <li>
+    <strong>Max loan period:</strong>
+    <%= @loan_product.max_loan_period %>
+  </li>
+
+  <li>
+    <strong>Interest method type:</strong>
+    <%= @loan_product.interest_method_type %>
+  </li>
+
+  <li>
+    <strong>Min number of repayments:</strong>
+    <%= @loan_product.min_number_of_repayments %>
+  </li>
+
+  <li>
+    <strong>Max number of repayments:</strong>
+    <%= @loan_product.max_number_of_repayments %>
+  </li>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @loan_product.start_date %>
+  </li>
+
+  <li>
+    <strong>Close date:</strong>
+    <%= @loan_product.close_date %>
+  </li>
+
+  <li>
+    <strong>Days in month:</strong>
+    <%= @loan_product.days_in_month %>
+  </li>
+
+  <li>
+    <strong>Days in year:</strong>
+    <%= @loan_product.days_in_year %>
+  </li>
+
+  <li>
+    <strong>External:</strong>
+    <%= @loan_product.external_id %>
+  </li>
+
+  <li>
+    <strong>Overdue days for npa:</strong>
+    <%= @loan_product.overdue_days_for_npa %>
+  </li>
+
+  <li>
+    <strong>Max outstanding loan balance:</strong>
+    <%= @loan_product.max_outstanding_loan_balance %>
+  </li>
+
+  <li>
+    <strong>Require collateral:</strong>
+    <%= @loan_product.require_collateral %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.loan_product_path(@conn, :edit, @loan_product) %></span>
+<span><%= link "Back", to: Routes.loan_product_path(@conn, :index) %></span>
