@@ -66,6 +66,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblLoans do
       add :is_npa, :boolean, default: false, null: false
       add :is_legacyloan, :boolean, default: false, null: false
       add :loan_identity_number, :string
+      add :status, :string
 
       timestamps()
     end

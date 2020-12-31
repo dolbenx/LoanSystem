@@ -137,6 +137,9 @@ defmodule LoanSystem.Accounts do
     Repo.all(Old_password)
   end
 
+  def check_old_password(id, date) do
+    Repo.all(from u in Old_password, where: u.user_id == ^id and u.date_created >= ^date)
+  end
   @doc """
   Gets a single old_password.
 

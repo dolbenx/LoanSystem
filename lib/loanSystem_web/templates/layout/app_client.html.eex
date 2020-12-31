@@ -148,7 +148,7 @@
                                 <a href="<%= Routes.client_portal_path(@conn, :index)%>" title="Home" data-filter-tags="notifications">&nbsp;&nbsp;<i class="fal fa-home" style="color:white;"></i> <span class="navs">Home  </span></a>
                             </li>
                             <li>
-                                <a href="<%= Routes.client_portal_path(@conn, :register_staff)%>" title="Home" data-filter-tags="notifications">&nbsp;&nbsp;<i class="fal fa-home" style="color:white;"></i> <span class="navs">Register Staff  </span></a>
+                                <a href="<%= Routes.client_portal_path(@conn, :register_staff, company_id: @conn.assigns.user.company_id)%>" title="Home" data-filter-tags="notifications">&nbsp;&nbsp;<i class="fal fa-home" style="color:white;"></i> <span class="navs">Register Staff  </span></a>
                             </li>
                             <li>
                                 <a href="<%= Routes.client_portal_path(@conn, :loan_balance)%>" title="Beneficiary" data-filter-tags="notifications">&nbsp;&nbsp;<i class="fal fa-users" style="color:white;"> </i><span class="navs"> Loan Balances</span></a>
@@ -790,6 +790,7 @@
     <script src="<%= Routes.static_path(@conn, "/js/clientvendors.bundle.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/clientapp.bundle.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/datagrid/datatables/datatables.export.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/datagrid/datatables/datatables.bundle.js") %>"></script>
     <script>
       $(document).ready(function()
         {

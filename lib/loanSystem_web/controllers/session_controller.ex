@@ -46,6 +46,12 @@ defmodule LoanSystemWeb.SessionController do
                         |> put_session(:current_user, user.id)
                         |> put_session(:session_timeout_at, session_timeout_at())
                         |> redirect(to: Routes.user_path(conn, :dashboard))
+
+                      user.user_type == 2 ->
+                        conn
+                        |> put_session(:current_user, user.id)
+                        |> put_session(:session_timeout_at, session_timeout_at())
+                        |> redirect(to: Routes.user_path(conn, :dashboard))
                     end
                 true ->
                   conn
