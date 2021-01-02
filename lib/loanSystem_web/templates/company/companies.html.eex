@@ -24,7 +24,9 @@
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
+                <%= if @user.user_role == "ADMIN" do %>
                  <button class="mr-2 mb-2 btn btn-primary btn-rounded"data-target="#add-client" data-toggle="modal" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</button>
+                <% end %>  
                     <h5 class="form-header">
                     Companies Table
                     </h5>
@@ -61,6 +63,7 @@
                             <td><%= company.country  %></td>  
                             <td>
                                 <td>
+                                <%= if @user.user_role == "ADMIN" do %>
                                     <div class="btn-group mr-1 mb-1">
                                         <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
                                         <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
@@ -72,6 +75,17 @@
                                         <a class="dropdown-item" href="#"> Disable</a>
                                         </div>
                                     </div>
+                                <% end %>
+                                <%= if @user.user_role == "AUTHORIZER" do %>
+                                    <div class="btn-group mr-1 mb-1">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                        <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#Edit_modal">Approve</a>
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">Reject</a>
+                                        </div>
+                                    </div>
+                                <% end %>
                                 </td> 
                                 </tr>
                         <% end %>
@@ -315,7 +329,12 @@
                                   <input type="hidden" name="client_id" value="21">
                                         <!-- FORM CONTENT -->
                                 <h5 >
-                                       Edit Company details
+                                <%= if @user.user_role == "ADMIN" do %>
+                                    Edit Company details
+                                <% end %>
+                                <%= if @user.user_role == "AUTHORIZER" do %>
+                                    Approve Company
+                                <% end %>
                                 </h5><br>
                                 <div class="panel-content">
                                     <div class="container">
@@ -382,7 +401,12 @@
                             
                             <br> <br>
                             <div class="center" > <br>
-                                <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            <%= if @user.user_role == "ADMIN" do %>
+                            <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            <% end %>
+                            <%= if @user.user_role == "AUTHORIZER" do %>
+                                <button type="submit" class="btn btn-primary disabled">Approve</button>
+                            <% end %>
                             </div>
                             </form>
                         </div>
