@@ -94,7 +94,6 @@ defmodule LoanSystemWeb.ClientPortalController do
   def approve_staff(conn, params) do
     staff_data = Companies.get_staff!(params["id"])
     %{"company_id" => company_id} = params
-    %{"company_id" => company_id} = params
     Ecto.Multi.new()
     |> Ecto.Multi.update(:staff, Staff.changeset(staff_data, params))
     |> Ecto.Multi.run(:user_log, fn(_, %{staff: staff}) ->
