@@ -5,7 +5,6 @@ defmodule LoanSystemWeb.CompanyController do
       Company Controller.
   """
   alias LoanSystem.Accounts
-  alias LoanSystem.Accounts.User
   alias LoanSystem.Repo
   alias LoanSystem.Logs.UserLogs
   alias LoanSystem.Companies.Company
@@ -13,10 +12,6 @@ defmodule LoanSystemWeb.CompanyController do
   alias LoanSystem.Products.Product
   alias LoanSystem.Products
   alias LoanSystem.Companies
-  alias LoanSystem.SystemDirectories
-
-  @headers ~w/ first_name last_name other_name id_no phone tpin_no email company_name city country address id_type account_no branch_id/a
-
 
   def reports(conn, _params) do
     render(conn, "reports.html")
