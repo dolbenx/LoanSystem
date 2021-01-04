@@ -7,7 +7,7 @@ defmodule LoanSystemWeb.ClientPortalController do
   alias LoanSystem.Companies
   alias LoanSystem.SystemDirectories
 
-  @headers ~w/ first_name last_name other_name id_no phone tpin_no email company_name city country address id_type account_no branch_id/a
+  @headers ~w/ first_name last_name other_name id_no phone gender email city country address id_type account_no branch_id/a
   plug(
     LoanSystemWeb.Plugs.RequireAuth
     when action in [
@@ -89,6 +89,46 @@ defmodule LoanSystemWeb.ClientPortalController do
   # |> put_flash(:error, "An error occurred, reason unknown. try again")
   # |> redirect(to: Routes.customer_path(conn, :index))
   end
+
+
+  def approve_staff(conn, params) do
+    staff_data = Companies.get_staff!(params["id"])
+    %{"company_id" => company_id} = params
+    %{"company_id" => company_id} = params
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:staff, Staff.changeset(staff_data, params))
+    |> Ecto.Multi.run(:user_log, fn(_, %{staff: staff}) ->
+          activity = "Updated Staff with code \"#{staff.first_name}\""
+
+          # activity = "Staff has been Added Successfully"
+
+          user_log = %{
+              user_id: conn.assigns.user.id,
+              activity: activity
+          }
+
+    UserLogs.changeset(%UserLogs{}, user_log)
+      |> Repo.insert()
+        end)
+        |> Repo.transaction()
+        |> case do
+        {:ok, %{staff: _staff, user_log: _user_log}} ->
+        conn
+        |> put_flash(:info, "Staff has been Approved Successfully.")
+        |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
+
+          {:error, _failed_operation, failed_value, _changes_so_far} ->
+          reason = traverse_errors(failed_value.errors) |> List.first()
+          conn
+          |> put_flash(:error, reason)
+          |> redirect(to: Routes.client_portal_path(conn, :register_staff, company_id: company_id))
+          end
+          # rescue
+          # _ ->
+          # conn
+          # |> put_flash(:error, "An error occurred, reason unknown. try again")
+          # |> redirect(to: Routes.customer_path(conn, :index))
+    end
 
   def handle_bulk_upload(conn, params) do
     user = conn.assigns.user
@@ -180,7 +220,7 @@ defmodule LoanSystemWeb.ClientPortalController do
     |> Stream.with_index(2)
     |> Stream.map(fn {item, index} ->
       changeset =
-        %Staff{staff_file_name: filename, company_id: params["company_id"]}
+        %Staff{staff_file_name: filename, company_id: params["company_id"], status: params["status"]}
         |> Staff.changeset(Map.put(item, :user_id, user.id))
 
       Ecto.Multi.insert(Ecto.Multi.new(), Integer.to_string(index), changeset)

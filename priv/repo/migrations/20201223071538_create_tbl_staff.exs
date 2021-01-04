@@ -8,8 +8,8 @@ defmodule LoanSystem.Repo.Migrations.CreateTblStaff do
       add :other_name, :string
       add :email, :string, null: false
       add :phone, :string
-      add :company_name, :string
-      add :tpin_no, :string
+      add :gender, :string
+      add :status, :string
       add :city, :string
       add :country, :string
       add :company_id, :string

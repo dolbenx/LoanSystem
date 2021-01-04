@@ -18,7 +18,7 @@
                                                         <small class="text-muted mb-0">Lusaka, Zambia</small>
                                                     </h5>
                                                     <div class="mt-4 text-center demo">
-                                                        <h3 style="color: #00204E;"><strong>Total Clients - 105</strong></h3>
+                                                        <h3 style="color: #00204E;"><strong>Total Staff - 105</strong></h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,7 +175,7 @@
                                         <div class="col-12" style="background-color: #00204E; color:white;">
                                             <div class="p-3">
                                                <div class="fw-500 fs-xs">
-                                                   <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
+                                                   <a style="color:white;" href="#">
                                                    </a>
                                                </div>
                                             </div>

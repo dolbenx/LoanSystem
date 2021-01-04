@@ -144,6 +144,7 @@ defmodule LoanSystemWeb.Router do
     get("/Admin/Portal/User", CompanyController, :portal_admin)
     post "/Generate/Company/ID", CompanyController, :generate_company_id
     post("/Create/User", UserController, :create_user)
+    post "/Generate/Random/Password", UserController, :generate_random_password
     ########### END OF MAINTENANCE ROUTES #############
   end
 
@@ -156,24 +157,7 @@ defmodule LoanSystemWeb.Router do
       post "/Client/Staff/Register", ClientPortalController, :handle_bulk_upload
       post "/Client/Staff", ClientPortalController, :add_staff
       get "/Client/Loan/Balances", ClientPortalController, :loan_balance
-
-
-      get "/Client/Reports", ClientPortalController, :report
-      get "/Client/Settings", ClientPortalController, :setting
-      get "/Client/Investments/BalancedFund", ClientPortalController, :balanced_fund
-      get "/Client/Investments/MoneyMarket", ClientPortalController, :money_market_fund
-      get "/Client/Investments/MyStar", ClientPortalController, :my_star_fund
-      get "/Client/Investments/ZMWHighYield", ClientPortalController, :zmw_high_yield_fund
-      get "/Client/Investments/Equity", ClientPortalController, :equity_fund
-      get "/Client/Investments/USDFund", ClientPortalController, :usd_fund
-      get "/Client/Investments/USDHighYield", ClientPortalController, :usd_high_yield_fund
-      get "/Client/Error", ClientPortalController, :error
-      get "/Client/Requests", ClientPortalController, :request
-      get "/Client/Withdraw", ClientPortalController, :withdraw
-      get "/Client/Investment", ClientPortalController, :invest
-      get "/Client/Beneficiaries", ClientPortalController, :beneficiary
-      post"/Client/Beneficiaries", ClientPortalController, :client_create_beneficiary
-      get "/View/Ben", ClientPortalController, :view_beneficiary
+      post "/Approve/Client", ClientPortalController, :approve_staff
 
   end
 
