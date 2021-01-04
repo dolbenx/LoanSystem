@@ -30,5 +30,9 @@ defmodule LoanSystem.Repo.Migrations.CreateTblUsers do
       timestamps()
     end
 
+      create unique_index(:tbl_users, [:email], name: :unique_email)
+      create unique_index(:tbl_users, [:phone], name: :unique_phone)
+      create unique_index(:tbl_users, [:id_no], name: :unique_id_no)
+
   end
 end
