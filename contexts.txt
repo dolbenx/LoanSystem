@@ -18,7 +18,7 @@ mix phx.gen.context Settings SystemParams tbl_system_params company_name company
 
 mix phx.gen.context System_Directories Directory tbl_system_directories failed processed bulk_trns esb_complete esb_download esb_failed esb_pending internet_trns inwards outwards errors auth_status modification reason
 
-mix ecto.gen.migration alter_tbl_products
+mix ecto.gen.migration alter_tbl_users
 
 
 

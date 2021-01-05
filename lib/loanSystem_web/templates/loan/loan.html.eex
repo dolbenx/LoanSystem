@@ -31,11 +31,9 @@
                         </tr>
                            </thead>                    
                             <tbody>
-
-                            <%= for staff <- @staff do %>
                                 <tr>
-                                    <td><%= staff.first_name %> <%= staff.last_name %></td>
-                                    <td><%= staff.phone %></td>
+                                    <td>Davies Phiri</td>
+                                    <td>0967232323</td>
                                     <td>true</td>
                                     <td>20</td>
                                     <td>32</td>
@@ -57,7 +55,6 @@
 
 
                                 </tr>
-                            <% end %>
                              
                             </tbody>
                         </table>

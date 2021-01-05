@@ -19,16 +19,6 @@ defmodule LoanSystem.Companies do
   def list_tbl_staff do
     Repo.all(Staff)
   end
-  @doc """
-  Gets a single company.
-  Raises `Ecto.NoResultsError` if the Company does not exist.
-  ## Examples
-      iex> get_company!(123)
-      %Company{}
-      iex> get_company!(456)
-      ** (Ecto.NoResultsError)
-  """
-  def get_company!(id), do: Repo.get!(Company, id)
 
   def comp_id(company_id) do
     Company
@@ -39,6 +29,16 @@ defmodule LoanSystem.Companies do
     )
     |> Repo.one()
  end
+  @doc """
+  Gets a single company.
+  Raises `Ecto.NoResultsError` if the Company does not exist.
+  ## Examples
+      iex> get_company!(123)
+      %Company{}
+      iex> get_company!(456)
+      ** (Ecto.NoResultsError)
+  """
+  def get_company!(id), do: Repo.get!(Company, id)
 
   @doc """
   Creates a company.
@@ -124,7 +124,6 @@ defmodule LoanSystem.Companies do
     })
     |> Repo.all()
   end
-
   @doc """
   Gets a single staff.
   Raises `Ecto.NoResultsError` if the Staff does not exist.

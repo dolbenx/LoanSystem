@@ -13,11 +13,15 @@ defmodule LoanSystemWeb.CompanyController do
   alias LoanSystem.Products.Product
   alias LoanSystem.Products
   alias LoanSystem.Companies
+<<<<<<< HEAD
   alias LoanSystem.System_Directories
   alias LoanSystem.Settings
   alias LoanSystem.Settings.SystemParams
+=======
+  alias LoanSystem.SystemDirectories
+>>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
 
-  @headers ~w/ first_name last_name other_name id_no phone tpin_no/a
+  @headers ~w/ first_name last_name other_name id_no phone tpin_no email company_name city country address id_type account_no branch_id/a
 
 
   def reports(conn, _params) do
@@ -42,6 +46,12 @@ defmodule LoanSystemWeb.CompanyController do
     render(conn, "staff.html", staff: staff, companies: companies, systemparams: systemparams)
   end
 
+  def staff_uploads(conn, _params) do
+    companies = Companies.list_tbl_companies()
+    staff = Companies.list_tbl_staff()
+    render(conn, "staff_upload.html", companies: companies, staff: staff)
+  end
+
   def portal_admin(conn, %{"company_id" => company_id}) do
      companies = Companies.comp_id(company_id)
      system_users = Accounts.list_tbl_users()
@@ -49,11 +59,16 @@ defmodule LoanSystemWeb.CompanyController do
   end
   def products(conn, _params) do
     product = Products.list_tbl_products()
+<<<<<<< HEAD
     systemparams = Settings.list_tbl_system_params()
     render(conn, "products.html", product: product, systemparams: systemparams)
 end
+=======
+    render(conn, "products.html", product: product)
+  end
+>>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
 
-def generate_company() do
+  def generate_company() do
   random = Enum.random(111111..999999) |> to_string
   year = to_string(Timex.now()|> Timex.format!("%Y", :strftime)|>String.slice(-2..-1))
   month = to_string(Timex.format!(Timex.today(), "%m", :strftime))
@@ -222,10 +237,6 @@ end
             # |> redirect(to: Routes.customer_path(conn, :index))
             end
 
-            def traverse_errors(errors) do
-              for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
-            end
-
             def update_staff(conn, params) do
               staff_data = Companies.get_staff!(params["id"])
               Ecto.Multi.new()
@@ -261,10 +272,6 @@ end
                     # conn
                     # |> put_flash(:error, "An error occurred, reason unknown. try again")
                     # |> redirect(to: Routes.customer_path(conn, :index))
-                    end
-
-                    def traverse_errors(errors) do
-                      for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
                     end
 
 
@@ -352,12 +359,12 @@ end
     if key == :info do
       conn
       |> put_flash(key, msg)
-      |> redirect(to: Routes.company_path(conn, :products))
+      |> redirect(to: Routes.company_path(conn, :staff_uploads))
 
     else
       conn
       |> put_flash(key, msg)
-      |> redirect(to: Routes.company_path(conn, :products))
+      |> redirect(to: Routes.company_path(conn, :staff_uploads))
     end
   end
 
@@ -365,7 +372,7 @@ end
 
     with {:ok, filename, destin_path, _rows} <- is_valide_file(params) do
       user
-      |> process_bulk_upload(filename, destin_path)
+      |> process_bulk_upload(filename, destin_path, params)
       |> case do
         {:ok, {invalid, valid}} ->
           {:info, "#{valid} Successful entrie(s) and #{invalid} invalid entrie(s)", invalid}
@@ -395,11 +402,12 @@ end
     end
   end
 
-  def process_bulk_upload(user, filename, path) do
+
+  def process_bulk_upload(user, filename, path, params) do
     # try do
       {:ok, items} = extract_xlsx(path)
 
-      prepare_bulk_params(user, filename, items)
+      prepare_bulk_params(user, filename, items, params)
       |> Repo.transaction(timeout: 290_000)
       |> case do
         {:ok, multi_records} ->
@@ -426,13 +434,13 @@ end
     # end
   end
 
-  defp prepare_bulk_params(user, filename, items) do
+  defp prepare_bulk_params(user, filename, items, params) do
 
     items
     |> Stream.with_index(2)
     |> Stream.map(fn {item, index} ->
       changeset =
-        %Staff{staff_file_name: filename}
+        %Staff{staff_file_name: filename, company_id: params["company_id"]}
         |> Staff.changeset(Map.put(item, :user_id, user.id))
 
       Ecto.Multi.insert(Ecto.Multi.new(), Integer.to_string(index), changeset)
@@ -508,7 +516,7 @@ end
 
 
     def persist(%Plug.Upload{filename: filename, path: path}) do
-      dir_path = System_Directories.directories()
+      dir_path = SystemDirectories.directories()
 
       destin_path = (dir_path && dir_path.processed)  ||  "C:/Users/Dolben/Desktop/staffFile" |> default_dir()
       destin_path = Path.join(destin_path, filename)

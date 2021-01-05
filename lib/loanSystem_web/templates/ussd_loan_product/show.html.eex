@@ -1,0 +1,23 @@
+<h1>Show Ussd loan product</h1>
+
+<ul>
+
+  <li>
+    <strong>Loan product:</strong>
+    <%= @ussd_loan_product.loan_product_id %>
+  </li>
+
+  <li>
+    <strong>Default interest rate:</strong>
+    <%= @ussd_loan_product.default_interest_rate %>
+  </li>
+
+  <li>
+    <strong>Default period:</strong>
+    <%= @ussd_loan_product.default_period %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.ussd_loan_product_path(@conn, :edit, @ussd_loan_product) %></span>
+<span><%= link "Back", to: Routes.ussd_loan_product_path(@conn, :index) %></span>

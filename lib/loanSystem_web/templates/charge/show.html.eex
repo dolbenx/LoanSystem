@@ -1,0 +1,23 @@
+<h1>Show Charge</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @charge.name %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @charge.type %>
+  </li>
+
+  <li>
+    <strong>Valuation:</strong>
+    <%= @charge.valuation %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.charge_path(@conn, :edit, @charge) %></span>
+<span><%= link "Back", to: Routes.charge_path(@conn, :index) %></span>

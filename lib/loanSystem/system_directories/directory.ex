@@ -1,4 +1,4 @@
-defmodule LoanSystem.System_Directories.Directory do
+defmodule LoanSystem.SystemDirectories.Directory do
   use Ecto.Schema
   import Ecto.Changeset
 

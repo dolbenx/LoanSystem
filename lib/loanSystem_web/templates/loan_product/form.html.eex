@@ -1,0 +1,99 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :short_code %>
+  <%= text_input f, :short_code %>
+  <%= error_tag f, :short_code %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :currency_code %>
+  <%= text_input f, :currency_code %>
+  <%= error_tag f, :currency_code %>
+
+  <%= label f, :min_principal_amount %>
+  <%= number_input f, :min_principal_amount, step: "any" %>
+  <%= error_tag f, :min_principal_amount %>
+
+  <%= label f, :max_principal_amount %>
+  <%= number_input f, :max_principal_amount, step: "any" %>
+  <%= error_tag f, :max_principal_amount %>
+
+  <%= label f, :arrearstolerance_amount %>
+  <%= number_input f, :arrearstolerance_amount, step: "any" %>
+  <%= error_tag f, :arrearstolerance_amount %>
+
+  <%= label f, :description %>
+  <%= text_input f, :description %>
+  <%= error_tag f, :description %>
+
+  <%= label f, :min_nominal_interest_rate_per_period %>
+  <%= number_input f, :min_nominal_interest_rate_per_period %>
+  <%= error_tag f, :min_nominal_interest_rate_per_period %>
+
+  <%= label f, :max_nominal_interest_rate_per_period %>
+  <%= number_input f, :max_nominal_interest_rate_per_period %>
+  <%= error_tag f, :max_nominal_interest_rate_per_period %>
+
+  <%= label f, :min_loan_period %>
+  <%= number_input f, :min_loan_period %>
+  <%= error_tag f, :min_loan_period %>
+
+  <%= label f, :max_loan_period %>
+  <%= number_input f, :max_loan_period %>
+  <%= error_tag f, :max_loan_period %>
+
+  <%= label f, :interest_method_type %>
+  <%= text_input f, :interest_method_type %>
+  <%= error_tag f, :interest_method_type %>
+
+  <%= label f, :min_number_of_repayments %>
+  <%= number_input f, :min_number_of_repayments %>
+  <%= error_tag f, :min_number_of_repayments %>
+
+  <%= label f, :max_number_of_repayments %>
+  <%= number_input f, :max_number_of_repayments %>
+  <%= error_tag f, :max_number_of_repayments %>
+
+  <%= label f, :start_date %>
+  <%= date_select f, :start_date %>
+  <%= error_tag f, :start_date %>
+
+  <%= label f, :close_date %>
+  <%= date_select f, :close_date %>
+  <%= error_tag f, :close_date %>
+
+  <%= label f, :days_in_month %>
+  <%= number_input f, :days_in_month %>
+  <%= error_tag f, :days_in_month %>
+
+  <%= label f, :days_in_year %>
+  <%= number_input f, :days_in_year %>
+  <%= error_tag f, :days_in_year %>
+
+  <%= label f, :external_id %>
+  <%= text_input f, :external_id %>
+  <%= error_tag f, :external_id %>
+
+  <%= label f, :overdue_days_for_npa %>
+  <%= number_input f, :overdue_days_for_npa %>
+  <%= error_tag f, :overdue_days_for_npa %>
+
+  <%= label f, :max_outstanding_loan_balance %>
+  <%= number_input f, :max_outstanding_loan_balance, step: "any" %>
+  <%= error_tag f, :max_outstanding_loan_balance %>
+
+  <%= label f, :require_collateral %>
+  <%= checkbox f, :require_collateral %>
+  <%= error_tag f, :require_collateral %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

@@ -17,6 +17,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblProducts do
       add :deposit_fee_amount, :string
       add :days_to_inactive, :string
       add :days_to_dormancy, :string
+      add :status, :boolean, default: true
 
 
       timestamps()
