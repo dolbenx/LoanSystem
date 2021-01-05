@@ -1,4 +1,5 @@
-
+<link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/notifications/sweetalert2/sweetalert2.bundle.css") %>">
+<link rel="stylesheet" media="screen, print" href="css/notifications/sweetalert2/sweetalert2.bundle.css">
 
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
@@ -16,37 +17,30 @@
                 <div class="table-responsive">
                     <table  id="dt-product" width="100%" class="table table-striped table-lightfont">
                       <input type="hidden" id="csrf" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                           
+
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    
                                     <th>Code</th>
-                                    <th>Details</th>
-                                    <th>Currency</th>
-                                    <th>Annual interest</th>
-                                    <th>Fixed period days</th>
-                                    <th>Min balance required</th>
-                                    <th>Withdrawal fee amount</th>
-                                    <th>Deposit fee amount</th>
-                                    <th>Days to inactive</th>
-                                    <th>Days to dormancy</th>
+                                    <th>Principal Amount</th>
+                                    <th>interest Rate</th>
+                                    <th>Terms of loan</th>                                   
+                                    <th>Created on</th>
+                                    <th>updated on</th>
                                     <th>Action</th>
+                                   
                         </tr>
-                           </thead>                    
+                           </thead>
                             <tbody>
                              <%= for product <- @product do %>
                                     <tr>
-                                        <td><%= product.name %></td>
                                         <td><%= product.code %></td>
-                                        <td><%= product.details %></td>
-                                        <td><%= product.currency %></td>
-                                        <td><%= product.annual_interest %></td>  
+                                        <td><%= product.withdrawal_fee_amount  %></td>
+                                        <td><%= product.annual_interest %></td>
                                         <td><%= product.fixed_period_days %></td>
-                                        <td><%= product.min_balance_required   %></td>
-                                        <td><%= product.withdrawal_fee_amount  %></td> 
-                                        <td><%= product.deposit_fee_amount  %></td>
-                                        <td><%= product.days_to_inactive  %></td> 
-                                        <td><%= product.days_to_dormancy  %></td> 
+                                        <td><%= product.inserted_at  %></td>
+                                        <td><%= product.updated_at %></td>
+                                        
 
 
                                      <td>
@@ -54,15 +48,16 @@
                                             <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Action</button>
                                             <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu" style="">
                                                 <a type="button" class="dropdown-item" href="#"  data-id="<%= product.id %>" data-name="<%= product.name %>" data-code="<%= product.code %>" data-currency="<%= product.currency %>" data-currency_decimals="<%= product.currency_decimals %>" data-details ="<%= product.details %>" data-min_balance_required="<%= product.min_balance_required %>" data-annual_interest="<%= product.annual_interest %>" data-withdrawal_fee_amount="<%= product.withdrawal_fee_amount %>" data-withdrawal_fee_transfer_to_mobile="<%= product.withdrawal_fee_transfer_to_mobile %>" data-deposit_fee_amount="<%= product.deposit_fee_amount %>" data-fixed_period_days="<%= product.fixed_period_days %>" data-year_length_days="<%= product.year_length_days %>" data-days_to_inactive="<%= product.days_to_inactive %>" data-days_to_dormancy="<%= product.days_to_dormancy %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
-                                               
-                                        <%= if product.status == ACTIVE do %>
-                                            <a class="dropdown-item js-sweetalert2-disable"  style="color: #ff0000" data-id="<%= product.id %>" >Disable</a>
-                                        <% else %>
-                                            <a class="dropdown-item enable"  style="color: #008000" data-id="<%= product.id %>" >Enable</a>
+
+                                        <%= if product.status == "ACTIVE" do %>
+                                            
+                                              <a class="dropdown-item js-sweetalert2-disable_product" href="#" style="color: #ff0000" data-id="<%= product.id %>">Disable</a>
+                                            <% else %>
+                                            <a class="dropdown-item js-sweetalert2-enable_product" href="#" style="color: #008000" data-id="<%= product.id %>" >Enable</a>
                                         <% end %>
                                         </div>
                                         </td>
-                                    </tr>                               
+                                    </tr>
                             <% end %>
                         </tbody>
                     </table>
@@ -96,12 +91,12 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
+                                    <label for="">Product unique label Name</label><input class="form-control" name="name" placeholder="Enter label" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
-                                                                          
+
                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
@@ -130,13 +125,13 @@
                             </div>
                              <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Annual Interest</label><input class="form-control" name="annual_interest" placeholder="Annual Interest " required="required" type="text">
+                                    <label for="">Interest rate</label><input class="form-control" name="annual_interest" placeholder="interest rate " required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                              <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Fixed period days</label><input class="form-control" name="fixed_period_days" placeholder="fixed period days" required="required" type="text">
+                                    <label for="">Terms of loans in months</label><input class="form-control" name="fixed_period_days" placeholder="Enter the terms of loan e.g 3" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
@@ -152,10 +147,10 @@
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
-                                                  
+
                             <div class="col-sm-6">
                                 <div class="form-group ">
-                                    <label for="">Withdraw fee amount</label><input class="form-control" name="withdrawal_fee_amount" placeholder="Withdraw fee amount" required="required" type="text">
+                                    <label for="">Principal Amount</label><input class="form-control" name="withdrawal_fee_amount" placeholder="Principal Amount" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
@@ -166,13 +161,13 @@
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
-                        
+
                               <div class="col-sm-6">
                                 <div class="form-group">
-                                 <label for="">Deposit fee amount</label><input class="form-control" name="deposit_fee_amount" placeholder="Deposit fee amount" required="required" type="text">
+                                 <label for="">Disbursment charges</label><input class="form-control" name="deposit_fee_amount" placeholder="Disbursment Amount" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Days to inactive</label><input class="form-control" name="days_to_inactive" placeholder="Days to inactive" required="required" type="text">
@@ -185,7 +180,7 @@
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
-                              </div>                                                                       
+                              </div>
                         </div>
                     </div>
                         <div class="">
@@ -228,7 +223,7 @@
                                         <input class="form-control" name="name" id="name" value="<%= product.name %>">
                                         <div class="help-block form-text text-muted form-control-feedback"></div>
                                     </div>
-                                </div>                                      
+                                </div>
                             <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Code</label>
@@ -279,7 +274,7 @@
                                         <label for="">Min balance required</label><input class="form-control" name="min_balance_required" id="min_balance_required" value="<%= product.min_balance_required %>">
                                         <div class="help-block form-text with-errors form-control-feedback"></div>
                                     </div>
-                                </div>                 
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group ">
                                         <label for="">Withdraw fee amount</label><input class="form-control" name="withdrawal_fee_amount" id="withdrawal_fee_amount" value="<%= product.withdrawal_fee_amount %>">
@@ -293,13 +288,13 @@
                                         <div class="help-block form-text with-errors form-control-feedback"></div>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                     <label for="">Deposit fee amount</label><input class="form-control" name="deposit_fee_amount" id="deposit_fee_amount" value="<%= product.deposit_fee_amount %>">
                                         <div class="help-block form-text with-errors form-control-feedback"></div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="">Days to inactive</label><input class="form-control" name="days_to_inactive" id="days_to_inactive" value="<%= product.days_to_inactive %>">
@@ -312,7 +307,7 @@
                                         <div class="help-block form-text with-errors form-control-feedback"></div>
                                     </div>
                                 </div>
-                            </div>                                                                       
+                            </div>
                             </div>
                             <div class="">
                         <button type="submit" class="btn btn-primary disabled">Submit</button>
@@ -330,7 +325,6 @@
 
 
 
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
 
@@ -340,7 +334,7 @@ $(document).ready(function(){
 //view staff details
     $('#view_modal').on('show.bs.modal', function (event){
 
-      
+
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var annual_interest = button.data('annual_interest')
@@ -357,7 +351,7 @@ $(document).ready(function(){
             var withdrawal_fee_amount = button.data('withdrawal_fee_amount')
             var withdrawal_fee_transfer_to_mobile = button.data('withdrawal_fee_transfer_to_mobile')
             var year_length_days = button.data('year_length_days')
-              
+
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #annual_interest').val(annual_interest);
@@ -373,13 +367,13 @@ $(document).ready(function(){
             modal.find('.modal-body #withdrawal_fee_amount').val(withdrawal_fee_amount);
             modal.find('.modal-body #withdrawal_fee_transfer_to_mobile').val(withdrawal_fee_transfer_to_mobile);
             modal.find('.modal-body #year_length_days').val(year_length_days);
-           
-    });
 
     });
 
+    });
 
- 
+
+
 </script>
 <script>
 $(document).ready(function(){
@@ -405,7 +399,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $('#edit_modal').on('show.bs.modal', function (event){
-                
+
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var annual_interest = button.data('annual_interest')
@@ -422,8 +416,8 @@ $(document).ready(function(){
             var withdrawal_fee_amount = button.data('withdrawal_fee_amount')
             var withdrawal_fee_transfer_to_mobile = button.data('withdrawal_fee_transfer_to_mobile')
             var year_length_days = button.data('year_length_days')
-            
-        
+
+
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #annual').val(annual_interest);
@@ -448,10 +442,10 @@ $(document).ready(function(){
             console.log(button.data('currency_decimals'))
 
             console.log("values")
-          
-           
 
-           
+
+
+
     });
 });
 </script>
