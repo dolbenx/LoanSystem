@@ -6,6 +6,7 @@ defmodule LoanSystem.Repo.Migrations.CreateTblOldPassword do
       add :date_created, :string
       add :email, :string
       add :password, :string
+      add :user_id, :integer
 
       timestamps()
     end

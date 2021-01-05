@@ -1,0 +1,30 @@
+<h1>Listing Ussdloanproducts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Loan product</th>
+      <th>Default interest rate</th>
+      <th>Default period</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for ussd_loan_product <- @ussdloanproducts do %>
+    <tr>
+      <td><%= ussd_loan_product.loan_product_id %></td>
+      <td><%= ussd_loan_product.default_interest_rate %></td>
+      <td><%= ussd_loan_product.default_period %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.ussd_loan_product_path(@conn, :show, ussd_loan_product) %></span>
+        <span><%= link "Edit", to: Routes.ussd_loan_product_path(@conn, :edit, ussd_loan_product) %></span>
+        <span><%= link "Delete", to: Routes.ussd_loan_product_path(@conn, :delete, ussd_loan_product), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Ussd loan product", to: Routes.ussd_loan_product_path(@conn, :new) %></span>

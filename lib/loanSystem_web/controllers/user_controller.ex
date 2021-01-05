@@ -68,7 +68,7 @@ defmodule LoanSystemWeb.UserController do
 
         conn
 
-      {:error, _} ->
+      {:error, error} -> IO.inspect error.error
 
         conn
         |> put_flash(:error, "Failed to add user to system.")
@@ -203,8 +203,13 @@ defmodule LoanSystemWeb.UserController do
   def dashboard(conn, _params) do
     users = Accounts.list_tbl_users()
     user = Accounts.get_user!(conn.assigns.user.id).id
+<<<<<<< HEAD
     # last_logged_in = Logs.last_logged_in(user)
     render(conn, "dashboard.html")
+=======
+   # last_logged_in = Logs.last_logged_in(user)
+    render(conn, "dashboard.html", users: users)
+>>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
   end
 
   def user_actitvity(conn, %{"id" => user_id}) do
@@ -517,51 +522,6 @@ defmodule LoanSystemWeb.UserController do
     |> Enum.map(&%{count: 0, day: "#{&1}", status: nil})
   end
 
-  def number do
-    spec =Enum.to_list(?2..?9)
-    length = 2
-    Enum.take_random(spec, length)
-  end
-  def number2 do
-    spec =Enum.to_list(?1..?9)
-    length = 1
-    Enum.take_random(spec, length)
-  end
-  def caplock do
-    spec = Enum.to_list(?A..?N)
-    length = 1
-    Enum.take_random(spec, length)
-  end
-  def small_latter do
-    spec = Enum.to_list(?a..?n)
-    length = 1
-    Enum.take_random(spec, length)
-  end
-  def small_latter2 do
-    spec = Enum.to_list(?p..?z)
-    length = 2
-    Enum.take_random(spec, length)
-  end
-  def special do
-    spec = Enum.to_list(?#..?*)
-    length = 1
-    Enum.take_random(spec, length)|> to_string()|> String.replace("'", "^")|> String.replace("(", "!")|> String.replace(")", "@")
-  end
-
-  def password_gen do
-    smll = to_string(small_latter())
-    smll2 = to_string(small_latter2())
-    nmb = to_string(number())
-    nmb2 = to_string(number2())
-    spc = to_string(special())
-    cpl = to_string(caplock())
-    smll<>""<>nmb<>""<>spc<>""<>cpl<>""<>nmb2<>""<>smll2
-  end
-
-  def random_string() do
-    password_gen()
-  end
-
   def hash_pass(%{new_password: password_hash} = user, new_password) do
     case Base.encode16(:crypto.hash(:sha512, new_password)) do
       pwd when pwd == password_hash ->
@@ -775,31 +735,75 @@ defmodule LoanSystemWeb.UserController do
     end
   end
 
+
+
+
+
+
+
+
+  def password_render() do
+    random_string()
+  end
+
+  def number do
+    spec =Enum.to_list(?2..?9)
+    length = 2
+    Enum.take_random(spec, length)
+  end
+  def number2 do
+    spec =Enum.to_list(?1..?9)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def caplock do
+    spec = Enum.to_list(?A..?N)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def small_latter do
+    spec = Enum.to_list(?a..?n)
+    length = 1
+    Enum.take_random(spec, length)
+  end
+  def small_latter2 do
+    spec = Enum.to_list(?p..?z)
+    length = 2
+    Enum.take_random(spec, length)
+  end
+  def special do
+    spec = Enum.to_list(?#..?*)
+    length = 1
+    Enum.take_random(spec, length)|> to_string()|> String.replace("'", "^")|> String.replace("(", "!")|> String.replace(")", "@")
+  end
+
+  def random_string do
+    smll = to_string(small_latter())
+    smll2 = to_string(small_latter2())
+    nmb = to_string(number())
+    nmb2 = to_string(number2())
+    spc = to_string(special())
+    cpl = to_string(caplock())
+    smll<>""<>nmb<>""<>spc<>""<>cpl<>""<>nmb2<>""<>smll2
+  end
+
+  def generate_random_password(conn, _param) do
+    account = random_string()
+    json(conn, %{"account" => account})
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
-
-  # def password do
-  #   alphabet = Enum.to_list(?2..?9)++ Enum.to_list(?a..?k)++Enum.to_list(?A..?K)++Enum.to_list(?#..?*)++Enum.to_list(?@..?@)
-  #   length = 7
-  #   Enum.take_random(alphabet, length)|> to_string()|> String.replace("'", "@")|> String.replace("(", "@")|> String.replace(")", "@")
-  #   # Enum.to_list(?a..?z) ++ Enum.to_list(?0..?9)++Enum.to_list(?A..?Z)++Enum.to_list(?#..?&)++Enum.to_list(?@..?@)
-  # end
-
-  # def random_string(length) do
-  #   :crypto.strong_rand_bytes(length)
-  #   |> Base.url_encode64()
-  #   |> binary_part(0, length)
-  # end
-
-  # @alphabet Enum.concat([?2..?9, ?A..?N, ?a..?n, ?#..?&])
-
-  # def randstring do
-  #   length = 10
-  #   :rand.seed(:exsplus, :os.timestamp())
-  #   Stream.repeatedly(&random_char_from_alphabet/0)
-  #   |> Enum.take(length)
-  #   |> List.to_string()
-  #   # Enum.concat([?2..?9, ?A..?N, ?a..?n, ?!..?&])
-  # end
-  # defp random_char_from_alphabet() do
-  #   Enum.random(@alphabet)
-  # end

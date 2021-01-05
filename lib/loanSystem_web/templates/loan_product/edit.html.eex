@@ -1,0 +1,5 @@
+<h1>Edit Loan product</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.loan_product_path(@conn, :update, @loan_product)) %>
+
+<span><%= link "Back", to: Routes.loan_product_path(@conn, :index) %></span>

@@ -18,7 +18,6 @@ defmodule LoanSystem.Products.Product do
     field :withdrawal_fee_transfer_to_mobile, :string
     field :year_length_days, :string
     field :status, :string
-
     timestamps()
   end
 

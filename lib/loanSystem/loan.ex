@@ -1061,4 +1061,388 @@ defmodule LoanSystem.Loan do
   def change_loan_transaction_repayment_schedule_mapping(%LoanTransactionRepaymentScheduleMapping{} = loan_transaction_repayment_schedule_mapping) do
     LoanTransactionRepaymentScheduleMapping.changeset(loan_transaction_repayment_schedule_mapping, %{})
   end
+
+  alias LoanSystem.Loan.LoanProduct
+
+  @doc """
+  Returns the list of loanproducts.
+
+  ## Examples
+
+      iex> list_loanproducts()
+      [%LoanProduct{}, ...]
+
+  """
+  def list_loanproducts do
+    Repo.all(LoanProduct)
+  end
+
+  @doc """
+  Gets a single loan_product.
+
+  Raises `Ecto.NoResultsError` if the Loan product does not exist.
+
+  ## Examples
+
+      iex> get_loan_product!(123)
+      %LoanProduct{}
+
+      iex> get_loan_product!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_loan_product!(id), do: Repo.get!(LoanProduct, id)
+
+  @doc """
+  Creates a loan_product.
+
+  ## Examples
+
+      iex> create_loan_product(%{field: value})
+      {:ok, %LoanProduct{}}
+
+      iex> create_loan_product(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_loan_product(attrs \\ %{}) do
+    %LoanProduct{}
+    |> LoanProduct.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a loan_product.
+
+  ## Examples
+
+      iex> update_loan_product(loan_product, %{field: new_value})
+      {:ok, %LoanProduct{}}
+
+      iex> update_loan_product(loan_product, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_loan_product(%LoanProduct{} = loan_product, attrs) do
+    loan_product
+    |> LoanProduct.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a loan_product.
+
+  ## Examples
+
+      iex> delete_loan_product(loan_product)
+      {:ok, %LoanProduct{}}
+
+      iex> delete_loan_product(loan_product)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_loan_product(%LoanProduct{} = loan_product) do
+    Repo.delete(loan_product)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking loan_product changes.
+
+  ## Examples
+
+      iex> change_loan_product(loan_product)
+      %Ecto.Changeset{source: %LoanProduct{}}
+
+  """
+  def change_loan_product(%LoanProduct{} = loan_product) do
+    LoanProduct.changeset(loan_product, %{})
+  end
+
+  alias LoanSystem.Loan.USSDLoanProduct
+
+  @doc """
+  Returns the list of ussdloanproducts.
+
+  ## Examples
+
+      iex> list_ussdloanproducts()
+      [%USSDLoanProduct{}, ...]
+
+  """
+  def list_ussdloanproducts do
+    Repo.all(USSDLoanProduct)
+  end
+
+  @doc """
+  Gets a single ussd_loan_product.
+
+  Raises `Ecto.NoResultsError` if the Ussd loan product does not exist.
+
+  ## Examples
+
+      iex> get_ussd_loan_product!(123)
+      %USSDLoanProduct{}
+
+      iex> get_ussd_loan_product!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_ussd_loan_product!(id), do: Repo.get!(USSDLoanProduct, id)
+
+  @doc """
+  Creates a ussd_loan_product.
+
+  ## Examples
+
+      iex> create_ussd_loan_product(%{field: value})
+      {:ok, %USSDLoanProduct{}}
+
+      iex> create_ussd_loan_product(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_ussd_loan_product(attrs \\ %{}) do
+    %USSDLoanProduct{}
+    |> USSDLoanProduct.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a ussd_loan_product.
+
+  ## Examples
+
+      iex> update_ussd_loan_product(ussd_loan_product, %{field: new_value})
+      {:ok, %USSDLoanProduct{}}
+
+      iex> update_ussd_loan_product(ussd_loan_product, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_ussd_loan_product(%USSDLoanProduct{} = ussd_loan_product, attrs) do
+    ussd_loan_product
+    |> USSDLoanProduct.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a ussd_loan_product.
+
+  ## Examples
+
+      iex> delete_ussd_loan_product(ussd_loan_product)
+      {:ok, %USSDLoanProduct{}}
+
+      iex> delete_ussd_loan_product(ussd_loan_product)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_ussd_loan_product(%USSDLoanProduct{} = ussd_loan_product) do
+    Repo.delete(ussd_loan_product)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking ussd_loan_product changes.
+
+  ## Examples
+
+      iex> change_ussd_loan_product(ussd_loan_product)
+      %Ecto.Changeset{source: %USSDLoanProduct{}}
+
+  """
+  def change_ussd_loan_product(%USSDLoanProduct{} = ussd_loan_product) do
+    USSDLoanProduct.changeset(ussd_loan_product, %{})
+  end
+
+  alias LoanSystem.Loan.Charge
+
+  @doc """
+  Returns the list of charges.
+
+  ## Examples
+
+      iex> list_charges()
+      [%Charge{}, ...]
+
+  """
+  def list_charges do
+    Repo.all(Charge)
+  end
+
+  @doc """
+  Gets a single charge.
+
+  Raises `Ecto.NoResultsError` if the Charge does not exist.
+
+  ## Examples
+
+      iex> get_charge!(123)
+      %Charge{}
+
+      iex> get_charge!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_charge!(id), do: Repo.get!(Charge, id)
+
+  @doc """
+  Creates a charge.
+
+  ## Examples
+
+      iex> create_charge(%{field: value})
+      {:ok, %Charge{}}
+
+      iex> create_charge(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_charge(attrs \\ %{}) do
+    %Charge{}
+    |> Charge.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a charge.
+
+  ## Examples
+
+      iex> update_charge(charge, %{field: new_value})
+      {:ok, %Charge{}}
+
+      iex> update_charge(charge, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_charge(%Charge{} = charge, attrs) do
+    charge
+    |> Charge.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a charge.
+
+  ## Examples
+
+      iex> delete_charge(charge)
+      {:ok, %Charge{}}
+
+      iex> delete_charge(charge)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_charge(%Charge{} = charge) do
+    Repo.delete(charge)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking charge changes.
+
+  ## Examples
+
+      iex> change_charge(charge)
+      %Ecto.Changeset{source: %Charge{}}
+
+  """
+  def change_charge(%Charge{} = charge) do
+    Charge.changeset(charge, %{})
+  end
+
+  alias LoanSystem.Loan.LoanProductCharge
+
+  @doc """
+  Returns the list of loan_product_charges.
+
+  ## Examples
+
+      iex> list_loan_product_charges()
+      [%LoanProductCharge{}, ...]
+
+  """
+  def list_loan_product_charges do
+    Repo.all(LoanProductCharge)
+  end
+
+  @doc """
+  Gets a single loan_product_charge.
+
+  Raises `Ecto.NoResultsError` if the Loan product charge does not exist.
+
+  ## Examples
+
+      iex> get_loan_product_charge!(123)
+      %LoanProductCharge{}
+
+      iex> get_loan_product_charge!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_loan_product_charge!(id), do: Repo.get!(LoanProductCharge, id)
+
+  @doc """
+  Creates a loan_product_charge.
+
+  ## Examples
+
+      iex> create_loan_product_charge(%{field: value})
+      {:ok, %LoanProductCharge{}}
+
+      iex> create_loan_product_charge(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_loan_product_charge(attrs \\ %{}) do
+    %LoanProductCharge{}
+    |> LoanProductCharge.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a loan_product_charge.
+
+  ## Examples
+
+      iex> update_loan_product_charge(loan_product_charge, %{field: new_value})
+      {:ok, %LoanProductCharge{}}
+
+      iex> update_loan_product_charge(loan_product_charge, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_loan_product_charge(%LoanProductCharge{} = loan_product_charge, attrs) do
+    loan_product_charge
+    |> LoanProductCharge.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a loan_product_charge.
+
+  ## Examples
+
+      iex> delete_loan_product_charge(loan_product_charge)
+      {:ok, %LoanProductCharge{}}
+
+      iex> delete_loan_product_charge(loan_product_charge)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_loan_product_charge(%LoanProductCharge{} = loan_product_charge) do
+    Repo.delete(loan_product_charge)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking loan_product_charge changes.
+
+  ## Examples
+
+      iex> change_loan_product_charge(loan_product_charge)
+      %Ecto.Changeset{source: %LoanProductCharge{}}
+
+  """
+  def change_loan_product_charge(%LoanProductCharge{} = loan_product_charge) do
+    LoanProductCharge.changeset(loan_product_charge, %{})
+  end
 end

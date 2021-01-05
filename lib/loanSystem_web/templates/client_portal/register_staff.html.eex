@@ -6,110 +6,89 @@
         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Monday, September 21, 2020</span></li>
     </ol>
     <div class="row">
-                <div class="col-lg-12 col-xl-9 order-lg-3 order-xl-2">
+        <div class="col-md-12 col-lg-offset-2">
+            <div class="form-group">
+                <%= if get_flash(@conn, :info) do %>
+                    <div class="alert alert-success alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    <%= get_flash(@conn, :info) %>
+                    </div>
+                <% end %>
+                <%= if get_flash(@conn, :error) do %>
+                    <div class="alert alert-danger alert-styled-left">
+                    <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                    Oops! <%= get_flash(@conn, :error) %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+                <div class="col-lg-12 col-xl-12 order-lg-3 order-xl-2">
                     <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
                                             Staff <span class="fw-300"><i>Register</i></span>
                                         </h2>
                                         <div class="modal-footer">
+                                        <%= if @user.user_role == "CLIENT_INITAITOR" do %>
                                             <button type="button" style="float: right;" data-toggle="modal" data-target="#default-example-modal-lg-center" class="btn btn-xs btn-info waves-effect waves-themed">Add Client</button>
                                             <button type="button" style="float: right;" data-toggle="modal" data-target="#upload" class="btn btn-xs btn-info waves-effect waves-themed">Upload File</button>
+                                        <% end %>
                                         </div>
                                     </div>
                                     <div class="panel-container show">
                                         <div class="panel-content">
                                             <!-- datatable start -->
-                                            <div id="dt-basic-example_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row mb-3"><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-start"><div id="dt-basic-example_filter" class="dataTables_filter"><label><div class="input-group-text d-inline-flex width-3 align-items-center justify-content-center border-bottom-right-radius-0 border-top-right-radius-0 border-right-0"><i class="fal fa-search"></i></div><input type="search" class="form-control border-top-left-radius-0 border-bottom-left-radius-0 ml-0 width-lg shadow-inset-1" placeholder="Search" aria-controls="dt-basic-example"></label></div></div><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end"><div class="dataTables_length" id="dt-basic-example_length"><label>Show <select name="dt-basic-example_length" aria-controls="dt-basic-example" class="form-control custom-select"><option value="10">10</option><option value="15">15</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> entries</label></div></div></div><div class="row"><div class="col-sm-12"><table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100 dataTable dtr-inline" role="grid" aria-describedby="dt-basic-example_info" style="width: 1159px;">
+                                            <div id="delete-beneficiary" class="dataTables_wrapper dt-bootstrap4"><div class="row mb-3"><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-start"><div id="dt-basic-example_filter" class="dataTables_filter"><label><div class="input-group-text d-inline-flex width-3 align-items-center justify-content-center border-bottom-right-radius-0 border-top-right-radius-0 border-right-0"><i class="fal fa-search"></i></div><input type="search" class="form-control border-top-left-radius-0 border-bottom-left-radius-0 ml-0 width-lg shadow-inset-1" placeholder="Search" aria-controls="dt-basic-example"></label></div></div><div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end"><div class="dataTables_length" id="dt-basic-example_length"><label>Show <select name="dt-basic-example_length" aria-controls="dt-basic-example" class="form-control custom-select"><option value="10">10</option><option value="15">15</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="-1">All</option></select> entries</label></div></div></div><div class="row"><div class="col-sm-12"><table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100 dataTable dtr-inline" role="grid" aria-describedby="dt-basic-example_info" style="width: 1159px;">
                                                 <thead>
                                                     <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 185px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Staff Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 279px;" aria-label="Position: activate to sort column ascending">Company Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 137px;" aria-label="Office: activate to sort column ascending">Amount</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 69px;" aria-label="Age: activate to sort column ascending">Intrest</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 125px;" aria-label="Start date: activate to sort column ascending">Loan date</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 107px;" aria-label="Salary: activate to sort column ascending">Date Schedule</th></tr>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 279px;" aria-label="Position: activate to sort column ascending">Phone</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 137px;" aria-label="Office: activate to sort column ascending">ID</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 69px;" aria-label="Age: activate to sort column ascending">Address</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 125px;" aria-label="Start date: activate to sort column ascending">Email</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 70px;" aria-label="End date: activate to sort column ascending">Action</th></tr>
                                                 </thead>
                                                 <tbody>
-                                                    
-                                                <tr role="row" class="odd">
-                                                        <td tabindex="0" class="sorting_1">Airi Satou</td>
-                                                        <td>Accounts LTD</td>
-                                                        <td>500</td>
-                                                        <td>33</td>
-                                                        <td>2008/11/28</td>
-                                                        <td>2008/11/28</td>
-                                                    </tr><tr role="row" class="even">
-                                                        <td class="sorting_1" tabindex="0">Angelica Ramos</td>
-                                                        <td>Probase</td>
-                                                        <td>700</td>
-                                                        <td>47</td>
-                                                        <td>2009/10/09</td>
-                                                        <td>2009/10/09</td>
-                                                    </tr><tr role="row" class="odd">
-                                                        <td tabindex="0" class="sorting_1">Ashton Cox</td>
-                                                        <td>Junior Technical Institution</td>
-                                                        <td>7000</td>
-                                                        <td>66</td>
-                                                        <td>2009/01/12</td>
-                                                        <td>2009/01/12</td>
-                                                    </tr><tr role="row" class="even">
-                                                        <td class="sorting_1" tabindex="0">Bradley Greer</td>
-                                                        <td>Engineer Of Zambia</td>
-                                                        <td>290</td>
-                                                        <td>41</td>
-                                                        <td>2012/10/13</td>
-                                                        <td>2012/10/13</td>
-                                                    </tr>
-                                                    </tbody>
+                                                    <%= for staffs <- @staff do %>
+                                                        <tr>
+                                                            <td><%= staffs.first_name %> <%= staffs.last_name %></td>
+                                                            <td><%= staffs.phone  %></td>
+                                                            <td><%= staffs.id_no %></td>  
+                                                            <td><%= staffs.address %></td>
+                                                            <td><%= staffs.email   %></td>
+                                                             <td>
+                                                                <%= if @user.user_role == "CLIENT_APPROVER" do %>
+                                                                    <div class="btn-group mr-1 mb-1">
+                                                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                                        <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                                        <a class="dropdown-item" href="#"> View </a>
+                                                                        <a type="button" class="dropdown-item" href="#"  data-id="<%= staffs.id %>" data-first_name="<%= staffs.first_name %>" data-last_name="<%= staffs.last_name %>" data-other_name="<%= staffs.other_name %>" data-email="<%= staffs.email %>" data-phone ="<%= staffs.phone %>" data-gender="<%= staffs.gender %>" data-status="<%= staffs.status %>" data-city="<%= staffs.city %>" data-country="<%= staffs.country %>" data-company_id="<%= staffs.company_id %>" data-address="<%= staffs.address %>" data-id_no="<%= staffs.id_no %>" data-id_type="<%= staffs.id_type %>" data-account_no="<%= staffs.account_no %>" data-branch_id="<%= staffs.branch_id %>" data-toggle="modal" data-target="#approve_staff">Approve</a>
+                                                                        <a class="dropdown-item" href="#"> Decline</a>
+                                                                         <a class="dropdown-item js-delete-beneficiary" data-staffs-id="<%= staffs.id %>" aria-expanded="true" title="Remove Entry">Appro</a>
+                                                                        </div>
+                                                                    </div>
+                                                                <% end %>
+                                                                <%= if @user.user_role == "CLIENT_INITAITOR" do %>
+                                                                    <div class="btn-group mr-1 mb-1">
+                                                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                                                        <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                                                        <a class="dropdown-item" href="#"> View </a>
+                                                                        <a class="dropdown-item" href="#"> Edit </a>
+                                                                        </div>
+                                                                    </div>
+                                                                <% end %>   
+                                                             </td>
+                                                        </tr>
+                                                    <% end %>
+                                                </tbody>
                                             </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="dt-basic-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="dt-basic-example_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="dt-basic-example_previous"><a href="#" aria-controls="dt-basic-example" data-dt-idx="0" tabindex="0" class="page-link"><i class="fal fa-chevron-left"></i></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="dt-basic-example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dt-basic-example" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="dt-basic-example_next"><a href="#" aria-controls="dt-basic-example" data-dt-idx="7" tabindex="0" class="page-link"><i class="fal fa-chevron-right"></i></a></li></ul></div></div></div></div>
                                             <!-- datatable end -->
                                         </div>
                                     </div>
                                 </div>
                 </div>
-            <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
-                <!-- add : -->
-                <!-- rating -->
-                <div class="card mb-g">
-                    <div class="row row-grid no-gutters">
-                        <div class="col-12" style="background-color: #00204E; color:white;">
-                            <div class="p-3">
-                                <h2 class="mb-0 fs-xl">
-                                    About Loans
-                                </h2>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="p-3">
-                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#tax-free-plan"> All loans need to be payed back within a period of 30 days</a>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="p-3">
-                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#FLEXIBLE-plan">No staff is allowed to get a loan after the 15th if ever month</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="p-3">
-                                <div class="fw-500 fs-xs"><a href="#" data-toggle="modal" data-target="#switch-funds">Late repayments of loans will attract a particuler amount if intrest.</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12" style="background-color: #00204E; color:white;">
-                            <div class="p-3">
-                                <div class="fw-500 fs-xs">
-                                    <a style="color:white;" href="<%= Routes.client_portal_path(@conn, :request)%>">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
     </div>
 </main>
 
@@ -123,51 +102,106 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form id="" action="<%= Routes.client_portal_path(@conn, :add_staff) %>" method="post">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" name="company_id" value="<%= "#{(@conn.assigns.user.company_id)}"%>">
+                    <input type="hidden" name="tpin_no" value="344333443">
+                    <input type="hidden" name="account_no" value="344333443">
+                    <input type="hidden" name="branch_id" value="344333443">
+                    <input type="hidden" name="staff_file_name" value="Single Upload">
                     <div class="panel-container show">
                         <div class="panel-content">
-                            <div class="form-group">
-                                <label class="form-label" for="name-f">Company & Staff Name</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-success">
-                                            <i class="ni ni-user fs-xl"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" aria-label="First name" class="form-control" placeholder="Company name" id="name-f">
-                                    <input type="text" aria-label="Last name" class="form-control" placeholder="Staff name" id="name-l">
+                            <div class="row">
+                        
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Company Name</label><input class="form-control" name="company_name" placeholder="Company Name " value="<%= @companies.company_name %>" required="required" type="text" readonly>
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
+                            <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="form-label" for="dollar-1">NRC, Intrest & Amount </label>
-                                <div class="input-group input-group-multi-transition">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="" id="dollar-1" placeholder="NRC">
-                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Intrest">
-                                    <input type="text" class="form-control" aria-label="Person name" placeholder="Amount">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">0.00</span>
+                                 <label for="">First Name</label><input class="form-control" name="first_name" placeholder="First Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Payout Date & Scheduled Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append input-group-prepend">
-                                        <span class="input-group-text"><i class="fal fa-exchange fs-xl"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Last Name</label><input class="form-control" name="last_name" placeholder="Last Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                </div>
+                             </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Other Name</label><input class="form-control" name="other_name" placeholder="Other Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                                
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Email</label><input class="form-control" name="email" placeholder="Email" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                   </div>
+                          </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Phone number</label><input class="form-control" name="phone" placeholder="Phone number" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for=""> Address</label><input class="form-control" name="address" placeholder="Address" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">ID No</label><input class="form-control" name="id_no" placeholder="ID No" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">ID Type</label>
+                                    <select class="form-control" name="id_type">
+                                        <option value="NRC">
+                                        NRC
+                                        </option>
+                                        <option value="passport">
+                                       Passport
+                                        </option>
+                                        <option value="DriversLicense">
+                                        Drivers License
+                                        </option>
+                                    </select>
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Country</label><input class="form-control" name="country" placeholder="Country" required="required" value="ZAMBIA" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div>  
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">City</label><input class="form-control" name="city" placeholder="City" required="required" type="text">
+                                    <div class="help-block form-text with-errors form-control-feedback"></div>
+                                </div>
+                            </div> 
+                        </div>
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-themed">Submit</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-themed">Submit</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -182,29 +216,273 @@
                     <span aria-hidden="true"><i class="fal fa-times"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
-                    <div class="panel-container show">
-                        <div class="panel-content">
-                            <div class="form-group">
-                                <label class="form-label" for="inputGroupFile01">Select file to upload</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            
+            <form enctype="multipart/form-data" action="<% Routes.company_path(@conn, :handle_bulk_upload)%>" method="POST">
+                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <div class="modal-body">
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <div class="form-group">
+                                    <label class="form-label" for="inputGroupFile01">Select file to upload</label>
+                                    <div class="input-group">
+                                    <input type="hidden" name="company_id" value="<%= @companies.company_id %>">
+                                    <input type="hidden" name="status" value="PENDING_APPROVAL">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" name="staff_file_name" class="" id="" aria-describedby="inputGroupFileAddon01">
+                                            <label class="" for="inputGroupFile01"></label>
+                                        </div>
                                     </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
+                                    <span class="help-block">You can upload a list of client in CSV file format</span>
                                 </div>
-                                <span class="help-block">You can upload a list of client in CSV file format</span>
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-themed">Upload</button>
-            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-themed">Upload</button>
+                    </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="approve_staff_modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Approve Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="" action="<%= Routes.client_portal_path(@conn, :approve_staff) %>" method="post">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" name="company_id" value="<%= "#{(@conn.assigns.user.company_id)}"%>">
+                    <input type="hidden" name="status" value="HR_APPROVED">
+                    <div class="panel-container show">
+                        <div class="panel-content">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="">First Name</label>
+                                        <input class="form-control" name="first_name" id="first_name" type="text" readonly>
+                                        <input type="hidden" name="id" id="id">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">Last Name</label>
+                                        <input class="form-control" name="last_name" id="last_name" type="text" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                        <div class="col-sm-6">
+                                        <label for="">Other Name</label>
+                                        <input class="form-control" name="other_name" id="other_name" type="text" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>                     
+                                    <div class="col-sm-6">
+                                        <label for="">Email</label>
+                                        <input class="form-control" name="email" id="email" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">phone</label>
+                                        <input class="form-control" name="phone" id="phone" readonly>
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>  
+                                    <div class="col-sm-6">                                    
+                                        <label for="">Address</label>
+                                        <input class="form-control" name="address" id="address" readonly>
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">Gender</label>
+                                        <input class="form-control" name="gender" id="gender" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">ID Type</label>
+                                        <input class="form-control" name="id_type" id="id_type" readonly>
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">ID no</label>
+                                        <input class="form-control" name="id_no" id="id_no" readonly>
+                                        <div class="help-block form-text text-muted form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">Country</label>
+                                        <input class="form-control" name="country" id="country" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">City</label>
+                                        <input class="form-control" name="city" id="city" readonly>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>   
+                                </div>                                                          
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-themed">Submit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
+
+
+<script>
+$(document).ready(function(){
+//view staff details
+    $('#approve_staff').on('show.bs.modal', function (event){
+      
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var first_name = button.data('first_name')
+            var last_name = button.data('last_name')
+            var other_name = button.data('other_name')
+            var phone = button.data('phone')
+            var email = button.data('email')
+            var id_no = button.data('id_no')
+            var company_id = button.data('company_id')
+            var address = button.data('address')
+            var status = button.data('status')
+            var id_type = button.data('id_type')
+            var country = button.data('country')
+            var city = button.data('city')
+            var gender = button.data('gender')
+              
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #first_name').val(first_name);
+            modal.find('.modal-body #last_name').val(last_name);
+            modal.find('.modal-body #other_name').val(other_name);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #email').val(email);
+            modal.find('.modal-body #company_id').val(company_id);
+            modal.find('.modal-body #id_no').val(id_no);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #status').val(status);
+            modal.find('.modal-body #id_type').val(id_type);
+            modal.find('.modal-body #country').val(country);
+            modal.find('.modal-body #city').val(city);
+            modal.find('.modal-body #gender').val(gender);
+           
+    });
+    //Edit staff details
+    $('#edit_modal').on('show.bs.modal', function (event){
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var first_name = button.data('first_name')
+            var last_name = button.data('last_name')
+            var other_name = button.data('other_name')
+            var phone = button.data('phone')
+            var email = button.data('email')
+            var id_no = button.data('id_no')
+            var company_id = button.data('company_id')
+            var company_name = button.data('company_name')
+            var address = button.data('address')
+            var tpin_no = button.data('tpin_no')
+            var id_type = button.data('id_type')
+            var country = button.data('country')
+            var city = button.data('city')
+              
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #first_name').val(first_name);
+            modal.find('.modal-body #last_name').val(last_name);
+            modal.find('.modal-body #other_name').val(other_name);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #email').val(email);
+            modal.find('.modal-body #id_no').val(id_no);
+            modal.find('.modal-body #company_name').val(company_name);
+            modal.find('.modal-body #company_id').val(company_id);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #tpin_no').val(tpin_no);
+            modal.find('.modal-body #id_type').val(id_type);
+            modal.find('.modal-body #country').val(country);
+            modal.find('.modal-body #city').val(city);
+            console.log("params")
+            console.log(button.data('id'))
+            console.log(button.data('first_name'))
+            console.log(button.data('last_name'))
+            console.log(button.data('other_name'))
+            console.log(button.data('currency_decimals'))
+           
+    });
+});
+</script>
+
+<script>
+$('#delete-beneficiary').on('click', '.js-delete-beneficiary', function() {
+    var button = $(this);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, continue!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: '/Approve/Client',
+                type: 'post',
+                data: { id: button.attr("data-staffs-id"), _csrf_token: $("#csrf").val() },
+                success: function(result) {
+                    if (result.data) {
+                        Swal.fire(
+                            'Success',
+                            'Staff Approved successfuly!',
+                            'success'
+                        )
+                        location.reload(true);
+                    } else {
+                        Swal.fire(
+                            'Success',
+                            'Staff Approved successfuly!',
+                            'success'
+                        )
+                        location.reload(true);
+                    }
+                },
+                error: function(request, msg, error) {
+                    Swal.fire(
+                        'Oops..',
+                        'Something went wrong! try again',
+                        'error'
+                    )
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swal.fire(
+                'Cancelled',
+                'Operation not performed :)',
+                'error'
+            )
+        }
+    })
+
+});
+</script>
+
+
+
+

@@ -1,0 +1,30 @@
+<h1>Listing Charges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Valuation</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for charge <- @charges do %>
+    <tr>
+      <td><%= charge.name %></td>
+      <td><%= charge.type %></td>
+      <td><%= charge.valuation %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.charge_path(@conn, :show, charge) %></span>
+        <span><%= link "Edit", to: Routes.charge_path(@conn, :edit, charge) %></span>
+        <span><%= link "Delete", to: Routes.charge_path(@conn, :delete, charge), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Charge", to: Routes.charge_path(@conn, :new) %></span>

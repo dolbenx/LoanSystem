@@ -12,7 +12,7 @@ defmodule LoanSystem.Companies.Company do
     field :email, :string
     field :phone, :string
     field :tpin_no, :string
-    field :company_file_name, :string
+    field :status, :string
 
     timestamps()
   end
@@ -20,7 +20,7 @@ defmodule LoanSystem.Companies.Company do
   @doc false
   def changeset(company, attrs) do
     company
-    |> cast(attrs, [:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address, :company_file_name])
-    |> validate_required([:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address, :company_file_name])
+    |> cast(attrs, [:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address])
+    |> validate_required([:email, :phone, :company_name, :tpin_no, :city, :country, :date_of_incorporation, :company_id, :address])
   end
 end

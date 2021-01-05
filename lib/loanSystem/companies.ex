@@ -5,29 +5,20 @@ defmodule LoanSystem.Companies do
 
   import Ecto.Query, warn: false
   alias LoanSystem.Repo
-
+  alias LoanSystem.Companies.Staff
   alias LoanSystem.Companies.Company
 
   @doc """
   Returns the list of tbl_companies.
   ## Examples
-      iex> list_tbl_companies()
-      [%Company{}, ...]
-  """
+   """
   def list_tbl_companies do
     Repo.all(Company)
   end
 
-  @doc """
-  Gets a single company.
-  Raises `Ecto.NoResultsError` if the Company does not exist.
-  ## Examples
-      iex> get_company!(123)
-      %Company{}
-      iex> get_company!(456)
-      ** (Ecto.NoResultsError)
-  """
-  def get_company!(id), do: Repo.get!(Company, id)
+  def list_tbl_staff do
+    Repo.all(Staff)
+  end
 
   def comp_id(company_id) do
     Company
@@ -38,6 +29,16 @@ defmodule LoanSystem.Companies do
     )
     |> Repo.one()
  end
+  @doc """
+  Gets a single company.
+  Raises `Ecto.NoResultsError` if the Company does not exist.
+  ## Examples
+      iex> get_company!(123)
+      %Company{}
+      iex> get_company!(456)
+      ** (Ecto.NoResultsError)
+  """
+  def get_company!(id), do: Repo.get!(Company, id)
 
   @doc """
   Creates a company.
@@ -101,6 +102,19 @@ defmodule LoanSystem.Companies do
     Repo.all(Staff)
   end
 
+  def count_total_staff(company_id) do
+    query = """
+    SELECT SUM(available_bal)
+    FROM [loansystem_dev].[dbo].[tbl_staff]
+    WHERE company_id = #{company_id};
+    """
+
+    {:ok, %{columns: columns, rows: rows}} = Repo.query(query)
+    total = rows |> Enum.map(&Enum.zip(columns, &1)) |> Enum.map(&Enum.into(&1, %{}))
+    [%{""=> sum}] = total
+    sum
+  end
+
   def list_stuff_with_company_id(company_id) do
     Company
     |> join(:left, [c], s in "tbl_staff", on: c.company_id == s.company_id)
@@ -118,12 +132,14 @@ defmodule LoanSystem.Companies do
       phone: s.phone,
       address: s.address,
       id_no: s.id_no,
-      id_type: s.id_type,
-      tpin_no: s.tpin_no
+      gender: s.gender,
+      status: s.status,
+      account_no: s.account_no,
+      branch_id: s.branch_id,
+      id_type: s.id_type
     })
     |> Repo.all()
   end
-
   @doc """
   Gets a single staff.
   Raises `Ecto.NoResultsError` if the Staff does not exist.

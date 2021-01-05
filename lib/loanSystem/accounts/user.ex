@@ -3,34 +3,47 @@ defmodule LoanSystem.Accounts.User do
   import Ecto.Changeset
 
   schema "tbl_users" do
-    field :acc_inactive_reason, :string
-    field :address, :string
     field :age, :integer
     field :auto_password, :string
-    field :created_by, :string
-    field :creator_id, :integer
     field :email, :string
     field :first_name, :string
+    field :home_add, :string
     field :id_no, :string
     field :id_type, :string
-    field :last_modified_by, :string
     field :last_name, :string
-    field :loan_officer, :integer
     field :password, :string
-    field :phone, :string
+    field :phone, :integer
     field :sex, :string
     field :status, :integer
-    field :title, :string
+    field :user_id, :integer
     field :user_role, :string
+    field :company_id, :string
     field :user_type, :integer
 
-    timestamps(type: :utc_datetime)
+    timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:title, :first_name, :last_name, :email, :password, :user_type, :user_role, :status, :auto_password, :sex, :age, :id_type, :id_no, :phone, :address, :creator_id, :acc_inactive_reason, :last_modified_by, :created_by, :loan_officer])
+    |> cast(attrs, [
+      :age,
+      :auto_password,
+      :email,
+      :first_name,
+      :home_add,
+      :id_no,
+      :id_type,
+      :last_name,
+      :password,
+      :phone,
+      :sex,
+      :status,
+      :user_id,
+      :user_role,
+      :user_type,
+      :company_id
+    ])
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 8, max: 40, message: " should be atleast 8 to 40 characters")
     |> validate_format(:password, ~r/[0-9]+/, message: "Password must contain a number") # has a number
@@ -42,7 +55,7 @@ defmodule LoanSystem.Accounts.User do
     |> validate_length(:email, min: 10, max: 150, message: "Email Length should be between 10 to 150 characters")
     |> unique_constraint(:email, name: :unique_email, message: " Email address already exists")
     |> unique_constraint(:phone, name: :unique_phone, message: " Phone number already exists")
-    |> unique_constraint(:identity_number, name: :unique_identity_number, message: " ID number already exists")
+    |> unique_constraint(:id_no, name: :unique_identity_number, message: " ID number already exists")
     |> validate_user_role()
     |> put_pass_hash
   end
@@ -52,31 +65,31 @@ defmodule LoanSystem.Accounts.User do
        ) do
     case role == ADMIN && type == 1 do
       true ->
-        add_error(changeset, :user, "under operations can't be admin")
+        add_error(changeset, :user, "under operations can't be Admin")
 
       _ ->
         changeset
     end
 
-    case role == PRODUCT_MANAGER_AUTHORIZATION && type == 2 do
+    case role == AUTHORIZER && type == 2 do
       true ->
-        add_error(changeset, :user, "under operations can't be PRODUCT_MANAGER_AUTHORIZATION")
+        add_error(changeset, :user, "under operations can't be Admin Authorizer")
 
       _ ->
         changeset
     end
 
-    case role == CLIENT_ADMIN && type == 3 do
+    case role == CLIENT && type == 3 do
       true ->
-        add_error(changeset, :user, "under operations can't be PRODUCT_MANAGER_DEFINITION")
+        add_error(changeset, :user, "under operations can't be Client HR")
 
       _ ->
         changeset
     end
 
-    case role == CLIENT_PRODUCT_MANAGER_AUTHORIZATION && type == 4 do
+    case role == CLIENT_AUTHORIZER && type == 4 do
       true ->
-        add_error(changeset, :user, "under operations can't be BACK_OFFICE_MANAGER")
+        add_error(changeset, :user, "under operations can't be Client Authorizer")
 
       _ ->
         changeset
@@ -102,10 +115,5 @@ defmodule LoanSystem.Accounts.User do
   def encrypt_password(password), do: Base.encode16(:crypto.hash(:sha512, password))
 end
 
-
-# LoanSystem.Accounts.create_user(%{first_name: "Davies", last_name: "Phiri", email: "admin@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 1, status: 1, user_role: "ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "304831101", autopasword: "Y", phone: "0978242442", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "Chiza", last_name: "Mhlanga", email: "adminauthorizer@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 2, status: 1, user_role: "PRODUCT_MANAGER_AUTHORIZATION", sex: "m", age: "24", id_type: "nrc", id_no: "304531101", autopasword: "Y", phone: "0978242455", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "Chiza", last_name: "Mhlanga", email: "client@probasegroup.com", password: "Password@07", auto_password: "Y", user_type: 3, status: 1, user_role: "CLIENT_ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "302231101", autopasword: "Y", phone: "0968242455", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Authorizer", email: "clientauthorizer@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 4, status: 1, user_role: "CLIENT_PRODUCT_MANAGER_AUTHORIZATION", sex: "m", age: "24", id_type: "nrc", id_no: "303431101", autopasword: "Y", phone: "0978242225", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Authorizer", email: "clientauthorizer@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 4, status: 1, user_role: "CLIENT_PRODUCT_MANAGER_AUTHORIZATION", sex: "m", age: "24", id_type: "nrc", id_no: "303431101", autopasword: "Y", phone: "0978242225", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "teddy", last_name: "chiingu", email: "teddychiingujr@gmail.com", password: "Ted@1234", auto_password: "Y", user_type: 1, status: 1, user_role: "ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "304831101", autopasword: "Y", phone: "0978242442", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", email: "admin@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "NRC", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+# LoanSystem.Accounts.create_user(%{first_name: "Adriel", last_name: "Phiri", email: "authorizer@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "2", status: "1", user_role: "AUTHORIZER", id_type: "NRC", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})

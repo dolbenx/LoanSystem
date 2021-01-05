@@ -1,0 +1,23 @@
+<h1>Show App user</h1>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @app_user.user_id %>
+  </li>
+
+  <li>
+    <strong>Mobile number:</strong>
+    <%= @app_user.mobile_number %>
+  </li>
+
+  <li>
+    <strong>Password:</strong>
+    <%= @app_user.password %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.app_user_path(@conn, :edit, @app_user) %></span>
+<span><%= link "Back", to: Routes.app_user_path(@conn, :index) %></span>

@@ -1,9 +1,6 @@
 <main id="js-page-content" role="main" class="page-content">
     <div class="col-sm-12">
         <div class="element-wrapper">
-        <div class="element-actions d-none d-sm-block">
-            <a class="btn btn-primary btn-sm" href="#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-success btn-sm" href="#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a>
-        </div>
         <h6 class="element-header">
             Laxim Dashboard
         </h6>
@@ -41,7 +38,7 @@
                         3814
                     </div>
                     <div class="label">
-                        Users
+                        Customers
                     </div>
                     </div>
                 </div>

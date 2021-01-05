@@ -170,7 +170,11 @@ $('#dt-product').on('click', '.js-sweetalert2-disable_product', function(e) {
 });
 
 //Enable Product record
+<<<<<<< HEAD
 $('#dt-product').on('click', '.js-sweetalert2-enable_product', function(e) {
+=======
+$('#dt-product').on('click', '.js-sweetalert2-enable_company', function(e) {
+>>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
     e.preventDefault();
     var button = $(this);
     // prompt("Are you sure")
@@ -283,7 +287,11 @@ $('#dt-staff').on('click', '.js-sweetalert2-disable_staff', function(e) {
     });
 });
 
+<<<<<<< HEAD
 //Enable Staff record
+=======
+//Enable Product record
+>>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
 $('#dt-staff').on('click', '.js-sweetalert2-enable_staff', function(e) {
     e.preventDefault();
     var button = $(this);

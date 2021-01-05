@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LAXIM</title>
+    <title>MFUSSD</title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="template language" name="keywords">
@@ -20,19 +20,17 @@
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css") %>">
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/bower_components/slick-carousel/slick/slick.css") %>">
     <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/main.css?version=4.5.0") %>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
     <script src="sweetalert2.all.min.js"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
    
   </head>
   <body class="menu-position-side menu-side-left full-screen">
-    <div class="all-wrapper solid-bg-all">
-      <div class="search-with-suggestions-w">
-        <div class="search-with-suggestions-modal">
-          <div class="element-search">
-            <input class="search-suggest-input" placeholder="Start typing to search..." type="text">
-              <div class="close-search-suggestions">
-                <i class="os-icon os-icon-x"></i>
+   
+         
               </div>
             </input>
           </div>
@@ -44,7 +42,7 @@
         -------------------->
         <div class="menu-mobile menu-activated-on-click color-scheme-dark">
           <div class="mm-logo-buttons-w">
-            <a class="mm-logo" href="index.html"><img src="images/logos/chikwama.jpg"><span>LAXIM</span></a>
+            <a class="mm-logo" href="index.html"><img src="images/logos/LAXMI.png"><span>LAXIMs</span></a>
             <div class="mm-buttons">
               <div class="content-panel-open">
                 <div class="os-icon os-icon-grid-circles"></div>
@@ -93,22 +91,7 @@
                     <a href="">Stuff</a>
                   </li>
                   <li>
-                    <a href="">Products Setup</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="has-sub-menu">
-                <a href="#">
-                  <div class="icon-w">
-                    <div class="os-icon os-icon-layers"></div>
-                  </div>
-                  <span>Reports</span></a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="<%= Routes.reports_path(@conn, :logs)%>">logs</a>
-                  </li>
-                  <li>
-                    <a href="<%= Routes.reports_path(@conn, :reports)%>">Reports</a>
+                    <a href="">Products</a>
                   </li>
                 </ul>
               </li>
@@ -120,10 +103,28 @@
                   <span>System Settings</span></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="<%= Routes.system_settings_path(@conn, :bank)%>">Bank</a>
+                    <a href="">Bank</a>
                   </li>
                   <li>
-                    <a href="<%= Routes.system_settings_path(@conn, :mno)%>">MNO</a>
+                    <a href="">Telco</a>
+                  </li>
+                  <li>
+                    <a href="">System Parameters</a>
+                  </li>
+                  <li>
+                    <a href="">Jobs</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-package"></div>
+                  </div>
+                  <span>Accounting</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="">GL Accounts</a>
                   </li>
                   <li>
                     <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">System Configs</a>
@@ -196,7 +197,7 @@
                       <td> ID</td><td>  <%= "#{(@conn.assigns.user.id_no)}"%> </td>
                     </tr>
                     <tr>
-                      <td>Address</td><td> <%= "#{(@conn.assigns.user.address)}"%> </td>
+                      <td>Address</td><td>  </td>
                     </tr>
                   </tbody>
                   </table>
@@ -207,128 +208,256 @@
           <h1 class="menu-page-header">
             Page Header
           </h1>
+          <%= if @user.user_role == "ADMIN" do %>
           <ul class="main-menu">
-          <li class="">
-              <a href="<%= Routes.user_path(@conn, :dashboard)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-layout"></div>
-                </div>
-                <span>Dashboad</span></a>
-            </li>
-            <li class="sub-header">
-              <span>Maintenance</span>
-            </li>
             <li class="">
-              <a href="<%= Routes.company_path(@conn, :companies)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-cv-2"></div>
+                <a href="<%= Routes.user_path(@conn, :dashboard)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-layout"></div>
+                  </div>
+                  <span>Dashboad</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Maintenance</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :companies)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Profile Management</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :staff_uploads)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-cv-2"></div>
+                  </div>
+                  <span>Customer Management</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :products)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Product Setup</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Loans</span>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Loans</span></a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+                  Loan Menu
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-layers"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan)%>">Loans</a>
+                      </li>
+                        <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
+                      </li>
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
+                      </li>
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_overdue)%>">Loan Overdue</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <span>Client Management</span></a>
-            </li>
-             <li class="">
-               <a href="<%= Routes.company_path(@conn, :products)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
+              </li>
+              <li class="sub-header">
+                <span>Reports</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.reports_path(@conn, :logs)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wifi"></div>
+                  </div>
+                  <span>Logs</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.reports_path(@conn, :reports)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-ui-46"></div>
+                  </div>
+                  <span>Reports</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Settings</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-ui-46"></div>
+                  </div>
+                  <span>System Configs</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.user_path(@conn, :user_mgt)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-users"></div>
+                  </div>
+                  <span>User Management</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Intergrations</span></a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+                  Intergrations Menu
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-layers"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan)%>">MNO</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <span>Product Setup</span></a>
-            </li>
-            <li class="sub-header">
-              <span>Loans</span>
-            </li>
-            <li class="has-sub-menu">
-              <a href="#">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
-                </div>
-                <span>Loans</span></a>
-              <div class="sub-menu-w">
-                <div class="sub-menu-header">
-                 Loan Menu
-                </div>
-                <div class="sub-menu-icon">
-                  <i class="os-icon os-icon-layers"></i>
-                </div>
-                <div class="sub-menu-i">
-                  <ul class="sub-menu">
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan)%>">Loans</a>
-                    </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_transactions)%>">Loan Transactions</a>
-                    </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
-                    </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_collateral)%>">Loan Collateral</a>
-                    </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
-                    </li>
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan_overdue)%>">Loan Overdue</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li class="sub-header">
-              <span>Reports</span>
-            </li>
+              </li>
+            </ul>
+          <% end %>
+          <%= if @user.user_role == "AUTHORIZER" do %>
+          <ul class="main-menu">
             <li class="">
-              <a href="<%= Routes.reports_path(@conn, :logs)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-tasks-checked"></div>
+                <a href="<%= Routes.user_path(@conn, :dashboard)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-layout"></div>
+                  </div>
+                  <span>Dashboad</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Maintenance</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :companies)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Profile Management</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :staff_uploads)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-cv-2"></div>
+                  </div>
+                  <span>Customer Management</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.company_path(@conn, :products)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Product Setup</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Loans</span>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Loans</span></a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+                  Loan Menu
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-layers"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan)%>">Loans</a>
+                      </li>
+                        <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_charge)%>">Loan Charge</a>
+                      </li>
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_advance)%>">Loan Paid In Advance</a>
+                      </li>
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan_overdue)%>">Loan Overdue</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <span>Logs</span></a>
-            </li>
-            <li class="">
-              <a href="<%= Routes.reports_path(@conn, :reports)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-documents-03"></div>
+              </li>
+              <li class="sub-header">
+                <span>Reports</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.reports_path(@conn, :logs)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wifi"></div>
+                  </div>
+                  <span>Logs</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.reports_path(@conn, :reports)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-ui-46"></div>
+                  </div>
+                  <span>Reports</span></a>
+              </li>
+              <li class="sub-header">
+                <span>Settings</span>
+              </li>
+              <li class="">
+                <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-ui-46"></div>
+                  </div>
+                  <span>System Configs</span></a>
+              </li>
+              <li class="">
+                <a href="<%= Routes.user_path(@conn, :user_mgt)%>">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-users"></div>
+                  </div>
+                  <span>User Management</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Intergrations</span></a>
+                <div class="sub-menu-w">
+                  <div class="sub-menu-header">
+                  Intergrations Menu
+                  </div>
+                  <div class="sub-menu-icon">
+                    <i class="os-icon os-icon-layers"></i>
+                  </div>
+                  <div class="sub-menu-i">
+                    <ul class="sub-menu">
+                      <li>
+                        <a href="<%= Routes.loan_path(@conn, :loan)%>">MNO</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <span>Reports</span></a>
-            </li>
-            <li class="sub-header">
-              <span>Settings</span>
-            </li>
-             <li class="">
-              <a href="<%= Routes.system_settings_path(@conn, :systemparams)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-ui-46"></div>
-                </div>
-                <span>System Configs</span></a>
-            </li>
-            <li class="">
-              <a href="<%= Routes.user_path(@conn, :user_mgt)%>">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-users"></div>
-                </div>
-                <span>User Management</span></a>
-            </li>
-            <li class="has-sub-menu">
-              <a href="#">
-                <div class="icon-w">
-                  <div class="os-icon os-icon-wallet-loaded"></div>
-                </div>
-                <span>Intergrations</span></a>
-              <div class="sub-menu-w">
-                <div class="sub-menu-header">
-                 Intergrations Menu
-                </div>
-                <div class="sub-menu-icon">
-                  <i class="os-icon os-icon-layers"></i>
-                </div>
-                <div class="sub-menu-i">
-                  <ul class="sub-menu">
-                    <li>
-                      <a href="<%= Routes.loan_path(@conn, :loan)%>">MNO</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          <% end %>
           <div class="side-menu-magic">
             <p>
             Powered By
@@ -350,8 +479,8 @@
             START - Top Menu Controls
             -------------------->
             <div class="top-menu-controls">
-              <div class="element-search autosuggest-search-activator">
-                <input placeholder="Start typing to search..." type="text">
+              <div class="">
+                <%# <input placeholder="Start typing to search..." type="text"> %>
               </div><!--------------------
               START - User avatar and menu in secondary top menu
               -------------------->
@@ -619,7 +748,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/notifications/sweetalert2/sweetalert2.bundle.js"></script>
     <script src="<%= Routes.static_path(@conn, "/js/default.js") %>"></script>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

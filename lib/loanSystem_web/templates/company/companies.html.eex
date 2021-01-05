@@ -1,3 +1,21 @@
+<link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/notifications/sweetalert2/sweetalert2.bundle.css") %>">
+<link rel="stylesheet" media="screen, print" href="css/notifications/sweetalert2/sweetalert2.bundle.css">
+ 
+ 
+ 
+ <!--       ########################### CSS ALIGNMENT ################################## -->
+
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10px;
+    }
+</style>
+ <!--       ########################### END OF CSS ALIGNMENT ################################## -->
+
+
 
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
@@ -6,7 +24,9 @@
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
-                 <a class="mr-2 mb-2 btn btn-primary btn-rounded" href="#" id="com_id" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</a>
+                <%= if @user.user_role == "ADMIN" do %>
+                 <button class="mr-2 mb-2 btn btn-primary btn-rounded"data-target="#add-client" data-toggle="modal" style="float: right;" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company</button>
+                <% end %>  
                     <h5 class="form-header">
                     Companies Table
                     </h5>
@@ -29,34 +49,46 @@
                                     <th>country</th>
                                     <th>Action</th>
                         </tr>
-                            </thead>
-                            <tbody>
-                             <%= for company <- @companies do %>
-                                    <tr>
-                                        <td><%= company.company_name %></td>
-                                        <td><%= company.phone %></td>
-                                        <td><%= company.email %></td>
-                                        <td><%= company.company_id  %></td>
-                                        <td><%= company.address %></td>  
-                                        
-                                        <td><%= company.tpin_no %></td>
-                                        <td><%= company.date_of_incorporation   %></td>
-                                        <td><%= company.country  %></td>  
-                                        <td>
-                                            <div class="btn-group mr-1 mb-1">
-                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
-                                                <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#Edit_modal">Edit</a>
-                                                <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
-                                        
-                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :staff, company_id: company.company_id)%>"> Add Staff</a>
-                                                <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin)%>"> Add Admin</a>
-                                                <a class="dropdown-item" href="#"> Disable</a>
-                                                </div>
-                                            </div>
-                                        </td> 
-                                         </tr>
-                                    <% end %>
+                        </thead>
+                        <tbody>
+                        <%= for company <- @companies do %>
+                        <tr>
+                            <td><%= company.company_name %></td>
+                            <td><%= company.phone %></td>
+                            <td><%= company.email %></td>
+                            <td><%= company.company_id %></td>
+                            <td><%= company.address %></td>  
+                            <td><%= company.tpin_no %></td>
+                            <td><%= company.date_of_incorporation   %></td>
+                            <td><%= company.country  %></td>  
+                            <td>
+                                <td>
+                                <%= if @user.user_role == "ADMIN" do %>
+                                    <div class="btn-group mr-1 mb-1">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                        <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#Edit_modal">Edit</a>
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
+                                
+                                        <a class="dropdown-item" href="<%= Routes.company_path(@conn, :staff, company_id: company.company_id)%>"> View Staff</a>
+                                        <a class="dropdown-item" href="<%= Routes.company_path(@conn, :portal_admin, company_id: company.company_id)%>"> Add HR</a>
+                                        <a class="dropdown-item" href="#"> Disable</a>
+                                        </div>
+                                    </div>
+                                <% end %>
+                                <%= if @user.user_role == "AUTHORIZER" do %>
+                                    <div class="btn-group mr-1 mb-1">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
+                                        <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">View</a>
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#Edit_modal">Approve</a>
+                                        <a class="dropdown-item" href="#"  data-id="<%= company.id %>" data-company_name="<%= company.company_name %>" data-phone="<%= company.phone %>" data-email="<%= company.email %>" data-company_id="<%= company.company_id %>" data-address ="<%= company.address %>" data-tpin_no="<%= company.tpin_no %>" data-date_of_incorporation="<%= company.date_of_incorporation %>" data-country="<%= company.country %>" data-city="<%= company.city %>" data-toggle="modal" data-target="#view_modal">Reject</a>
+                                        </div>
+                                    </div>
+                                <% end %>
+                                </td> 
+                                </tr>
+                        <% end %>
                             </tbody>
                         </table>
                     </div>
@@ -66,21 +98,21 @@
                 </div>
             </div>
         </div>
+    </div>
 </main>
-
+ <!--       ########################### END OFCOMPANY TABLE ################################## -->
 
 
 
 <div aria-hidden="true" class="onboarding-modal modal fade animated" id="add-client" role="dialog" tabindex="-1">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content text-center">
-          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
                 <div class="element-box">
                     <form id="" action="<%= Routes.company_path(@conn, :add_company) %>" method="post">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="company_file_name" value="asasas">
-                    <input type="hidden" name="company_id" id="companies_id">
+                    <input type="hidden" name="company_file_name" value="Single_upload">
                     <h5 class="form-header">
                         Add Company
                     </h5>
@@ -90,7 +122,16 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for=""> Company Name</label><input class="form-control" name="company_name" placeholder="Company Name" required="required" type="text">
+                                    <label for="">Company Name</label>
+                                    <input class="form-control" name="company_name" placeholder="Company Name" required="required" type="text">
+                                    <div class="help-block form-text text-muted form-control-feedback">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Pacra Number</label>
+                                    <input class="form-control" name="company_id" placeholder="Company ID" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
@@ -98,13 +139,15 @@
                                                                             
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Phone number</label><input class="form-control" name="phone" placeholder="Phone number" required="required" type="text">
+                                    <label for="">Phone number</label>
+                                    <input class="form-control" name="phone" placeholder="Phone number" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Email</label><input class="form-control" name="email" placeholder="Email" required="required" type="text">
+                                    <label for="">Email</label>
+                                    <input class="form-control" name="email" placeholder="Email" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
@@ -118,41 +161,57 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Tpin #</label><input class="form-control" name="tpin_no" placeholder="Tpin #" required="required" type="text">
+                                    <label for="">Tpin #</label>
+                                    <input class="form-control" name="tpin_no" placeholder="Tpin #" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group ">
-                                    <label for="">Date of incorporation</label><input class="form-control" name="date_of_incorporation" placeholder="Date of incorporation" required="required" type="text">
+                                    <label for="">Date of incorporation</label>
+                                    <input class="form-control" name="date_of_incorporation" placeholder="Date of incorporation" required="required" type="text">
                                     <div class="help-block form-text text-muted form-control-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Country</label><input class="form-control" name="country" placeholder="Country" required="required" type="text">
+                                    <label for="">Country</label>
+                                    <input class="form-control" name="country" placeholder="Country" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">City</label><input class="form-control" name="city" placeholder="City" required="required" type="text">
+                                    <label for="">City</label>
+                                    <input class="form-control" name="city" placeholder="City" required="required" type="text">
                                     <div class="help-block form-text with-errors form-control-feedback"></div>
                                 </div>
-                            </div>                                                                          
+                            </div> 
+                            <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Select Product</label>
+                                        <select class="form-control" name="product_code">
+                                        <%= for product <- @products do %>
+                                            <option value="<%= product.code %>">
+                                            <%= product.name %>
+                                            </option>
+                                        <% end %> 
+                                        </select>
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                </div>                                                                         
                         </div>
                     </div>
-                    
+                        
                     <div class="">
                         <button type="submit" class="btn btn-primary disabled">Submit</button>
                     </div>
-                    </form>
-                </div>
-                </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
  </div>
 
@@ -245,6 +304,7 @@
                             <div class="center" > <br>
                                 <button type="button" class="btn btn-outline-danger waves-effect waves-themed" data-dismiss="modal">Close</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -260,7 +320,7 @@
             <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
                 <div class="element-box">
-                    <div class="modal-header">z
+                    <div class="modal-header">
                 
                         <div class="modal-body">
     
@@ -269,7 +329,12 @@
                                   <input type="hidden" name="client_id" value="21">
                                         <!-- FORM CONTENT -->
                                 <h5 >
-                                       Edit Company details
+                                <%= if @user.user_role == "ADMIN" do %>
+                                    Edit Company details
+                                <% end %>
+                                <%= if @user.user_role == "AUTHORIZER" do %>
+                                    Approve Company
+                                <% end %>
                                 </h5><br>
                                 <div class="panel-content">
                                     <div class="container">
@@ -336,7 +401,12 @@
                             
                             <br> <br>
                             <div class="center" > <br>
-                                <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            <%= if @user.user_role == "ADMIN" do %>
+                            <button type="submit" class="btn btn-primary disabled">Submit</button>
+                            <% end %>
+                            <%= if @user.user_role == "AUTHORIZER" do %>
+                                <button type="submit" class="btn btn-primary disabled">Approve</button>
+                            <% end %>
                             </div>
                             </form>
                         </div>
@@ -355,33 +425,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"></script>
 
-
- <script>
-    $('#com_id').on('click', function (event){
-        var modal= $("#add-client");
-        var acc= ""
-        $.ajax({
-            url: '/Generate/Company/ID',
-            type: 'POST',
-            data: {_csrf_token: $('#csrf').val()},
-            success: function(result) {
-                if (result.account){
-                    acc = result.account
-                    modal.find('#companies_id').val(acc);
-                    modal.modal("show")
-                } else {
-                    modal.find('#companies_id').val("error");
-                    modal.modal("show")
-                }
-            },
-            error: function(request, msg, error) {
-                modal.find('#companies_id').val("error 2");
-                modal.modal("show")
-            }
-        })
-
-    });
-</script>
 
 <script>
 $(document).ready(function(){
