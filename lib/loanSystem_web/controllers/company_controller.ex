@@ -14,12 +14,15 @@ defmodule LoanSystemWeb.CompanyController do
   alias LoanSystem.Products
   alias LoanSystem.Companies
   alias LoanSystem.System_Directories
+  alias LoanSystem.Settings
+  alias LoanSystem.Settings.SystemParams
 
   @headers ~w/ first_name last_name other_name id_no phone tpin_no/a
 
 
   def reports(conn, _params) do
-    render(conn, "reports.html")
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "reports.html", systemparams: systemparams)
   end
 
   def logs(conn, _params) do
@@ -28,13 +31,15 @@ defmodule LoanSystemWeb.CompanyController do
   end
   def companies(conn, _params) do
     companies = Companies.list_tbl_companies()
-    render(conn, "companies.html", companies: companies)
-  end
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "companies.html", companies: companies, systemparams: systemparams)
 
+  end
   def staff(conn,  %{"company_id" => company_id}) do
     companies = Companies.comp_id(company_id)
     staff = Companies.list_stuff_with_company_id(company_id)
-    render(conn, "staff.html", staff: staff, companies: companies)
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "staff.html", staff: staff, companies: companies, systemparams: systemparams)
   end
 
   def portal_admin(conn, %{"company_id" => company_id}) do
@@ -43,9 +48,9 @@ defmodule LoanSystemWeb.CompanyController do
      render(conn, "portal_admin.html", system_users: system_users, companies: companies)
   end
   def products(conn, _params) do
-
     product = Products.list_tbl_products()
-    render(conn, "products.html", product: product)
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "products.html", product: product, systemparams: systemparams)
 end
 
 def generate_company() do

@@ -3,6 +3,7 @@ defmodule LoanSystemWeb.ClientPortalController do
 
 
   alias LoanSystem.{Repo, Logs.UserLogs}
+  alias LoanSystem.Settings
   # alias FundsMgt.Accounts
 
   plug(
@@ -27,7 +28,8 @@ defmodule LoanSystemWeb.ClientPortalController do
 
 
   def new_password(conn, _params) do
-    render(conn, Routes.user_path(conn, :new_password))
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, Routes.user_path(conn, :new_password, systemparams: systemparams))
   end
 
   # def change_password(conn, _params) do
@@ -47,7 +49,7 @@ defmodule LoanSystemWeb.ClientPortalController do
 		render(conn, "register_staff.html")
   end
 
-  # def client_create_beneficiary(conn, params) do
+  # def client_create_beneficiary(conn, params) d
   #   %{"customer_no" => customer_no} = params
   #   Ecto.Multi.new()
   #     |> Ecto.Multi.insert(:beneficiary_mgt, Beneficiary_mgt.changeset(%Beneficiary_mgt{}, params))
