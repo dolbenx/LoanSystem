@@ -21,6 +21,7 @@ defmodule LoanSystem.MixProject do
     [
       mod: {LoanSystem.Application, []},
       extra_applications: [:logger, :runtime_tools, :bamboo,]
+
     ]
   end
 
@@ -51,7 +52,8 @@ defmodule LoanSystem.MixProject do
       {:calendar, "~> 0.17.0"},
       {:xlsxir, "~> 1.6.2"},
       {:endon, "~> 1.0"},
-      {:elixlsx, "~>  0.1.1"}
+      {:elixlsx, "~>  0.1.1"},
+      {:arc_ecto, "~> 0.11.3"}
     ]
   end
 

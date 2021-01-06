@@ -1,3 +1,14 @@
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10px;
+    }
+</style>
+
+
+
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
             <h6 class="element-header">
@@ -5,12 +16,11 @@
             </h6>
             <div class="element-wrapper">
                 <div class="element-box">
+                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" style="float: right;" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company Configs</button>
+                    
                     <h5 class="form-header">
                     Company Config Table
                     </h5>
-                    <div class="form-desc">
-                    <button class="mr-2 mb-2 btn btn-primary btn-rounded" data-target="#onboardingWideFormModal" data-toggle="modal" type="button"><i class="os-icon os-icon-ui-22"></i> Add Company Configs</button>
-                    </div>
                     <!--------------------
                     START - Basic Table
                     -------------------->
@@ -19,9 +29,9 @@
                             <thead>
                                 <tr>
                                     <th>Company Name</th>
-                                    <th>Company Description</th>
-                                    <th>Logo</th>
-                                    <th>Accounts</th>
+                                    <th>Pacra Reg Number</th>
+                                    <th>Adress</th>
+                                    <th>Phone</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -29,20 +39,21 @@
                                  <%= for systemparam <- @systemparams do %>
                                     <tr>
                                         <td><%= systemparam.name %></td>
-                                        <td><%= systemparam.code %></td>
-                                        <td><%= systemparam.url %></td> 
-                                        <td><%= systemparam.username %></td> 
+                                        <td><%= systemparam.pacra_num %></td>
+                                        <td><%= systemparam.address %></td> 
+                                        <td><%= systemparam.phone %></td> 
+                                       
                                         <td>
                                             <div class="btn-group mr-1 mb-1">
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn btn-white dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton6" type="button">Select Action</button>
                                                 <div aria-labelledby="dropdownMenuButton6" class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"> View</a>
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#"> Disablw</a>
-                                                </div>
+                                                <a class="dropdown-item" href="#" data-id="<%= systemparam.id %>"  data-name="<%= systemparam.name %>" data-pacra_num="<%= systemparam.pacra_num %>" data-address="<%= systemparam.address %>" data-phone="<%= systemparam.phone %>" data-toggle="modal" data-target="#edit_modal">Edit</a>
+                                                <a class="dropdown-item" href="#" data-id="<%= systemparam.id %>"  data-name="<%= systemparam.name %>" data-pacra_num="<%= systemparam.pacra_num %>" data-address="<%= systemparam.address %>" data-phone="<%= systemparam.phone %>" data-toggle="modal" data-target="#view_modal">View</a>
+                                               
+                                                 </div>
                                             </div>
                                         </td> 
-                                         </tr>
+                                     </tr>
                                     <% end %>
                             </tbody>
                         </table>
@@ -54,195 +65,258 @@
             </div>
         </div>
 </main>
+<!--                           ############# CONFIG COMPANY   ################                               -->
 
 <div aria-hidden="true" class="onboarding-modal modal fade animated" id="onboardingWideFormModal" role="dialog" tabindex="-1">
-      <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content text-center">
           <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
                 <div class="element-box">
-                    <form id="" action="<%= Routes.system_settings_path(@conn, :add_systemparams) %>" method="post">
-                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" name="tpin_no" value="21023923">
-                    <h5 class="form-header">
-                        Add Configuration
-                    </h5>
-                    <div class="form-desc">
-                       Please Configure Your Company
-                    </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> Company Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                    <form id="" action="<%= Routes.system_settings_path(@conn, :add_systemparams) %>" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    <input type="hidden" name="name" value="">
+                                <h5 class="form-header">
+                                    Add Configuration
+                                </h5>
+                                    <div class="form-desc">
+                                    Please Configure Your Company
+                                    </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for=""> Company Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Pacra Registration Number</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Company Logo </label><input class="form-control" name="url" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Pacra Registration Number</label><input class="form-control" name="pacra_num" placeholder="Pacra Registration Number" required="required" type="text">
+                                        <div class="help-block form-text with-errors form-control-feedback">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Company Accounts</label><input class="form-control" name="username" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> Address</label><input class="form-control" name="password" placeholder="" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Address</label><input class="form-control" name="address" placeholder="Address" required="required" type="text">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> Phone Number</label><input class="form-control" name="password" placeholder="" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Phone Number</label><input class="form-control" name="phone" placeholder="Phone Number" required="required" type="text">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="">
-                        <button class="btn btn-primary disabled" type="submit"> Submit</button>
-                    </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">Company Logo</label><input class="form-control" name="logo" placeholder="Logo" required="required" type="file">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                        </div>
+                                    </div>
+                                </div>
+                                 </div>
+                                </div><br>
+                                <div class="center" > <br>
+                                                <button type="submit" class="btn btn-primary disabled">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>     
                     </form>
-                </div>
-                </div>
+                </div>             
+            </div>
         </div>
-      </div>
     </div>
+</div> 
 
+<!--                           ############# END OF CONFIG COMPANY   ################                               -->
 
-    <div aria-hidden="true" class="onboarding-modal modal fade animated" id="update" role="dialog" tabindex="-1">
-      <div class="modal-dialog modal-lg" role="document">
+<!--                         ################ EDIT System parma    ###################                        -->
+<%= for systemparam <- @systemparams do %>
+<div aria-hidden="true" class="onboarding-modal modal fade animated" id="edit_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content text-center">
-          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+               <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
-                <div class="element-box modal-body">
-                    <form id="" action="" method="post">
-                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" id="client_id" name="client_id" value="21">
-                    <input type="hidden" name="id" id="id" value="">
-                    <h5 class="form-header">
-                        Update Params
-                    </h5>
-                    <div class="form-desc">
-                       Please Update your Params
-                    </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> System parma Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                <div class="element-box">
+                    <div class="modal-header">
+                        <form id="edit_modal" action="<%= Routes.system_settings_path(@conn, :update_systemparams) %>" method="post">
+                           <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                            <input type="hidden" id="id" value="<%= systemparam.id %>" name="id">
+                            
+                                <h5 class="form-header">
+                                    Update Configuration
+                                </h5>
+                                        <div class="form-desc">
+                                        Please Update Your Company
+                                        </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                <label for=""> Company Name</label>
+                                                <input class="form-control" name="name" id="name" value="<%= systemparam.name %>" type="text">
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="">Pacra Registration Number</label><input class="form-control" name="pacra_num" placeholder="Pacra Registration Number" value="<%= systemparam.pacra_num %>" type="text">
+                                            <div class="help-block form-text with-errors form-control-feedback"></div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                 <label for=""> Address</label><input class="form-control" name="address" placeholder="Address" value="<%= systemparam.address %>" required="required" type="text">
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                 <label for="">Phone Number</label><input class="form-control" name="phone" placeholder="Phone Number" value="<%= systemparam.phone %>" required="required" type="text">
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                       </div>
+                                    </div>
+                                </div><br>
+                                         <div class="center" > <br>
+                                            <button type="submit" class="btn btn-primary disabled">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">System parma Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">URL </label><input class="form-control" name="url" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Username</label><input class="form-control" name="username" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> Password</label><input class="form-control" name="password" placeholder="" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="">
-                        <button class="btn btn-primary disabled" type="submit"> Submit</button>
-                    </div>
-                    </form>
+                        </form>
+                    </div>         
                 </div>
-                </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <div aria-hidden="true" class="onboarding-modal modal fade animated" id="view" role="dialog" tabindex="-1">
-      <div class="modal-dialog modal-lg" role="document">
+<!--                         ################ END OF EDIT System parma    ###################                 -->
+
+
+
+
+
+<!--                         ################ View System parma    ###################                        -->
+
+<div aria-hidden="true" class="onboarding-modal modal fade animated" id="view_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content text-center">
-          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
+               <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span class="close-label">Close</span><span class="os-icon os-icon-close"></span></button>
             <div class="element-wrapper">
-                <div class="element-box modal-body">
-                    <form method="post">
-                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                    <input type="hidden" id="client_id" name="client_id" value="21">
-                    <input type="hidden" name="id" id="id" value="">
-                    <h5 class="form-header">
-                        View Param
-                    </h5>
-                    <div class="form-desc">
-                       Param Details
-                    </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> System parma Name</label><input class="form-control" name="name" placeholder="Name" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
+                <div class="element-box">
+                    <div class="modal-header">
+                        <form id="view_modal" action="<%= Routes.system_settings_path(@conn, :update_systemparams) %>" method="post">
+                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%> ">
+                            <input type="hidden" id="id">
+                                <h5 class="form-header">
+                                    Company Configurations
+                                </h5>
+                                        <div class="form-desc">
+                                        Your Company Configurations
+                                        </div>
+                               <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                <label for=""> Company Name</label>
+                                                <input class="form-control" name="name" id="name" value="<%= systemparam.name %>" type="text" disabled>
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="">Pacra Registration Number</label><input class="form-control" name="pacra_num" placeholder="Pacra Registration Number" value="<%= systemparam.pacra_num %>" type="text" disabled>
+                                            <div class="help-block form-text with-errors form-control-feedback"></div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                 <label for=""> Address</label><input class="form-control" name="address" placeholder="Address" value="<%= systemparam.address %>" required="required" type="text" disabled>
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                                 <label for="">Phone Number</label><input class="form-control" name="phone" placeholder="Phone Number" value="<%= systemparam.phone %>" required="required" type="text" disabled>
+                                            <div class="help-block form-text text-muted form-control-feedback">
+                                            </div>
+                                        </div>
+                                    </div>
+                                       </div>
+                                    </div>
+                                </div><br>
+                                         <div class="center" > <br>
+                                             <button type="button" class="btn btn-outline-danger waves-effect waves-themed" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">System parma Code</label><input class="form-control" name="code" placeholder="Code" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">URL </label><input class="form-control" name="url" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">Username</label><input class="form-control" name="username" required="required" type="text">
-                                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for=""> Password</label><input class="form-control" name="password" placeholder="" required="required" type="text">
-                                    <div class="help-block form-text text-muted form-control-feedback">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
+                        </form>
+                    </div>         
                 </div>
-                </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
+<% end %>
+<!--                         ################ END OF View System parma    ###################                 -->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="<%= Routes.static_path(@conn, "/js/jquery-1.11.2.min.js") %>"> </script>
+
+
+
+<script>
+$(document).ready(function(){
+//view company details
+    $('#view_modal').on('show.bs.modal', function (event){
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var name = button.data('name')
+            var pacra_num = button.data('pacra_num')
+            var address = button.data('address')
+            var phone = button.data('phone')
+            var logo = button.data('logo')
+         
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #pacra_num').val(pacra_num);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #logo').val(logo);
+          
+           
+    });
+    $('#edit_modal').on('show.bs.modal', function (event){
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var name = button.data('name')
+            var pacra_num = button.data('pacra_num')
+            var address = button.data('address')
+            var phone = button.data('phone')
+            var logo = button.data('logo')
+         
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #pacra_num').val(pacra_num);
+            modal.find('.modal-body #address').val(address);
+            modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #logo').val(logo);
+          
+           
+    });
+});
+</script>

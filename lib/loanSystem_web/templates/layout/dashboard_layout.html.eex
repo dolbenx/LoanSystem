@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LAXIM</title>
+    <title class="uppercase"><%= for systemparam <- @systemparams do %>
+                     <%= systemparam.name %>
+                     <% end %></title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="template language" name="keywords">
@@ -43,7 +45,9 @@
         -------------------->
         <div class="menu-mobile menu-activated-on-click color-scheme-dark">
           <div class="mm-logo-buttons-w">
-            <a class="mm-logo" href="index.html"><img src="images/logos/chikwama.jpg"><span>LAXIM</span></a>
+            <a class="mm-logo" href="index.html"><img src="images/logos/chikwama.jpg"><span><%= for systemparam <- @systemparams do %>
+                     <%= systemparam.name %>
+                     <% end %></span></a>
             <div class="mm-buttons">
               <div class="content-panel-open">
                 <div class="os-icon os-icon-grid-circles"></div>
@@ -142,7 +146,9 @@
             <a class="logo" href="<%= Routes.user_path(@conn, :dashboard)%>">
               <div class="logo-element"></div>
               <div class="logo-label">
-                LAXIM
+               <%= for systemparam <- @systemparams do %>
+                  <P><%= systemparam.name %></P>
+                  <% end %>
               </div>
             </a>
           </div>
@@ -153,7 +159,9 @@
               </div>
               <div class="logged-user-info-w">
                 <div class="logged-user-name">
-                  Laxim Admin
+                  <%= for systemparam <- @systemparams do %>
+                   <P><%= systemparam.name %>Admin</P>
+                   <% end %>
                 </div>
                 <div class="logged-user-role">
                   Administrator
@@ -279,7 +287,9 @@
                       </div>
                       <div class="logged-user-info-w">
                         <div class="logged-user-name">
-                          Laxim
+                            <%= for systemparam <- @systemparams do %>
+                                <P><%= systemparam.name %></P>
+                                <% end %>
                         </div>
                         <div class="logged-user-role">
                           Admin

@@ -3,6 +3,8 @@ defmodule LoanSystemWeb.ClientPortalController do
 
 
   alias LoanSystem.{Repo, Logs.UserLogs}
+  alias LoanSystem.Settings
+  # alias FundsMgt.Accounts
   alias LoanSystem.Companies.Staff
   alias LoanSystem.Companies
   alias LoanSystem.SystemDirectories
@@ -30,7 +32,8 @@ defmodule LoanSystemWeb.ClientPortalController do
 
 
   def new_password(conn, _params) do
-    render(conn, Routes.user_path(conn, :new_password))
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, Routes.user_path(conn, :new_password, systemparams: systemparams))
   end
 
   # def change_password(conn, _params) do
@@ -48,6 +51,7 @@ defmodule LoanSystemWeb.ClientPortalController do
   def loan_balance(conn, _params) do
 		render(conn, "loan_balance.html")
   end
+
   def register_staff(conn, %{"company_id" => company_id}) do
     companies = Companies.comp_id(company_id)
     staff = Companies.list_stuff_with_company_id(company_id)

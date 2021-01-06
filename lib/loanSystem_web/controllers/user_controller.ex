@@ -6,6 +6,8 @@ defmodule LoanSystemWeb.UserController do
   alias LoanSystem.Accounts
   alias LoanSystem.Accounts.User
   alias LoanSystem.Accounts.Old_password
+  alias LoanSystem.Settings
+  alias LoanSystem.Settings.SystemParams
 
   # alias LoanSystem.Accounts.UserRoles
   alias LoanSystem.Emails.Email
@@ -55,7 +57,8 @@ defmodule LoanSystemWeb.UserController do
       |> Enum.map(&%{&1 | id: sign_user_id(conn, &1.id)})
 
     page = %{first: "Users", last: "System users"}
-    render(conn, "list_users.html", users: users, page: page, pwd: pwd )
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "list_users.html", users: users, page: page, pwd: pwd, systemparams: systemparams )
   end
 
   def create_user(conn, params) do
@@ -310,7 +313,8 @@ defmodule LoanSystemWeb.UserController do
   # ------------------ Password Reset ---------------------
   def new_password(conn, _params) do
     page = %{first: "Settings", last: "Change password"}
-    render(conn, "change_password.html", page: page)
+    systemparams = Settings.list_tbl_system_params()
+    render(conn, "change_password.html", page: page, systemparams: systemparams)
   end
 
   def forgot_password(conn, _params) do
@@ -530,8 +534,9 @@ defmodule LoanSystemWeb.UserController do
   def user_mgt(conn, _params) do
     pwd = random_string()
     system_users = Accounts.list_tbl_users()
+    systemparams = Settings.list_tbl_system_params()
    # roles = Accounts.list_tbl_user_role()
-    render(conn, "user_mgt.html", system_users: system_users, pwd: pwd)
+    render(conn, "user_mgt.html", system_users: system_users, pwd: pwd, systemparams: systemparams)
   end
 
   def user_logs(conn, _params) do

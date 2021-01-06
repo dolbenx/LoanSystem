@@ -3,11 +3,12 @@ defmodule LoanSystem.Settings.SystemParams do
   import Ecto.Changeset
 
   schema "tbl_system_params" do
-    field :code, :string
+
     field :name, :string
-    field :password, :string
-    field :url, :string
-    field :username, :string
+    field :pacra_num, :string
+    field :address, :string
+    field :phone, :string
+    field :logo, :string
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule LoanSystem.Settings.SystemParams do
   @doc false
   def changeset(system_params, attrs) do
     system_params
-    |> cast(attrs, [:name, :code, :url, :username, :password])
-    |> validate_required([:name, :code, :url, :username, :password])
+    |> cast(attrs, [:name, :pacra_num, :address, :phone, :logo])
+    |> validate_required([:name, :pacra_num, :address, :phone])
   end
 end

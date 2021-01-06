@@ -147,6 +147,8 @@ defmodule LoanSystemWeb.Router do
     post "/Generate/Company/ID", CompanyController, :generate_company_id
     post("/Create/User", UserController, :create_user)
     post "/Generate/Random/Password", UserController, :generate_random_password
+    post("/edit/systemparams", SystemSettingsController, :update_systemparams)
+    post("/view/systemparams", SystemSettingsController, :update_systemparams)
     ########### END OF MAINTENANCE ROUTES #############
   end
 
@@ -167,4 +169,11 @@ defmodule LoanSystemWeb.Router do
   # scope "/api", LoanSystemWeb do
   #   pipe_through :api
   # end
+  scope "/", LoanSystemWeb do
+    pipe_through :browser # Use the default browser stack
+      resources "/images", ImageController
+    end
+
+
+
 end
