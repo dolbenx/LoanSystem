@@ -26,6 +26,7 @@
     <script src="sweetalert2.all.min.js"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+   
   </head>
   <body class="menu-position-side menu-side-left full-screen">
    
@@ -498,7 +499,7 @@
                           <%= "#{(@conn.assigns.user.first_name)}"%> <%= "#{(@conn.assigns.user.last_name)}"%>
                         </div>
                         <div class="logged-user-role">
-                          <%= "#{(@conn.assigns.user.user_role)}"%> 
+                          <%= "#{(@conn.assigns.user.user_role)}"%>
                         </div>
                       </div>
                     </div>
@@ -747,13 +748,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/notifications/sweetalert2/sweetalert2.bundle.js"></script>
     <script src="<%= Routes.static_path(@conn, "/js/default.js") %>"></script>
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      
+
       ga('create', 'UA-XXXXXXXX-9', 'auto');
       ga('send', 'pageview');
     </script>

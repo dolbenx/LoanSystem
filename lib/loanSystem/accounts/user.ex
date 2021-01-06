@@ -117,8 +117,3 @@ end
 
 # LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", email: "admin@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "NRC", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
 # LoanSystem.Accounts.create_user(%{first_name: "Adriel", last_name: "Phiri", email: "authorizer@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "2", status: "1", user_role: "AUTHORIZER", id_type: "NRC", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-
-
-
-# LoanSystem.Accounts.create_user(%{first_name: "HR", last_name: "Approver", email: "clientapprover@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "3", status: "1", user_role: "CLIENT_APPROVER", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "HR", last_name: "Initiator", email: "clientinitiator@probasegroup.com", password: "Password@06", auto_pwd: "Y", user_type: "4", status: "1", user_role: "CLIENT_INITAITOR", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})

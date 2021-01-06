@@ -258,15 +258,10 @@ end
 
 
 
-
-
-
-
   #disable company record
 
   def disable(conn, params) do
     companies = Companies.get_company!(params["id"])
-
     Ecto.Multi.new()
     |> Ecto.Multi.update(:companies, Company.changeset(companies, %{status: false}))
     |> Ecto.Multi.run(:user_log, fn (_, %{companies: _companies}) ->
@@ -336,6 +331,59 @@ end
 
     def traverse_errors(errors) do
       for {key, {msg, _opts}} <- errors, do: "#{key} #{msg}"
+    end
+
+    def disable_product(conn, params) do
+      product_data = Products.get_product!(params["id"])
+
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:product, Product.changeset(product_data, %{status: "INACTIVE" }))
+      |> Ecto.Multi.run(:user_log, fn (_, %{product: product}) ->
+        activity = "Disabled product with code \"#{product.name}\""
+
+          user_logs = %{
+            user_id: conn.assigns.user.id,
+            activity: activity
+          }
+
+          UserLogs.changeset(%UserLogs{}, user_logs)
+          |> Repo.insert()
+      end)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{product: _companies, user_log: _user_log}} ->
+          conn |> json(%{message: "Product Disabled successfully", status: 0})
+          {:error, _failed_operation, failed_value, _changes_so_far} ->
+            reason = traverse_errors(failed_value.errors) |> List.first()
+            conn |> json(%{message: reason, status: 1})
+      end
+    end
+
+
+    def enable_product(conn, params) do
+      product_data = Products.get_product!(params["id"])
+
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:product, Product.changeset(product_data, %{status: "ACTIVE" }))
+      |> Ecto.Multi.run(:user_log, fn (_, %{product: product}) ->
+        activity = "Enable product with code \"#{product.name}\""
+
+          user_logs = %{
+            user_id: conn.assigns.user.id,
+            activity: activity
+          }
+
+          UserLogs.changeset(%UserLogs{}, user_logs)
+          |> Repo.insert()
+      end)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{product: _companies, user_log: _user_log}} ->
+          conn |> json(%{message: "Product enable successfully", status: 1})
+          {:error, _failed_operation, failed_value, _changes_so_far} ->
+            reason = traverse_errors(failed_value.errors) |> List.first()
+            conn |> json(%{message: reason, status: 1})
+      end
     end
 
 
