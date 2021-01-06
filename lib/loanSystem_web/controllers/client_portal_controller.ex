@@ -3,14 +3,11 @@ defmodule LoanSystemWeb.ClientPortalController do
 
 
   alias LoanSystem.{Repo, Logs.UserLogs}
-<<<<<<< HEAD
   alias LoanSystem.Settings
   # alias FundsMgt.Accounts
-=======
   alias LoanSystem.Companies.Staff
   alias LoanSystem.Companies
   alias LoanSystem.SystemDirectories
->>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
 
   @headers ~w/ first_name last_name other_name id_no phone tpin_no email company_name city country address id_type account_no branch_id/a
   plug(
@@ -55,45 +52,10 @@ defmodule LoanSystemWeb.ClientPortalController do
 		render(conn, "loan_balance.html")
   end
   def register_staff(conn, _params) do
-<<<<<<< HEAD
-
-		render(conn, "register_staff.html")
-=======
     staff = Companies.list_tbl_staff()
 		render(conn, "register_staff.html", staff: staff)
->>>>>>> DAVIES
   end
 
-<<<<<<< HEAD
-  # def client_create_beneficiary(conn, params) d
-  #   %{"customer_no" => customer_no} = params
-  #   Ecto.Multi.new()
-  #     |> Ecto.Multi.insert(:beneficiary_mgt, Beneficiary_mgt.changeset(%Beneficiary_mgt{}, params))
-  #       |> Ecto.Multi.run(:user_log, fn(_, %{beneficiary_mgt: _beneficiary_mgt}) ->
-  #         activity = "Beneficiary has been Added"
-  #         # activity = "Created new fee \"#{fee_management.fee_code}\""
-  #     user_log = %{
-  #         user_id: conn.assigns.user.id,
-  #         activity: activity
-  #     }
-
-  #     UserLogs.changeset(%UserLogs{}, user_log)
-  #     |> Repo.insert()
-  #   end)
-  #   |> Repo.transaction()
-  #   |> case do
-  #     {:ok, %{beneficiary_mgt: _beneficiary_mgt, user_log: _user_log}} ->
-  #       conn
-  #       |> put_flash(:info, "Beneficiary has been Added Successfully.")
-  #       |> redirect(to: Routes.client_portal_path(conn, :beneficiary, customer_no: customer_no))
-
-  #     {:error, _failed_operation, failed_value, _changes_so_far} ->
-  #       reason = traverse_errors(failed_value.errors) |> List.first()
-  #       conn
-  #       |> put_flash(:error, reason)
-  #       |> redirect(to: Routes.client_portal_path(conn, :beneficiary, customer_no: customer_no))
-  #   end
-=======
   def add_staff(conn, params) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:staff, Staff.changeset(%Staff{}, params))
@@ -122,7 +84,6 @@ defmodule LoanSystemWeb.ClientPortalController do
   |> put_flash(:error, reason)
   |> redirect(to: Routes.client_portal_path(conn, :register_staff))
   end
->>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
   # rescue
   # _ ->
   # conn

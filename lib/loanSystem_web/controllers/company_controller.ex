@@ -13,13 +13,9 @@ defmodule LoanSystemWeb.CompanyController do
   alias LoanSystem.Products.Product
   alias LoanSystem.Products
   alias LoanSystem.Companies
-<<<<<<< HEAD
-  alias LoanSystem.System_Directories
   alias LoanSystem.Settings
   alias LoanSystem.Settings.SystemParams
-=======
   alias LoanSystem.SystemDirectories
->>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
 
   @headers ~w/ first_name last_name other_name id_no phone tpin_no email company_name city country address id_type account_no branch_id/a
 
@@ -57,16 +53,12 @@ defmodule LoanSystemWeb.CompanyController do
      system_users = Accounts.list_tbl_users()
      render(conn, "portal_admin.html", system_users: system_users, companies: companies)
   end
+
   def products(conn, _params) do
     product = Products.list_tbl_products()
-<<<<<<< HEAD
     systemparams = Settings.list_tbl_system_params()
     render(conn, "products.html", product: product, systemparams: systemparams)
-end
-=======
-    render(conn, "products.html", product: product)
   end
->>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
 
   def generate_company() do
   random = Enum.random(111111..999999) |> to_string

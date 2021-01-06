@@ -17,7 +17,6 @@ defmodule LoanSystem.Accounts.User do
     field :status, :integer
     field :user_id, :string
     field :user_role, :string
-    belongs_to :user, LoanSystem.Accounts.User, foreign_key: :user_id, type: :id
 
     timestamps()
   end
@@ -122,14 +121,7 @@ defmodule LoanSystem.Accounts.User do
   def encrypt_password(password), do: Base.encode16(:crypto.hash(:sha512, password))
 end
 
-# LoanSystem.Accounts.create_user(%{first_name: "admin", last_name: "admin", secondary_email: "admin@admin.com", email: "admin@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "1", status: "1", user_role: "ADMIN", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-
-<<<<<<< HEAD
 # LoanSystem.Accounts.create_user(%{first_name: "Davies", last_name: "Phiri", email: "admin@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 1, status: 1, user_role: "ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "304831101", autopasword: "Y", phone: "0978242442", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
 # LoanSystem.Accounts.create_user(%{first_name: "Chiza", last_name: "Mhlanga", email: "adminauthorizer@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 2, status: 1, user_role: "PRODUCT_MANAGER_AUTHORIZATION", sex: "m", age: "24", id_type: "nrc", id_no: "304531101", autopasword: "Y", phone: "0978242455", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-# LoanSystem.Accounts.create_user(%{first_name: "Chiza", last_name: "Mhlanga", email: "client@probasegroup.com", password: "Password@07", auto_password: "Y", user_type: 3, status: 1, user_role: "CLIENT_ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "302231101", autopasword: "Y", phone: "0968242455", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
+# LoanSystem.Accounts.create_user(%{first_name: "Chiza", last_name: "Mhlanga", email: "client@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 3, status: 1, user_role: "CLIENT_ADMIN", sex: "m", age: "24", id_type: "nrc", id_no: "302231101", autopasword: "Y", phone: "0968242455", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
 # LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Authorizer", email: "clientauthorizer@probasegroup.com", password: "Password@06", auto_password: "Y", user_type: 4, status: 1, user_role: "CLIENT_PRODUCT_MANAGER_AUTHORIZATION", sex: "m", age: "24", id_type: "nrc", id_no: "303431101", autopasword: "Y", phone: "0978242225", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
-#
-=======
-# LoanSystem.Accounts.create_user(%{first_name: "Client", last_name: "Probase", secondary_email: "client@admin.com", email: "client@probasegroup.com", password: "password06", auto_pwd: "Y", user_type: "3", status: "1", user_role: "CLIENT", id_type: "nrc", id_no: "365924101", secondary_phone: "09776655449", phone: "0955569017", inserted_at: NaiveDateTime.utc_now, updated_at: NaiveDateTime.utc_now})
->>>>>>> 22eea6f099b4d739c0b0daeec1ac5a9f67c88eef
