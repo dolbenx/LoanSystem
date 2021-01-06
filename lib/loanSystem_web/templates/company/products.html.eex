@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 <link rel="stylesheet" media="screen, print" href="<%= Routes.static_path(@conn, "/css/notifications/sweetalert2/sweetalert2.bundle.css") %>">
 <link rel="stylesheet" media="screen, print" href="css/notifications/sweetalert2/sweetalert2.bundle.css">
-=======
->>>>>>> dcbe1ebc8e87f2587ea06d6e88328c4774e74790
 
 <main id="js-page-content" role="main" class="page-content">
         <div class="element-wrapper">
